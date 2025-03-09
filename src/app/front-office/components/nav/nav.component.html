@@ -1,49 +1,113 @@
 
-<div class="py-1 bg-primary">
-    <div class="container">
-        <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
-            <div class="col-lg-12 d-block">
-                <div class="row d-flex">
-                    <div class="col-md pr-4 d-flex topper align-items-center">
-                        <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-                        <span class="text">+ 1235 2355 98</span>
-                    </div>
-                    <div class="col-md pr-4 d-flex topper align-items-center">
-                        <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-                        <span class="text">youremailemail.com</span>
-                    </div>
-                 
-                </div>
-            </div>
-        </div>
+<!-- Humberger Begin -->
+<div class="humberger__menu__overlay"></div>
+<div class="humberger__menu__wrapper">
+  <div class="humberger__menu__logo">
+      <a href="#"><img src="../../../../assets/front/img/logo.png" alt=""></a>
+  </div>
+  <div class="humberger__menu__cart">
+      <ul>
+          <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+      </ul>
+  </div>
+  <div class="humberger__menu__widget">
+     
+      <div class="header__top__right__auth">
+          <a href="#"><i class="fa fa-user"></i> Login</a>
       </div>
-</div>
-
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-      <a class="navbar-brand" routerLink="home">Vegefoods</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="oi oi-menu"></span> Menu
-      </button>
-
-      <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a routerLink="home" class="nav-link">Home</a></li>
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-          <div class="dropdown-menu" aria-labelledby="dropdown04">
-              <a class="dropdown-item" routerLink="shop">Shop</a>
-              <a class="dropdown-item" routerLink="wishlist">Wishlist</a>
-            <a class="dropdown-item" routerLink="product">Single Product</a>
-            <a class="dropdown-item" routerLink="cart">Cart</a>
-            <a class="dropdown-item" routerLink="checkout">Checkout</a>
-          </div>
-        </li>
-          <li class="nav-item"><a routerLink="about" class="nav-link">About</a></li>
-          <li class="nav-item"><a routerLink="contact" class="nav-link">Contact</a></li>
-          <li class="nav-item cta cta-colored"><a routerLink="cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-
-        </ul>
-      </div>
-    </div>
+  </div>
+  <nav class="humberger__menu__nav mobile-menu">
+      <ul>
+          <li><a routerLink="home">Home</a></li>
+          <li><a routerLink="shop">Shop</a></li>
+          <li><a routerLink="#">Pages</a>
+              <ul class="header__menu__dropdown">
+                  <li><a routerLink="shop-details">Shop Details</a></li>
+                  <li class="active"><a routerLink="shoping-cart">Shoping Cart</a></li>
+                  <li><a routerLink="checkout">Check Out</a></li>
+              </ul>
+          </li>
+          <li><a routerLink="contact">Contact</a></li>
+      </ul>
   </nav>
+  <div id="mobile-menu-wrap"></div>
+  <div class="header__top__right__social">
+      <a href="#"><i class="fa fa-facebook"></i></a>
+      <a href="#"><i class="fa fa-twitter"></i></a>
+      <a href="#"><i class="fa fa-linkedin"></i></a>
+  </div>
+  <div class="humberger__menu__contact">
+      <ul>
+          <li><i class="fa fa-envelope"></i> hellocolorlib.com</li>
+          <li>Free Shipping for all Order of $99</li>
+      </ul>
+  </div>
+</div>
+<!-- Humberger End -->
+
+<!-- Header Section Begin -->
+<header class="header">
+  <div class="header__top">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-6 col-md-6">
+                  <div class="header__top__left">
+                      <ul>
+                          <li><i class="fa fa-envelope"></i> hellocolorlib.com</li>
+                          <li>Free Shipping for all Order of $99</li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                  <div class="header__top__right">
+                      <div class="header__top__right__social">
+                          <a href="#"><i class="fa fa-facebook"></i></a>
+                          <a href="#"><i class="fa fa-twitter"></i></a>
+                          <a href="#"><i class="fa fa-linkedin"></i></a>
+                      </div>
+                     
+                      <div class="header__top__right__auth">
+                          <a href="#"><i class="fa fa-user"></i> Login</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-3">
+              <div class="header__logo">
+                  <a routerLink="home"><img src="../../../../assets/front/img/logo.png" alt=""></a>
+              </div>
+          </div>
+          <div class="col-lg-6">
+              <nav class="header__menu">
+                  <ul>
+                      <li ><a routerLink="home">Home</a></li>
+                      <li><a routerLink="shop">Shop</a></li>
+                      <li><a href="#">Pages</a>
+                          <ul class="header__menu__dropdown">
+                              <li><a routerLink="shop-details">Shop Details</a></li>
+                              <li class="active"><a routerLink="shoping-cart">Shoping Cart</a></li>
+                              <li><a routerLink="checkout">Check Out</a></li>
+                          </ul>
+                      </li>
+                      <li><a routerLink="contact">Contact</a></li>
+                  </ul>
+              </nav>
+          </div>
+          <div class="col-lg-3">
+              <div class="header__cart">
+                  <ul>
+                      <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                  </ul>
+
+              </div>
+          </div>
+      </div>
+      <div class="humberger__open">
+          <i class="fa fa-bars"></i>
+      </div>
+  </div>
+</header>

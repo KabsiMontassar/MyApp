@@ -1,7 +1,5 @@
-@import url('../assets/css/ruang-admin.min.css');
-
-
-@import url('../assets/vendor/fontawesome-free/css/all.min.css');
-@import url('../assets/vendor/bootstrap/css/bootstrap.min.css');
-@import url('../assets/vendor/datatables/dataTables.bootstrap4.min.css');
+@import url('../../../assets/back/css/ruang-admin.min.css');
+@import url('../../../assets/back/vendor/fontawesome-free/css/all.min.css');
+@import url('../../../assets/back/vendor/bootstrap/css/bootstrap.min.css');
+@import url('../../../assets/back/vendor/datatables/dataTables.bootstrap4.min.css');
 

@@ -1,31 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FrontofficeLayoutComponent } from './layouts/frontoffice-layout.component';
-import { AboutComponent } from './pages/about/about.component';
-import { CartComponent } from './pages/cart/cart.component';
-import { CheckoutComponent } from './pages/checkout/checkout.component';
-import { ContactComponent } from './pages/contact/contact.component';
-import { HomeComponent } from './pages/home/home.component';
-import { SingleProductComponent } from './pages/single-product/single-product.component';
-import { ShopComponent } from './pages/shop/shop.component';
-import { WishlistComponent } from './pages/wishlist/wishlist.component';
-import { ErrorComponentFront } from './components/error/error.component';
 
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { ShopComponent } from './pages/shop/shop.component';
+import { ShopDetailsComponent } from './pages/shop-details/shop-details.component';
+import { ShopingCartComponent } from './pages/shoping-cart/shoping-cart.component';
+
+import {ErrorComponentFront} from './components/error/error.component';
 const routes: Routes = [
   {
     path: '',
     component: FrontofficeLayoutComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'about', component: AboutComponent },
-      { path: 'cart', component: CartComponent },
-      { path: 'checkout', component: CheckoutComponent },
-      { path: 'contact', component: ContactComponent },
-      { path: 'home', component: HomeComponent },
-      { path: 'product', component: SingleProductComponent },
-      { path: 'shop', component: ShopComponent },
-      { path: 'wishlist', component: WishlistComponent },
-      { path: '**', component: ErrorComponentFront }
+       {path : 'home', component : HomeComponent},
+       {path : 'contact', component : ContactComponent},
+       {path : 'shop', component : ShopComponent},
+       {path : 'shop-details', component : ShopDetailsComponent},
+       {path : 'shoping-cart', component : ShopingCartComponent},
+       {path : 'checkout', component : CheckoutComponent},
+       {path : 'error', component : ErrorComponentFront}
     ]
   }
 ];

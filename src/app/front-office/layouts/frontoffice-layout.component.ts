@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 @Component({
   selector: 'app-frontoffice-layout',
   templateUrl: './frontoffice-layout.component.html',
@@ -6,24 +6,19 @@ import { Component, ViewEncapsulation } from '@angular/core';
     encapsulation: ViewEncapsulation.None  
   
 })
-export class FrontofficeLayoutComponent {
+export class FrontofficeLayoutComponent  implements OnInit , OnDestroy {
 
   ngOnInit() {
    
     this.loadScripts([ 
-
-      '../assets/js/jquery.min.js',
-      '../assets/js/jquery-migrate-3.0.1.min.js',
-      '../assets/js/bootstrap.min.js',
-      '../assets/js/jquery.easing.1.3.js',
-      '../assets/js/jquery.waypoints.min.js',
-      '../assets/js/jquery.stellar.min.js',
-      '../assets/js/owl.carousel.min.js',
-      '../assets/js/jquery.magnific-popup.min.js',
-      '../assets/js/jquery.animateNumber.min.js',
-      '../assets/js/scrollax.min.js',
-      '../assets/js/aos.js',
-      '../assets/js/main.js'
+      '../../../assets/front/js/jquery-3.3.1.min.js',
+      '../../../assets/front/js/bootstrap.min.js',
+      '../../../assets/front/js/jquery.nice-select.min.js',
+      '../../../assets/front/js/jquery-ui.min.js',
+      '../../../assets/front/js/jquery.slicknav.js',
+      '../../../assets/front/js/mixitup.min.js',
+      '../../../assets/front/js/owl.carousel.min.js',
+      '../../../assets/front/js/main.js'
 
     ]);
    
@@ -31,18 +26,15 @@ export class FrontofficeLayoutComponent {
   }
   ngOnDestroy() {
     this.removeScripts([ 
-      '../assets/js/jquery.min.js',
-      '../assets/js/jquery-migrate-3.0.1.min.js',
-      '../assets/js/bootstrap.min.js',
-      '../assets/js/jquery.easing.1.3.js',
-      '../assets/js/jquery.waypoints.min.js',
-      '../assets/js/jquery.stellar.min.js',
-      '../assets/js/owl.carousel.min.js',
-      '../assets/js/jquery.magnific-popup.min.js',
-      '../assets/js/jquery.animateNumber.min.js',
-      '../assets/js/scrollax.min.js',
-      '../assets/js/aos.js',
-      '../assets/js/main.js']);
+      '../../../assets/front/js/jquery-3.3.1.min.js',
+      '../../../assets/front/js/bootstrap.min.js',
+      '../../../assets/front/js/jquery.nice-select.min.js',
+      '../../../assets/front/js/jquery-ui.min.js',
+      '../../../assets/front/js/jquery.slicknav.js',
+      '../../../assets/front/js/mixitup.min.js',
+      '../../../assets/front/js/owl.carousel.min.js',
+      '../../../assets/front/js/main.js'
+    ]);
   }
 
 
