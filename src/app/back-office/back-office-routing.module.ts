@@ -9,6 +9,7 @@ import { ProductsComponent } from './pages/products/products.component';
 import { SponsorsComponent } from './pages/sponsors/sponsors.component';
 import { StocksComponent } from './pages/stocks/stocks.component';
 import { ErrorComponent } from './components/error/error.component';
+import { AddPComponent } from './pages/products/add-p/add-p.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'employees', component: EmployeesComponent },
       { path: 'planning', component: PlanningComponent },
       { path: 'products', component: ProductsComponent },
+      { path: 'add-p', component: AddPComponent },
       { path: 'sponsors', component: SponsorsComponent },
       { path: 'stocks', component: StocksComponent },
       { path: '**', component: ErrorComponent }, 
