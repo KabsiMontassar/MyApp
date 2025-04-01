@@ -1,52 +1,60 @@
-<div class="container-fluid" id="container-wrapper">
-        
-    <div class="container-fluid" id="container-wrapper">
-      <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Products</h1>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a routerLink="/backoffice/dashboard">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Products</li>
-        </ol>
-        <button type="button" routerLink="add-p" class="btn btn-primary" data-toggle="modal" data-target="#addProductModal" >
-          Add Product
-        </button>
-      </div>
-
-  <!-- Row -->
-  <div class="row">
-
-    <div class="col-lg-12">
-      <div class="card mb-4">
-        <div class="table-responsive p-3">
-          <table class="table align-items-center table-flush table-hover" id="dataTableHover">
-            <thead class="thead-light">
-              <tr>
-                <th class="cell">idProduit</th>
-                <th class="cell">nom</th>
-                <th class="cell">description</th>
-                <th class="cell">prix</th>
-                <th class="cell">quantiteDisponible</th>
-                <th class="cell">dateAjout</th>
-                <th class="cell">imageURL</th>
-                <th class="cell">status</th>
-            </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let Products of Products">
-                <td class="cell">{{Products.idProduit}}</td>
-                <td class="cell">{{Products.nom}}</td>
-                <td class="cell">{{Products.description}}</td>
-                <td class="cell">{{Products.prix}}</td>
-                <td class="cell">{{Products.quantiteDisponible}}</td>
-                <td class="cell">{{Products.dateAjout}}</td>
-                <td class="cell">{{Products.imageURL}}</td>
-                <td class="cell">{{Products.status}}</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+<div class="container">
+  <h1>Products</h1>
+  
+  <div>
+    <h2>Add Product</h2>
+    <form (ngSubmit)="addProduct()">
+      <input type="text" [(ngModel)]="newProduct.nom" name="nom" placeholder="Name" required>
+      <input type="text" [(ngModel)]="newProduct.description" name="description" placeholder="Description" required>
+      <input type="number" [(ngModel)]="newProduct.prix" name="prix" placeholder="Price" required>
+      <input type="number" [(ngModel)]="newProduct.quantiteDisponible" name="quantiteDisponible" placeholder="Quantity" required>
+      <input type="text" [(ngModel)]="newProduct.imageURL" name="imageURL" placeholder="Image URL" required>
+      <input type="text" [(ngModel)]="newProduct.status" name="status" placeholder="Status" required>
+      <button type="submit">Add Product</button>
+    </form>
   </div>
-</div>
+
+  <div>
+    <h2>Update Product</h2>
+    <form (ngSubmit)="updateProduct()">
+      <input type="text" [(ngModel)]="selectedProduct.nom" name="selectedNom" placeholder="Name" required>
+      <input type="text" [(ngModel)]="selectedProduct.description" name="selectedDescription" placeholder="Description" required>
+      <input type="number" [(ngModel)]="selectedProduct.prix" name="selectedPrix" placeholder="Price" required>
+      <input type="number" [(ngModel)]="selectedProduct.quantiteDisponible" name="selectedQuantiteDisponible" placeholder="Quantity" required>
+      <input type="text" [(ngModel)]="selectedProduct.imageURL" name="selectedImageURL" placeholder="Image URL" required>
+      <input type="text" [(ngModel)]="selectedProduct.status" name="selectedStatus" placeholder="Status" required>
+      <button type="submit">Update Product</button>
+    </form>
+  </div>
+
+  <div>
+    <h2>Product List</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Image</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.nom }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.prix }}</td>
+          <td>{{ product.quantiteDisponible }}</td>
+          <td><img [src]="product.imageURL" alt="{{ product.nom }}" width="50"></td>
+          <td>{{ product.status }}</td>
+          <td>
+            <button (click)="selectProduct(product)">Edit</button>
+            <button (click)="deleteProduct(product.idProduit)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -13,9 +13,6 @@ import { StocksComponent } from './pages/stocks/stocks.component';
 import { ErrorComponent } from './components/error/error.component';
 
 import { NavComponent } from './components/nav/nav.component';
-import { AddPComponent } from './pages/products/add-p/add-p.component';
-import { GetComponent } from './pages/products/get/get.component';
-import { UpdateComponent } from './pages/products/update/update.component';
 @NgModule({
   declarations: [
     BackofficeLayoutComponent,
@@ -28,9 +25,6 @@ import { UpdateComponent } from './pages/products/update/update.component';
     StocksComponent,
     ErrorComponent,
     NavComponent,
-    AddPComponent,
-    GetComponent,
-    UpdateComponent
   ],
   imports: [
     CommonModule,
