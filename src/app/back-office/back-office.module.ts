@@ -24,7 +24,7 @@ import { NavComponent } from './components/nav/nav.component';
     SponsorsComponent,
     StocksComponent,
     ErrorComponent,
-    NavComponent
+    NavComponent,
   ],
   imports: [
     CommonModule,
