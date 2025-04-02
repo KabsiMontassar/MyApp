@@ -23,6 +23,7 @@ export class CommonService {
     return this.http.post<Product>(`${this.apiUrl}/add-Produits`, product);
   }
 
+  
   updateProduct(product: Product): Observable<Product> {
     return this.http.put<Product>(`${this.apiUrl}/update`, product);
   }
