@@ -25,12 +25,22 @@ export class ProductsComponent implements OnInit {
   }
 
   addProduct() {
-    this.commonService.addProduct(this.newProduct).subscribe(() => {
-      this.loadProducts();
-      this.newProduct = new Product();
+    console.log('Adding product:', this.newProduct);
+    this.commonService.addProduct(this.newProduct).subscribe({
+      next: () => {
+        console.log('Product added successfully');
+        this.loadProducts();
+        this.newProduct = new Product();
+      },
+      error: (error) => {
+        console.error('Error adding product:', error);
+      },
+      complete: () => {
+        console.log('Add product request completed.');
+      }
     });
   }
-
+  
   updateProduct() {
     this.commonService.updateProduct(this.selectedProduct).subscribe(() => {
       this.loadProducts();
