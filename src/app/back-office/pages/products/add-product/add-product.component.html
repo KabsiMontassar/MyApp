@@ -13,10 +13,33 @@
     </div>
 
     <div class="mb-3">
-      <label for="prix" class="form-label">Prix (€)</label>
+      <label for="prix" class="form-label">Prix (DT)</label>
       <input type="number" [(ngModel)]="newProduct.prix" name="prix" class="form-control" placeholder="Prix du produit" required>
     </div>
-
+    <div class="mb-3">
+      <label for="quantiteDisponible" class="form-label">quantiteDisponible</label>
+      <input type="number" [(ngModel)]="newProduct.quantiteDisponible" name="quantiteDisponible" class="form-control" placeholder="quantiteDisponible" required>
+    </div>
+    <div class="mb-3">
+      <label for="dateAjout" class="form-label">dateAjout</label>
+      <input type="date" [(ngModel)]="newProduct.dateAjout" name="dateAjout" class="form-control" placeholder="Date" required>
+    </div>
+    <div class="mb-3">
+      <label for="imageURL" class="form-label">image</label>
+      <input type="file" [(ngModel)]="newProduct.imageURL" name="imageURL" class="form-control" placeholder="imageURL" required>
+    </div>
+    <div class="mb-3">
+      <label for="status" class="form-label">status</label>
+      <input type="text" [(ngModel)]="newProduct.status" name="status" class="form-control" placeholder="status" required>
+    </div>
+    <div class="mb-3">
+      <label for="idStock" class="form-label">idStock</label>
+      <input type="number" [(ngModel)]="newProduct.idStock" name="idStock" class="form-control" placeholder="idStock" required>
+    </div>
+    <div class="mb-3">
+      <label for="idCategorie" class="form-label">idCategorie</label>
+      <input type="number" [(ngModel)]="newProduct.idCategorie" name="idCategorie" class="form-control" placeholder="idCategorie" required>
+    </div>
     <button type="submit" class="btn btn-success w-100">Ajouter le Produit</button>
   </form>
 
