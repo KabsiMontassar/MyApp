@@ -8,8 +8,8 @@
     dateAjout?: string;
     imageURL: string = '';
     status: string = '';
-    idStock: number = 0;
-    idCategorie : number =0;
+    idStock?: number = 0;
+    idCategorie?: number =0;
     idUser?: number;
   }
 

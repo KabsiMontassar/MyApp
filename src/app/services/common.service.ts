@@ -26,7 +26,7 @@ export class CommonService {
 
   
   updateProduct(product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.apiUrl}/update/${product.idProduit}`, product);
+    return this.http.put<Product>(`${this.apiUrl}/update`, product);
   }
   
 
