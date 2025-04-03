@@ -1,8 +1,24 @@
-<h2>Modifier le Produit</h2>
-<form *ngIf="product" (ngSubmit)="updateProduct()">
-  <input type="text" [(ngModel)]="product.nom" name="nom" required>
-  <input type="text" [(ngModel)]="product.description" name="description" required>
-  <input type="number" [(ngModel)]="product.prix" name="prix" required>
-  <button type="submit">Modifier</button>
-</form>
-<button routerLink="/backoffice/products">Retour</button>
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Modifier le Produit</h2>
+
+  <form *ngIf="product" (ngSubmit)="updateProduct()" class="card p-4 shadow-lg">
+    <div class="mb-3">
+      <label for="nom" class="form-label">Nom</label>
+      <input type="text" [(ngModel)]="product.nom" name="nom" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input type="text" [(ngModel)]="product.description" name="description" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="prix" class="form-label">Prix (€)</label>
+      <input type="number" [(ngModel)]="product.prix" name="prix" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-warning w-100">Modifier le Produit</button>
+  </form>
+
+  <button routerLink="/backoffice/products" class="btn btn-outline-secondary mt-3 w-100">Retour à la liste des produits</button>
+</div>

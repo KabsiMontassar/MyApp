@@ -1,8 +1,24 @@
-<h2>Ajouter un Produit</h2>
-<form (ngSubmit)="addProduct()">
-  <input type="text" [(ngModel)]="newProduct.nom" name="nom" placeholder="Nom" required>
-  <input type="text" [(ngModel)]="newProduct.description" name="description" placeholder="Description" required>
-  <input type="number" [(ngModel)]="newProduct.prix" name="prix" placeholder="Prix" required>
-  <button type="submit">Ajouter</button>
-</form>
-<button routerLink="/backoffice/products">Retour</button>
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Ajouter un Produit</h2>
+
+  <form (ngSubmit)="addProduct()" class="card p-4 shadow-lg">
+    <div class="mb-3">
+      <label for="nom" class="form-label">Nom</label>
+      <input type="text" [(ngModel)]="newProduct.nom" name="nom" class="form-control" placeholder="Nom du produit" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input type="text" [(ngModel)]="newProduct.description" name="description" class="form-control" placeholder="Description du produit" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="prix" class="form-label">Prix (€)</label>
+      <input type="number" [(ngModel)]="newProduct.prix" name="prix" class="form-control" placeholder="Prix du produit" required>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">Ajouter le Produit</button>
+  </form>
+
+  <button routerLink="/backoffice/products" class="btn btn-outline-secondary mt-3 w-100">Retour à la liste des produits</button>
+</div>

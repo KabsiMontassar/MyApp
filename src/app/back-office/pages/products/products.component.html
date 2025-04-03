@@ -1,20 +1,38 @@
-<h2>Liste des Produits</h2>
-<button routerLink="/backoffice/add-product">➕ Ajouter un Produit</button>
+<div class="container mt-4">
+  <h2 class="text-center mb-4">🛍️ Liste des Produits</h2>
 
-<table>
-  <tr>
-    <th>Nom</th>
-    <th>Description</th>
-    <th>Prix</th>
-    <th>Actions</th>
-  </tr>
-  <tr *ngFor="let product of products">
-    <td>{{ product.nom }}</td>
-    <td>{{ product.description }}</td>
-    <td>{{ product.prix }}</td>
-    <td>
-      <button [routerLink]="['/backoffice/edit-product', product.idProduit]">✏️ Modifier</button>
-      <button *ngIf="product.idProduit !== undefined" (click)="deleteProduct(product.idProduit)">🗑️ Supprimer</button>
-    </td>
-  </tr>
-</table>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <span class="fs-5">📦 Nombre de produits : {{ products.length }}</span>
+    <button class="btn btn-primary" routerLink="/backoffice/add-product">
+      ➕ Ajouter un Produit
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Prix</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.nom }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.prix | currency:'EUR' }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm me-2" [routerLink]="['/backoffice/edit-product', product.idProduit]">
+              ✏️ Modifier
+            </button>
+            <button *ngIf="product.idProduit !== undefined" class="btn btn-danger btn-sm" (click)="deleteProduct(product.idProduit)">
+              🗑️ Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
