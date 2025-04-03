@@ -31,4 +31,5 @@ export class EditProductComponent implements OnInit {
       this.router.navigate(['/backoffice/products']);
     });
   }
+  
 }

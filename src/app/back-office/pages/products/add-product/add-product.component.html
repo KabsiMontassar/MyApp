@@ -25,8 +25,8 @@
       <input type="date" [(ngModel)]="newProduct.dateAjout" name="dateAjout" class="form-control" placeholder="Date" required>
     </div>
     <div class="mb-3">
-      <label for="imageURL" class="form-label">image</label>
-      <input type="file" [(ngModel)]="newProduct.imageURL" name="imageURL" class="form-control" placeholder="imageURL" required>
+      <label for="image" class="form-label">Image</label>
+      <input type="file" (change)="onFileChange($event)" class="form-control" accept="image/*">
     </div>
     <div class="mb-3">
       <label for="status" class="form-label">status</label>
