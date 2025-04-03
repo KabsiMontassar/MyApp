@@ -28,11 +28,10 @@
         <tr *ngFor="let product of products">
           <td>{{ product.nom }}</td>
           <td>{{ product.description }}</td>
-          <td>{{ product.prix | currency:'EUR' }}</td>
+          <td>{{ product.prix | currency:'DT' }}</td>
           <td>{{ product.quantiteDisponible }}</td>
           <td>{{ product.dateAjout | date:'dd/MM/yyyy' }}</td>
-          <td><img *ngIf="product.imageURL" [src]="product.imageURL.startsWith('data:image') ? product.imageURL : 'data:image/png;base64,' + product.imageURL" 
-            class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;"></td>
+          <td><img [src]="product.imageURL" alt="{{ product.imageURL }}" class="img-thumbnail" style="width: 100px;"></td>
           <td>{{ product.status }}</td>
           <td>{{ product.idStock }}</td>
           <td>{{ product.idCategorie }}</td>
