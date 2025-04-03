@@ -28,7 +28,7 @@ export class EditProductComponent implements OnInit {
 
   updateProduct() {
     this.commonService.updateProduct(this.product).subscribe(() => {
-      this.router.navigate(['/products']);
+      this.router.navigate(['/backoffice/products']);
     });
   }
 }
