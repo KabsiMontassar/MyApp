@@ -1,5 +1,5 @@
 <h2>Liste des Produits</h2>
-<button routerLink="/add-product">➕ Ajouter un Produit</button>
+<button routerLink="/backoffice/add-product">➕ Ajouter un Produit</button>
 
 <table>
   <tr>
@@ -13,7 +13,7 @@
     <td>{{ product.description }}</td>
     <td>{{ product.prix }}</td>
     <td>
-      <button [routerLink]="['/edit-product', product.idProduit]">✏️ Modifier</button>
+      <button [routerLink]="['/backoffice/edit-product', product.idProduit]">✏️ Modifier</button>
       <button *ngIf="product.idProduit !== undefined" (click)="deleteProduct(product.idProduit)">🗑️ Supprimer</button>
     </td>
   </tr>

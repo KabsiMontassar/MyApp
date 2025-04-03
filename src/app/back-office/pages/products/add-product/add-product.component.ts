@@ -15,7 +15,7 @@ export class AddProductComponent {
 
   addProduct() {
     this.commonService.addProduct(this.newProduct).subscribe(() => {
-      this.router.navigate(['/products']);
+      this.router.navigate(['/backoffice/products']);
     });
   }
 }
