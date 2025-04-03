@@ -9,6 +9,8 @@ import { ProductsComponent } from './pages/products/products.component';
 import { SponsorsComponent } from './pages/sponsors/sponsors.component';
 import { StocksComponent } from './pages/stocks/stocks.component';
 import { ErrorComponent } from './components/error/error.component';
+import { AddProductComponent } from './pages/products/add-product/add-product.component';
+import { EditProductComponent } from './pages/products/edit-product/edit-product.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,8 @@ const routes: Routes = [
       { path: 'employees', component: EmployeesComponent },
       { path: 'planning', component: PlanningComponent },
       { path: 'products', component: ProductsComponent },
+      { path: 'add-product', component: AddProductComponent },
+      { path: 'edit-product/:id', component: EditProductComponent },
       { path: 'sponsors', component: SponsorsComponent },
       { path: 'stocks', component: StocksComponent },
       { path: '**', component: ErrorComponent }, 

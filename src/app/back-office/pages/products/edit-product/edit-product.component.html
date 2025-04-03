@@ -1,0 +1,8 @@
+<h2>Modifier le Produit</h2>
+<form *ngIf="product" (ngSubmit)="updateProduct()">
+  <input type="text" [(ngModel)]="product.nom" name="nom" required>
+  <input type="text" [(ngModel)]="product.description" name="description" required>
+  <input type="number" [(ngModel)]="product.prix" name="prix" required>
+  <button type="submit">Modifier</button>
+</form>
+<button routerLink="/products">Retour</button>

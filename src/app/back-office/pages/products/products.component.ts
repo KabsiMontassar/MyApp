@@ -9,8 +9,6 @@ import { Product } from 'src/app/Models/Product.Model';
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
-  newProduct: Product = new Product();
-  selectedProduct: Product = new Product();
 
   constructor(private commonService: CommonService) { }
 
@@ -24,37 +22,9 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  addProduct() {
-    console.log('Adding product:', this.newProduct);
-    this.commonService.addProduct(this.newProduct).subscribe({
-      next: () => {
-        console.log('Product added successfully');
-        this.loadProducts();
-        this.newProduct = new Product();
-      },
-      error: (error) => {
-        console.error('Error adding product:', error);
-      },
-      complete: () => {
-        console.log('Add product request completed.');
-      }
-    });
-  }
-  
-  updateProduct() {
-    this.commonService.updateProduct(this.selectedProduct).subscribe(() => {
-      this.loadProducts();
-      this.selectedProduct = new Product();
-    });
-  }
-
   deleteProduct(id: number) {
     this.commonService.deleteProduct(id).subscribe(() => {
       this.loadProducts();
     });
-  }
-
-  selectProduct(product: Product) {
-    this.selectedProduct = { ...product };
   }
 }

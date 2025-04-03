@@ -1,58 +1,20 @@
-<div class="container">
-  <h1>Products</h1>
-  <div>
-  <form (ngSubmit)="addProduct()">
-    <input type="text" [(ngModel)]="newProduct.nom" name="nom" placeholder="Name" required>
-    <input type="text" [(ngModel)]="newProduct.description" name="description" placeholder="Description" required>
-    <input type="number" [(ngModel)]="newProduct.prix" name="prix" placeholder="Price" required>
-    <input type="number" [(ngModel)]="newProduct.quantiteDisponible" name="quantiteDisponible" placeholder="Quantity" required>
-   <input type="date" [(ngModel)]="newProduct.dateAjout" name="dateAjout" placeholder="dateAjout" required>
-    <input type="text" [(ngModel)]="newProduct.imageURL" name="imageURL" placeholder="Image URL" required>
-    <input type="text" [(ngModel)]="newProduct.status" name="status" placeholder="Status" required>
-    <button type="submit">Add Product</button>
-  </form>
-</div>
-  <div>
-    <h2>Update Product</h2>
-    <form (ngSubmit)="updateProduct()">
-      <input type="text" [(ngModel)]="selectedProduct.nom" name="selectedNom" placeholder="Name" required>
-      <input type="text" [(ngModel)]="selectedProduct.description" name="selectedDescription" placeholder="Description" required>
-      <input type="number" [(ngModel)]="selectedProduct.prix" name="selectedPrix" placeholder="Price" required>
-      <input type="number" [(ngModel)]="selectedProduct.quantiteDisponible" name="selectedQuantiteDisponible" placeholder="Quantity" required>
-      <input type="text" [(ngModel)]="selectedProduct.imageURL" name="selectedImageURL" placeholder="Image URL" required>
-      <input type="text" [(ngModel)]="selectedProduct.status" name="selectedStatus" placeholder="Status" required>
-      <button type="submit">Update Product</button>
-    </form>
-  </div>
+<h2>Liste des Produits</h2>
+<button routerLink="/add-product">➕ Ajouter un Produit</button>
 
-  <div>
-    <h2>Product List</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Image</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products">
-          <td>{{ product.nom }}</td>
-          <td>{{ product.description }}</td>
-          <td>{{ product.prix }}</td>
-          <td>{{ product.quantiteDisponible }}</td>
-          <td><img [src]="product.imageURL" alt="{{ product.nom }}" width="50"></td>
-          <td>{{ product.status }}</td>
-          <td>
-            <button (click)="selectProduct(product)">Edit</button>
-            <button (click)="product.idProduit !== undefined && deleteProduct(product.idProduit)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+<table>
+  <tr>
+    <th>Nom</th>
+    <th>Description</th>
+    <th>Prix</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let product of products">
+    <td>{{ product.nom }}</td>
+    <td>{{ product.description }}</td>
+    <td>{{ product.prix }}</td>
+    <td>
+      <button [routerLink]="['/edit-product', product.idProduit]">✏️ Modifier</button>
+      <button *ngIf="product.idProduit !== undefined" (click)="deleteProduct(product.idProduit)">🗑️ Supprimer</button>
+    </td>
+  </tr>
+</table>
