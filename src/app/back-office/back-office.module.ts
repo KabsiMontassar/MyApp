@@ -14,6 +14,8 @@ import { ErrorComponent } from './components/error/error.component';
 
 import { NavComponent } from './components/nav/nav.component';
 import { FormsModule } from '@angular/forms';
+import { AddProductComponent } from './pages/products/add-product/add-product.component';
+import { EditProductComponent } from './pages/products/edit-product/edit-product.component';
 @NgModule({
   declarations: [
     BackofficeLayoutComponent,
@@ -26,6 +28,8 @@ import { FormsModule } from '@angular/forms';
     StocksComponent,
     ErrorComponent,
     NavComponent,
+    AddProductComponent,
+    EditProductComponent,
   ],
   imports: [
     CommonModule,

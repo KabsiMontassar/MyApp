@@ -19,14 +19,16 @@ export class CommonService {
     return this.http.get<Product>(`${this.apiUrl}/retrieve-Produits/${id}`);
   }
 
+  
   addProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(`${this.apiUrl}/add-Produits`, product);
   }
 
   
   updateProduct(product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.apiUrl}/update`, product);
+    return this.http.put<Product>(`${this.apiUrl}/update/${product.idProduit}`, product);
   }
+  
 
   deleteProduct(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
