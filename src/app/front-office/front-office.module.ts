@@ -15,6 +15,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import {ErrorComponentFront} from './components/error/error.component';
 
 import { FrontofficeLayoutComponent } from './layouts/frontoffice-layout.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { FrontofficeLayoutComponent } from './layouts/frontoffice-layout.compone
   imports: [
     CommonModule,
     FrontOfficeRoutingModule,
+    FormsModule,
   ]
 })
 export class FrontOfficeModule { }
