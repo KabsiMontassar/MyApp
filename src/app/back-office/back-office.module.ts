@@ -16,6 +16,11 @@ import { NavComponent } from './components/nav/nav.component';
 import { FormsModule } from '@angular/forms';
 import { AddProductComponent } from './pages/products/add-product/add-product.component';
 import { EditProductComponent } from './pages/products/edit-product/edit-product.component';
+import { AddStockComponent } from './pages/stocks/add-stock/add-stock.component';
+import { EditStockComponent } from './pages/stocks/edit-stock/edit-stock.component';
+import { CategorieComponent } from './pages/categorie/categorie.component';
+import { AddCategorieComponent } from './pages/categorie/add-categorie/add-categorie.component';
+import { EditCategorieComponent } from './pages/categorie/edit-categorie/edit-categorie.component';
 @NgModule({
   declarations: [
     BackofficeLayoutComponent,
@@ -30,6 +35,11 @@ import { EditProductComponent } from './pages/products/edit-product/edit-product
     NavComponent,
     AddProductComponent,
     EditProductComponent,
+    AddStockComponent,
+    EditStockComponent,
+    CategorieComponent,
+    AddCategorieComponent,
+    EditCategorieComponent,
   ],
   imports: [
     CommonModule,

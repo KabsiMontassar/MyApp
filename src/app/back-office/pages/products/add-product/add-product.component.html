@@ -33,13 +33,19 @@
       <input type="text" [(ngModel)]="newProduct.status" name="status" class="form-control" placeholder="status" required>
     </div>
     <div class="mb-3">
-      <label for="idStock" class="form-label">idStock</label>
-      <input type="number" [(ngModel)]="newProduct.idStock" name="idStock" class="form-control" placeholder="idStock" required>
+      <label for="idStock" class="form-label">Stock</label>
+      <select [(ngModel)]="newProduct.idStock" name="idStock" class="form-control" required>
+        <option *ngFor="let stock of stocks" [value]="stock.idStock">{{ stock.nom }}</option>
+      </select>
     </div>
+    
     <div class="mb-3">
-      <label for="idCategorie" class="form-label">idCategorie</label>
-      <input type="number" [(ngModel)]="newProduct.idCategorie" name="idCategorie" class="form-control" placeholder="idCategorie" required>
+      <label for="idCategorie" class="form-label">Catégorie</label>
+      <select [(ngModel)]="newProduct.idCategorie" name="idCategorie" class="form-control" required>
+        <option *ngFor="let categorie of categories" [value]="categorie.idCategorie">{{ categorie.nom }}</option>
+      </select>
     </div>
+    
     <button type="submit" class="btn btn-success w-100">Ajouter le Produit</button>
   </form>
 

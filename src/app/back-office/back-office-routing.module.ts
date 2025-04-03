@@ -11,6 +11,11 @@ import { StocksComponent } from './pages/stocks/stocks.component';
 import { ErrorComponent } from './components/error/error.component';
 import { AddProductComponent } from './pages/products/add-product/add-product.component';
 import { EditProductComponent } from './pages/products/edit-product/edit-product.component';
+import { AddStockComponent } from './pages/stocks/add-stock/add-stock.component';
+import { EditStockComponent } from './pages/stocks/edit-stock/edit-stock.component';
+import { CategorieComponent } from './pages/categorie/categorie.component';
+import { AddCategorieComponent } from './pages/categorie/add-categorie/add-categorie.component';
+import { EditCategorieComponent } from './pages/categorie/edit-categorie/edit-categorie.component';
 
 const routes: Routes = [
   {
@@ -27,6 +32,11 @@ const routes: Routes = [
       { path: 'edit-product/:id', component: EditProductComponent },
       { path: 'sponsors', component: SponsorsComponent },
       { path: 'stocks', component: StocksComponent },
+      { path: 'add-stock', component: AddStockComponent },
+      { path: 'edit-stock/:id', component: EditStockComponent }, 
+      { path: 'categorie', component: CategorieComponent },
+      { path: 'add-categorie', component: AddCategorieComponent }, // Assuming you want to use the same component for adding categories
+      { path: 'edit-categorie/:id', component: EditCategorieComponent }, // Assuming you want to use the same component for editing categories
       { path: '**', component: ErrorComponent }, 
     ]
   }
