@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { ErrorAllComponent } from './error-all/error-all.component';
 
@@ -20,6 +21,8 @@ import { ErrorAllComponent } from './error-all/error-all.component';
     FormsModule,
     ReactiveFormsModule, 
     HttpClientModule, 
+    NgxPaginationModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

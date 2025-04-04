@@ -9,6 +9,8 @@ import { Product } from 'src/app/Models/Product.Model';
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
+  page: number = 1;
+
 
   constructor(private commonService: CommonService) { }
 

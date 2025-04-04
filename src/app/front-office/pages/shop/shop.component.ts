@@ -9,11 +9,16 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class ShopComponent implements OnInit {
 products: Product[] = [];
+categories: any[] = [];
+page: number = 1;
+itemsPerPage: number = 3;
 
   constructor(private commonService: CommonService) { }
 
   ngOnInit() {
     this.loadProducts();
+    this.loadCategories();
+
   }
 
   loadProducts() {
@@ -21,7 +26,11 @@ products: Product[] = [];
       this.products = data;
     });
   }
-
+  loadCategories() {
+    this.commonService.getCategories().subscribe(data => {
+      this.categories = data;
+    });
+  }
   deleteProduct(id: number) {
     this.commonService.deleteProduct(id).subscribe(() => {
       this.loadProducts();

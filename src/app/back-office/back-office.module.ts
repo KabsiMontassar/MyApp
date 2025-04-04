@@ -21,6 +21,8 @@ import { EditStockComponent } from './pages/stocks/edit-stock/edit-stock.compone
 import { CategorieComponent } from './pages/categorie/categorie.component';
 import { AddCategorieComponent } from './pages/categorie/add-categorie/add-categorie.component';
 import { EditCategorieComponent } from './pages/categorie/edit-categorie/edit-categorie.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 @NgModule({
   declarations: [
     BackofficeLayoutComponent,
@@ -44,6 +46,7 @@ import { EditCategorieComponent } from './pages/categorie/edit-categorie/edit-ca
   imports: [
     CommonModule,
     FormsModule,
+    NgxPaginationModule,
     BackofficeRoutingModule
   ]
 })

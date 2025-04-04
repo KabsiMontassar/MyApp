@@ -9,7 +9,9 @@ import { Product } from 'src/app/Models/Product.Model';
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
-  product: Product = new Product();
+  product: any = {};  // ou new Product(), si le modèle est bien défini
+  stocks: any[] = [];
+  categories: any[] = [];
 
   constructor(
     private commonService: CommonService,
@@ -24,6 +26,15 @@ export class EditProductComponent implements OnInit {
         this.product = data;
       });
     }
+
+    // Charger les listes de sélection
+    this.commonService.getStocks().subscribe(data => {
+      this.stocks = data;
+    });
+
+    this.commonService.getCategories().subscribe(data => {
+      this.categories = data;
+    });
   }
 
   updateProduct() {
@@ -31,5 +42,7 @@ export class EditProductComponent implements OnInit {
       this.router.navigate(['/backoffice/products']);
     });
   }
+  
+  
   
 }

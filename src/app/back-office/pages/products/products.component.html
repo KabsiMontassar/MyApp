@@ -19,13 +19,13 @@
           <th>DateAjout</th>
           <th>Image</th>
           <th>Status</th>
-          <th>Id-Stock</th>
-          <th>Id-Catégorie</th>
+          <th>Stock</th>
+          <th>Catégorie</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products">
+        <tr *ngFor="let product of products | paginate: { itemsPerPage: 3, currentPage: page }">
           <td>{{ product.nom }}</td>
           <td>{{ product.description }}</td>
           <td>{{ product.prix | currency:'DT' }}</td>
@@ -33,8 +33,8 @@
           <td>{{ product.dateAjout | date:'dd/MM/yyyy' }}</td>
           <td><img [src]="product.imageURL" alt="{{ product.imageURL }}" class="img-thumbnail" style="width: 100px;"></td>
           <td>{{ product.status }}</td>
-          <td>{{ product.idStock }}</td>
-          <td>{{ product.idCategorie }}</td>
+          <td>{{ product.stock?.nom }}</td>
+          <td>{{ product.categorie?.nomCategorie }}</td>
           <td>
             <button class="btn btn-warning btn-sm me-2" [routerLink]="['/backoffice/edit-product', product.idProduit]">
               ✏️ Modifier
@@ -47,4 +47,7 @@
       </tbody>
     </table>
   </div>
+
+  <!-- Pagination -->
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
 </div>

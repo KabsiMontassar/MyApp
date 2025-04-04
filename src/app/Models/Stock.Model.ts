@@ -1,5 +1,5 @@
 export class Stock {
-    idStock?: number; 
+    idStock!: number; 
     nom: string = "";
     quantite: number = 0;
     dateMaj?: string;

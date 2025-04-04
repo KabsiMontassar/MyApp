@@ -1,23 +1,26 @@
 <div class="container mt-4">
-    <h2 class="text-center mb-4">Modifier le Stock</h2>
-  
-    <form *ngIf="stock" (ngSubmit)="updateStock()" class="card p-4 shadow-lg">
-      <div class="mb-3">
-        <label for="nom" class="form-label">Nom</label>
-        <input type="text" [(ngModel)]="stock.nom" name="nom" class="form-control" required>
-      </div>
-  
-      <div class="mb-3">
-        <label for="quantiteDisponible" class="form-label">quantite</label>
-        <input type="number" [(ngModel)]="stock.quantite" name="quantite" class="form-control" required>
-      </div>
-      <div class="mb-3">
-        <label for="dateMaj" class="form-label">dateMaj</label>
-        <input type="date" [(ngModel)]="stock.dateMaj" name="dateMaj" class="form-control" required>
-      </div>
-     
-      <button type="submit" class="btn btn-warning w-100">Modifier</button>
-    </form>
-  
-    <button routerLink="/backoffice/stocks" class="btn btn-outline-secondary mt-3 w-100">Retour à la liste des produits</button>
-  </div>
+  <h2 class="text-center mb-4">Modifier le Stock</h2>
+
+  <form *ngIf="stock" #form="ngForm" (ngSubmit)="updateStock()" class="card p-4 shadow-lg">
+    <div class="mb-3">
+      <label for="nom" class="form-label">Nom</label>
+      <input id="nom" type="text" [(ngModel)]="stock.nom" name="nom" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="quantite" class="form-label">Quantité</label>
+      <input id="quantite" type="number" [(ngModel)]="stock.quantite" name="quantite" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="dateMaj" class="form-label">Date de mise à jour</label>
+      <input id="dateMaj" type="date" [(ngModel)]="stock.dateMaj" name="dateMaj" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-warning w-100" [disabled]="!form.valid">Modifier</button>
+  </form>
+
+  <button routerLink="/backoffice/stocks" class="btn btn-outline-secondary mt-3 w-100">
+    Retour à la liste des stocks
+  </button>
+</div>
