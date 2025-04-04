@@ -63,4 +63,5 @@ export class CommonService {
   getCategoryById(id: number): Observable<any> {
     return this.http.get<any>(`${this.categorieUrl}/${id}`);
   }
+  
 }

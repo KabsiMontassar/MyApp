@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/Models/Product.Model';
@@ -8,13 +8,35 @@ import { Product } from 'src/app/Models/Product.Model';
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css']
 })
-export class AddProductComponent {
-  newProduct: Product = new Product();  
+export class AddProductComponent implements OnInit {
   stocks: any[] = [];  
   categories: any[] = [];  
   selectedFile: File | null = null;
 
+newProduct: any = {
+  nom: '',
+  description: '',
+  prix: null,
+  quantiteDisponible: null,
+  dateAjout: null,
+  imageURL: '',
+  status: '',
+  stock: null,      // objet Stock
+  categorie: null   // objet Categorie
+};
+
+
   constructor(private commonService: CommonService, private router: Router) {}
+  ngOnInit(): void {
+    this.commonService.getStocks().subscribe(data => {
+      this.stocks = data;
+    });
+  
+    this.commonService.getCategories().subscribe(data => {
+      this.categories = data;
+    });
+  }
+  
 
   onFileChange(event: any) {
     this.selectedFile = event.target.files[0];  // Récupère le fichier sélectionné

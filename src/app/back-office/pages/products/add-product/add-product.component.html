@@ -1,57 +1,99 @@
-<div class="container mt-4">
-  <h2 class="text-center mb-4">Ajouter un Produit</h2>
+<form (ngSubmit)="addProduct()" #productForm="ngForm" class="card p-4 shadow-lg">
 
-  <form (ngSubmit)="addProduct()" class="card p-4 shadow-lg">
-    <div class="mb-3">
-      <label for="nom" class="form-label">Nom</label>
-      <input type="text" [(ngModel)]="newProduct.nom" name="nom" class="form-control" placeholder="Nom du produit" required>
+  <div class="mb-3">
+    <label for="nom" class="form-label">Nom</label>
+    <input type="text" id="nom" [(ngModel)]="newProduct.nom" name="nom"
+      class="form-control" placeholder="Nom du produit"
+      #nom="ngModel" required minlength="3" maxlength="50">
+    <div class="text-danger" *ngIf="nom.invalid && nom.touched">
+      <div *ngIf="nom.errors?.['required']">Le nom est requis.</div>
+      <div *ngIf="nom.errors?.['pattern']">Le nom ne doit contenir que des lettres.</div>
+      <div *ngIf="nom.errors?.['minlength']">Le nom doit contenir au moins 3 caractères.</div>
+      <div *ngIf="nom.errors?.['maxlength']">Le nom ne peut pas dépasser 50 caractères.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" id="description" [(ngModel)]="newProduct.description" name="description"
+      class="form-control" placeholder="Description du produit"
+      #description="ngModel" required minlength="5">
+    <div class="text-danger" *ngIf="description.invalid && description.touched">
+      <div *ngIf="description.errors?.['required']">La description est requise.</div>
+      <div *ngIf="description.errors?.['minlength']">Minimum 5 caractères requis.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="prix" class="form-label">Prix (DT)</label>
+    <input type="number" id="prix" [(ngModel)]="newProduct.prix" name="prix"
+      class="form-control" placeholder="Prix du produit"
+      #prix="ngModel" required min="0">
+    <div class="text-danger" *ngIf="prix.invalid && prix.touched">
+      <div *ngIf="prix.errors?.['required']">Le prix est requis.</div>
+      <div *ngIf="prix.errors?.['min']">Le prix doit être supérieur ou égal à 0.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="quantiteDisponible" class="form-label">Quantité Disponible</label>
+    <input type="number" id="quantiteDisponible" [(ngModel)]="newProduct.quantiteDisponible" name="quantiteDisponible"
+      class="form-control" placeholder="Quantité disponible"
+      #quantiteDisponible="ngModel" required min="0">
+    <div class="text-danger" *ngIf="quantiteDisponible.invalid && quantiteDisponible.touched">
+      <div *ngIf="quantiteDisponible.errors?.['required']">Quantité requise.</div>
+      <div *ngIf="quantiteDisponible.errors?.['min']">Doit être supérieur ou égal à 0.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="dateAjout" class="form-label">Date d'Ajout</label>
+    <input type="date" id="dateAjout" [(ngModel)]="newProduct.dateAjout" name="dateAjout"
+      class="form-control" required #dateAjout="ngModel">
+    <div class="text-danger" *ngIf="dateAjout.invalid && dateAjout.touched">
+      <div *ngIf="dateAjout.errors?.['required']">Date obligatoire.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="image" class="form-label">Image</label>
+    <input type="file" id="image" (change)="onFileChange($event)" class="form-control" accept="image/*">
+  </div>
+
+  <div class="mb-3">
+    <label for="status" class="form-label">Status</label>
+    <select [(ngModel)]="newProduct.status" name="status" class="form-control" required #status="ngModel">
+      <option value="" disabled selected>Sélectionnez un statut</option>
+      <option value="Disponible">Disponible</option>
+      <option value="Hors stock">Hors stock</option>
+    </select>
+    <div class="text-danger" *ngIf="status.invalid && status.touched">
+      Le statut est requis.
     </div>
 
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <input type="text" [(ngModel)]="newProduct.description" name="description" class="form-control" placeholder="Description du produit" required>
-    </div>
+  </div>
 
-    <div class="mb-3">
-      <label for="prix" class="form-label">Prix (DT)</label>
-      <input type="number" [(ngModel)]="newProduct.prix" name="prix" class="form-control" placeholder="Prix du produit" required>
-    </div>
-    <div class="mb-3">
-      <label for="quantiteDisponible" class="form-label">quantiteDisponible</label>
-      <input type="number" [(ngModel)]="newProduct.quantiteDisponible" name="quantiteDisponible" class="form-control" placeholder="quantiteDisponible" required>
-    </div>
-    <div class="mb-3">
-      <label for="dateAjout" class="form-label">dateAjout</label>
-      <input type="date" [(ngModel)]="newProduct.dateAjout" name="dateAjout" class="form-control" placeholder="Date" required>
-    </div>
-    <div class="mb-3">
-      <label for="image" class="form-label">Image</label>
-      <input type="file" (change)="onFileChange($event)" class="form-control" accept="image/*">
-    </div>
-    <div class="mb-3">
-      <label for="status" class="form-label">Status</label>
-      <select [(ngModel)]="newProduct.status" name="status" class="form-control" required>
-        <option value="Disponible">Disponible</option>
-        <option value="Hors stock">Hors stock</option>
-      </select>
-    </div>
-    
-    <div class="mb-3">
-      <label for="idStock" class="form-label">Stock</label>
-      <select [(ngModel)]="newProduct.idStock" name="idStock" class="form-control" required>
-        <option *ngFor="let stock of stocks" [value]="stock.idStock">{{ stock.nom }}</option>
-      </select>
-    </div>
-    
-    <div class="mb-3">
-      <label for="idCategorie" class="form-label">Catégorie</label>
-      <select [(ngModel)]="newProduct.idCategorie" name="idCategorie" class="form-control" required>
-        <option *ngFor="let categorie of categories" [value]="categorie.idCategorie">{{ categorie.nom }}</option>
-      </select>
-    </div>
-    
-    <button type="submit" class="btn btn-success w-100">Ajouter le Produit</button>
-  </form>
+  <div class="mb-3">
+    <label for="stock" class="form-label">Stock</label>
+    <select [(ngModel)]="newProduct.stock" name="stock" class="form-control" required>
+      <option [ngValue]="null" disabled selected>Choisissez un stock</option>
+      <option *ngFor="let stock of stocks" [ngValue]="stock">{{ stock.nom }}</option>
+    </select>
+  </div>
+  
+  <div class="mb-3">
+    <label for="categorie" class="form-label">Catégorie</label>
+    <select [(ngModel)]="newProduct.categorie" name="categorie" class="form-control" required>
+      <option [ngValue]="null" disabled selected>Choisissez une catégorie</option>
+      <option *ngFor="let categorie of categories" [ngValue]="categorie">{{ categorie.nomCategorie }}</option>
+    </select>
+  </div>
+  
 
-  <button routerLink="/backoffice/products" class="btn btn-outline-secondary mt-3 w-100">Retour à la liste des produits</button>
-</div>
+  <button type="submit" class="btn btn-success w-100" [disabled]="productForm.invalid">
+    Ajouter le Produit
+  </button>
+</form>
+<button routerLink="/backoffice/products" class="btn btn-outline-secondary mt-3 w-100">
+  Retour à la liste des produits
+</button>
