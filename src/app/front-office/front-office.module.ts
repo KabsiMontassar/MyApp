@@ -16,6 +16,7 @@ import {ErrorComponentFront} from './components/error/error.component';
 
 import { FrontofficeLayoutComponent } from './layouts/frontoffice-layout.component';
 import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -34,6 +35,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FrontOfficeRoutingModule,
+        NgxPaginationModule,
+    
     FormsModule,
   ]
 })

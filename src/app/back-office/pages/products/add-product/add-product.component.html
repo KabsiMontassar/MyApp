@@ -29,9 +29,13 @@
       <input type="file" (change)="onFileChange($event)" class="form-control" accept="image/*">
     </div>
     <div class="mb-3">
-      <label for="status" class="form-label">status</label>
-      <input type="text" [(ngModel)]="newProduct.status" name="status" class="form-control" placeholder="status" required>
+      <label for="status" class="form-label">Status</label>
+      <select [(ngModel)]="newProduct.status" name="status" class="form-control" required>
+        <option value="Disponible">Disponible</option>
+        <option value="Hors stock">Hors stock</option>
+      </select>
     </div>
+    
     <div class="mb-3">
       <label for="idStock" class="form-label">Stock</label>
       <select [(ngModel)]="newProduct.idStock" name="idStock" class="form-control" required>

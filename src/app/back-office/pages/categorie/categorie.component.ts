@@ -9,6 +9,8 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class CategorieComponent implements OnInit {
   categories: Categorie[] = [];
+  page: number = 1;
+
 
   constructor(private commonService: CommonService) { }
 

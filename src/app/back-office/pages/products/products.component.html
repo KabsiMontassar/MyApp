@@ -25,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products">
+        <tr *ngFor="let product of products | paginate: { itemsPerPage: 3, currentPage: page }">
           <td>{{ product.nom }}</td>
           <td>{{ product.description }}</td>
           <td>{{ product.prix | currency:'DT' }}</td>
@@ -47,4 +47,7 @@
       </tbody>
     </table>
   </div>
+
+  <!-- Pagination -->
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
 </div>

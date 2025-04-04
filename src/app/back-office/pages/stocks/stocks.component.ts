@@ -10,6 +10,8 @@ import { Stock } from 'src/app/Models/Stock.Model';
 })
 export class StocksComponent implements OnInit {
   stocks: Stock[] = [];
+  page: number = 1;
+
 
   constructor(private commonService: CommonService) { }
 

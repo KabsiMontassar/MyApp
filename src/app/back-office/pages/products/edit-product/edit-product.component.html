@@ -29,8 +29,11 @@
       <input type="file" [(ngModel)]="product.imageURL" name="image" class="form-control" required>
     </div>
     <div class="mb-3">
-      <label for="status" class="form-label">status</label>
-      <input type="text" [(ngModel)]="product.status" name="status" class="form-control" required>
+      <label for="status" class="form-label">Statut</label>
+      <select [(ngModel)]="product.status" name="status" class="form-control" required>
+        <option value="Disponible">Disponible</option>
+        <option value="Hors stock">Hors stock</option>
+      </select>
     </div>
     <div class="mb-3">
       <label for="idStock" class="form-label">idStock</label>

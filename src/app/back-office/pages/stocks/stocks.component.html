@@ -2,7 +2,6 @@
   <h2 class="text-center mb-4">🛍️ Liste des stocks</h2>
 
   <div class="d-flex justify-content-between align-items-center mb-3">
-
     <button class="btn btn-primary" routerLink="/backoffice/add-stock">
       ➕ Ajouter
     </button>
@@ -19,11 +18,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let stock of stocks">
+        <tr *ngFor="let stock of stocks | paginate: { itemsPerPage: 3, currentPage: page }">
           <td>{{ stock.nom }}</td>
           <td>{{ stock.quantite }}</td>
           <td>{{ stock.dateMaj | date:'dd/MM/yyyy' }}</td>
-       
           <td>
             <button class="btn btn-warning btn-sm me-2" [routerLink]="['/backoffice/edit-stock', stock.idStock]">
               ✏️ Modifier
@@ -36,4 +34,7 @@
       </tbody>
     </table>
   </div>
+
+  <!-- Pagination -->
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
 </div>
