@@ -10,6 +10,7 @@ export class CommonService {
   private produitsUrl = 'http://localhost:8081/produits';
   private stockUrl = 'http://localhost:8081/stocks';
   private categorieUrl = 'http://localhost:8081/categories';
+  private avisUrl = 'http://localhost:8081/avis';
 
   constructor(private http: HttpClient) { }
 
@@ -71,5 +72,17 @@ export class CommonService {
 
   getCategoryById(id: number): Observable<any> {
     return this.http.get<any>(`${this.categorieUrl}/${id}`);
+  }
+  getAvis(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.avisUrl}/all`);
+  }
+  addAvis(avis: any): Observable<any> {
+    return this.http.post<any>(`${this.avisUrl}/add`, avis);
+  }
+  updateAvis(avis: any): Observable<any> {
+    return this.http.put<any>(`${this.avisUrl}/update`, avis);
+  }
+  deleteAvis(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.avisUrl}/delete/${id}`);
   }
 }

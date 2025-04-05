@@ -22,6 +22,7 @@ import { CategorieComponent } from './pages/categorie/categorie.component';
 import { AddCategorieComponent } from './pages/categorie/add-categorie/add-categorie.component';
 import { EditCategorieComponent } from './pages/categorie/edit-categorie/edit-categorie.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AvisProduitsComponent } from './pages/avis-produits/avis-produits.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CategorieComponent,
     AddCategorieComponent,
     EditCategorieComponent,
+    AvisProduitsComponent,
   ],
   imports: [
     CommonModule,

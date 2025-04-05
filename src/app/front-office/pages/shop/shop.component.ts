@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/Models/Product.Model';
 import { CommonService } from 'src/app/services/common.service';
 
+
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
@@ -31,9 +32,5 @@ itemsPerPage: number = 3;
       this.categories = data;
     });
   }
-  deleteProduct(id: number) {
-    this.commonService.deleteProduct(id).subscribe(() => {
-      this.loadProducts();
-    });
-  }
+ 
 }

@@ -1,0 +1,37 @@
+<div class="container mt-4">
+    <h2 class="text-center mb-4">🛍️ Liste des avis</h2>
+  
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <span class="fs-5">📦 Nombre des avis : {{ avisProduit.length }}</span>
+     
+    </div>
+  
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th>Comment</th>
+            <th>Date</th>
+            <th>Produit</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let avisProduit of avisProduit | paginate: { itemsPerPage: 3, currentPage: page }">
+            <td>{{ avisProduit.comment }}</td>
+            <td>{{ avisProduit.dateAvis}}</td>
+            <td>{{ avisProduit.produit?.nom }}</td>
+            <td>
+              <button *ngIf="avisProduit.idAvis !== undefined" class="btn btn-danger btn-sm" (click)="deleteAvis(avisProduit.idAvis)">
+                🗑️ Supprimer
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Pagination -->
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </div>
+  
