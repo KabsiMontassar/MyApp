@@ -16,7 +16,7 @@ import { EditStockComponent } from './pages/stocks/edit-stock/edit-stock.compone
 import { CategorieComponent } from './pages/categorie/categorie.component';
 import { AddCategorieComponent } from './pages/categorie/add-categorie/add-categorie.component';
 import { EditCategorieComponent } from './pages/categorie/edit-categorie/edit-categorie.component';
-
+import { AvisProduitsComponent } from './pages/avis-produits/avis-produits.component';
 const routes: Routes = [
   {
     path: '', 
@@ -37,6 +37,7 @@ const routes: Routes = [
       { path: 'categorie', component: CategorieComponent },
       { path: 'add-categorie', component: AddCategorieComponent }, // Assuming you want to use the same component for adding categories
       { path: 'edit-categorie/:id', component: EditCategorieComponent }, // Assuming you want to use the same component for editing categories
+     { path: 'avis-produits', component: AvisProduitsComponent },
       { path: '**', component: ErrorComponent }, 
     ]
   }
