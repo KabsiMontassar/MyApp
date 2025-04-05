@@ -45,10 +45,12 @@
       <div *ngIf="dateAjout.errors?.['required']">Date obligatoire.</div>
     </div>  </div>
 
-    <div class="mb-3">
-      <label for="image" class="form-label">Image</label>
-      <input type="file" [(ngModel)]="product.imageURL" name="image" class="form-control" required>
-    </div>
+   <!-- Image -->
+<div class="mb-3">
+  <label for="image" class="form-label">Image</label>
+  <input type="file" (change)="onFileChange($event)" name="image" class="form-control" [required]="!product.imageURL">
+</div>
+
 
   <!-- Statut -->
   <div class="mb-3">

@@ -28,7 +28,7 @@ export class CommonService {
   updateProduct(product: Product): Observable<Product> {
     return this.http.put<Product>(`${this.produitsUrl}/update`, product);
   }
-  
+
   deleteProduct(id: number): Observable<void> {
     return this.http.delete<void>(`${this.produitsUrl}/delete/${id}`);
   }
@@ -36,32 +36,40 @@ export class CommonService {
   getStocks(): Observable<any[]> {
     return this.http.get<any[]>(`${this.stockUrl}/all`);
   }
+
   addStock(stock: any): Observable<any> {
     return this.http.post<any>(`${this.stockUrl}/add`, stock);
   }
+
   updateStock(stock: any): Observable<any> {
     return this.http.put<any>(`${this.stockUrl}/update`, stock);
   }
+
   deleteStock(id: number): Observable<void> {
     return this.http.delete<void>(`${this.stockUrl}/delete/${id}`);
   }
+
   getStockById(id: number): Observable<any> {
     return this.http.get<any>(`${this.stockUrl}/${id}`);
   }
+
   getCategories(): Observable<any[]> {
     return this.http.get<any[]>(`${this.categorieUrl}/all`);
   }
+
   addCategory(category: any): Observable<any> {
     return this.http.post<any>(`${this.categorieUrl}/add`, category);
   }
+
   updateCategory(category: any): Observable<any> {
     return this.http.put<any>(`${this.categorieUrl}/update`, category);
   }
+
   deleteCategory(id: number): Observable<void> {
     return this.http.delete<void>(`${this.categorieUrl}/delete/${id}`);
   }
+
   getCategoryById(id: number): Observable<any> {
     return this.http.get<any>(`${this.categorieUrl}/${id}`);
   }
-  
 }
