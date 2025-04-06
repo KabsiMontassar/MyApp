@@ -1,0 +1,26 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Ajouter une Catégorie</h2>
+
+  <form (ngSubmit)="addCategory()" #form="ngForm" class="card p-4 shadow-lg">
+    <div class="mb-3">
+      <label for="nomCategorie" class="form-label">Nom de la catégorie</label>
+      <input
+        id="nomCategorie"
+        type="text"
+        [(ngModel)]="newCategorie.nomCategorie"
+        name="nomCategorie"
+        class="form-control"
+        placeholder="Entrez le nom de la catégorie"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn btn-success w-100" [disabled]="!form.valid">
+      Ajouter
+    </button>
+  </form>
+
+  <button routerLink="/backoffice/categorie" class="btn btn-outline-secondary mt-3 w-100">
+    Retour à la liste des catégories
+  </button>
+</div>

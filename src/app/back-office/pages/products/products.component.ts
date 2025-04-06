@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
+import { Product } from 'src/app/Models/Product.Model';
 
 @Component({
   selector: 'app-products',
@@ -7,19 +8,25 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  Products: any[] = [];
+  products: Product[] = [];
+  page: number = 1;
 
-  constructor(private cs: CommonService) {}
+
+  constructor(private commonService: CommonService) { }
 
   ngOnInit() {
-    this.cs.getProducts().subscribe({
-      next: (data) => {
-        this.Products = data;
-        console.log('Utilisateurs récupérés :', this.Products);
-      },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des utilisateurs', error);
-      }
+    this.loadProducts();
+  }
+
+  loadProducts() {
+    this.commonService.getProducts().subscribe(data => {
+      this.products = data;
+    });
+  }
+
+  deleteProduct(id: number) {
+    this.commonService.deleteProduct(id).subscribe(() => {
+      this.loadProducts();
     });
   }
 }

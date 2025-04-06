@@ -13,6 +13,17 @@ import { StocksComponent } from './pages/stocks/stocks.component';
 import { ErrorComponent } from './components/error/error.component';
 
 import { NavComponent } from './components/nav/nav.component';
+import { FormsModule } from '@angular/forms';
+import { AddProductComponent } from './pages/products/add-product/add-product.component';
+import { EditProductComponent } from './pages/products/edit-product/edit-product.component';
+import { AddStockComponent } from './pages/stocks/add-stock/add-stock.component';
+import { EditStockComponent } from './pages/stocks/edit-stock/edit-stock.component';
+import { CategorieComponent } from './pages/categorie/categorie.component';
+import { AddCategorieComponent } from './pages/categorie/add-categorie/add-categorie.component';
+import { EditCategorieComponent } from './pages/categorie/edit-categorie/edit-categorie.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { AvisProduitsComponent } from './pages/avis-produits/avis-produits.component';
+
 @NgModule({
   declarations: [
     BackofficeLayoutComponent,
@@ -24,10 +35,20 @@ import { NavComponent } from './components/nav/nav.component';
     SponsorsComponent,
     StocksComponent,
     ErrorComponent,
-    NavComponent
+    NavComponent,
+    AddProductComponent,
+    EditProductComponent,
+    AddStockComponent,
+    EditStockComponent,
+    CategorieComponent,
+    AddCategorieComponent,
+    EditCategorieComponent,
+    AvisProduitsComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    NgxPaginationModule,
     BackofficeRoutingModule
   ]
 })
