@@ -1,10 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Product } from 'src/app/Models/Product.Model';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-shop-details',
   templateUrl: './shop-details.component.html',
   styleUrls: ['./shop-details.component.css']
 })
-export class ShopDetailsComponent {
+export class ShopDetailsComponent implements OnInit {
 
+  selectedProduct!: Product;
+
+  constructor(
+    private commonService: CommonService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    const id = idParam ? +idParam : null;
+  
+    if (id !== null) {
+      this.loadProductById(id);
+    } else {
+      console.error('ID du produit non valide !');
+    }
+  }
+  
+  loadProductById(id: number) {
+    this.commonService.getProductById(id).subscribe(data => {
+      this.selectedProduct = data;
+    }, error => {
+      console.error("Erreur de chargement :", error);
+    });
+  }
 }

@@ -35,8 +35,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   imports: [
     CommonModule,
     FrontOfficeRoutingModule,
-        NgxPaginationModule,
-    
+    NgxPaginationModule,
     FormsModule,
   ]
 })
