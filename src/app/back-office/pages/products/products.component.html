@@ -28,7 +28,7 @@
         <tr *ngFor="let product of products | paginate: { itemsPerPage: 3, currentPage: page }">
           <td>{{ product.nom }}</td>
           <td>{{ product.description }}</td>
-          <td>{{ product.prix | currency:'DT' }}</td>
+          <td>{{ product.prix | currency:'TND' }}</td>
           <td>{{ product.quantiteDisponible }}</td>
           <td>{{ product.dateAjout | date:'dd/MM/yyyy' }}</td>
           <td><img [src]="product.imageURL" alt="{{ product.imageURL }}" class="img-thumbnail" style="width: 100px;"></td>
