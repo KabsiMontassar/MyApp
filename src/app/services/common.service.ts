@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../Models/Product.Model';
+import { AvisProduit } from '../Models/AvisProduit.Model';
 
 @Injectable({
   providedIn: 'root'
@@ -77,7 +78,7 @@ export class CommonService {
     return this.http.get<any[]>(`${this.avisUrl}/all`);
   }
   addAvis(avis: any): Observable<any> {
-    return this.http.post<any>(`${this.avisUrl}/add`, avis);
+    return this.http.post<AvisProduit>(`${this.avisUrl}/add`, avis);
   }
   updateAvis(avis: any): Observable<any> {
     return this.http.put<any>(`${this.avisUrl}/update`, avis);
