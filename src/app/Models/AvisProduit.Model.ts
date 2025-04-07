@@ -4,7 +4,7 @@ export class AvisProduit {
     dateAvis: String = '';
     produit?: {
         idProduit: number;
-        nom: string;
+        nom?: string;
       };
 
     }
