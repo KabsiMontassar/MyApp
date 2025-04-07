@@ -12,4 +12,5 @@ export class Product {
   idUser?: number;
   stock?: any;
   categorie?: any;
+  avis?: { produit?: { nom: string }; comment: string; dateAvis: string }[];
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/Models/Product.Model';
+import { AvisProduit } from 'src/app/Models/AvisProduit.Model';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
@@ -11,6 +12,9 @@ import { CommonService } from 'src/app/services/common.service';
 export class ShopDetailsComponent implements OnInit {
 
   selectedProduct!: Product;
+  newAvis: AvisProduit = {
+    comment: '',
+    dateAvis: ''}
 
   constructor(
     private commonService: CommonService,
@@ -35,4 +39,12 @@ export class ShopDetailsComponent implements OnInit {
       console.error("Erreur de chargement :", error);
     });
   }
-}
+  addAvis() {
+    this.newAvis.produit = { idProduit: this.selectedProduct.idProduit!, nom: this.selectedProduct.nom };
+    this.commonService.addAvis(this.newAvis).subscribe(() => {
+      console.log("Avis ajouté avec succès !");
+      this.newAvis = { comment: '', dateAvis: '' }; // Réinitialiser le formulaire d'avis
+    }, error => {
+      console.error("Erreur lors de l'ajout de l'avis :", error);
+    });
+}}

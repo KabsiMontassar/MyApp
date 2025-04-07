@@ -5,4 +5,6 @@ export class AvisProduit {
     produit?: {
         idProduit: number;
         nom: string;
-      };}
+      };
+
+    }
