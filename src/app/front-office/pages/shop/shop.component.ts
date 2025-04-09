@@ -11,13 +11,18 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent implements OnInit {
+
 products: Product[] = [];
 categories: any[] = [];
 page: number = 1;
 @ViewChild('cartModal') cartModal!: TemplateRef<any>; 
 itemsPerPage: number = 3;
+cartCount: number = 0;
 
   constructor(private commonService: CommonService, private cartService: CartService,private modalService: NgbModal ) {
+    this.cartService.numberOfProducts$.subscribe(count => {
+      this.cartCount = count;
+    });
     
    }
 
@@ -49,9 +54,9 @@ itemsPerPage: number = 3;
     this.selectedTotal = product.prix * this.selectedQuantity;
     this.modalService.open(content, { 
         centered: true,
-        backdrop: 'static', // Empêche la fermeture en cliquant à l'extérieur
+        backdrop: false, // Empêche la fermeture en cliquant à l'extérieur
         keyboard: false // Empêche la fermeture avec ESC
-        
+    
     });
 }
   addToCart(product: Product): void {
