@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { ErrorAllComponent } from './error-all/error-all.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -21,7 +22,7 @@ import { ErrorAllComponent } from './error-all/error-all.component';
     FormsModule,
     ReactiveFormsModule, 
     HttpClientModule, 
-    NgxPaginationModule
+    NgxPaginationModule, NgbModule
 
   ],
   providers: [],

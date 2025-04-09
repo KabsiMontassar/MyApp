@@ -46,7 +46,6 @@ export class ShopingCartComponent implements OnInit {
     this.orderService.createOrder(orderForm).subscribe({
       next: (response) => {
         console.log('Order submitted successfully', response);
-        // Optionally clear the cart after successful submission
         this.cartService.clearCart();
       },
       error: (error) => {

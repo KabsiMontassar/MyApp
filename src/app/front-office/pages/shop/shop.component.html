@@ -57,4 +57,33 @@
         </div>
     </div>
 </section>
+<ng-template  #cartModal let-modal>
+  <div class="modal-display">
+    <div class="modal-header">
+        <h4 class="modal-title">Produit ajouté avec succès</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="product-details">
+            <img [src]="selectedProduct.imageURL" alt="image" />
+            <div>
+                <h5>{{ selectedProduct.nom }}</h5>
+                <p>{{ selectedProduct.description }}</p>
+                <p><strong>{{ selectedProduct.prix }} DT</strong></p>
+                <p>Qté : {{ selectedQuantity }}</p>
+            </div>
+        </div>
+        <div class="cart-summary">
+            <p>🛒 Il y a {{ selectedQuantity }} article(s) dans votre panier.</p>
+            <h4>Total : {{ selectedTotal }} DT TTC</h4>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-outline-primary" (click)="modal.close()">Continuer</button>
+        <a routerLink="/frontoffice/shoping-cart" class="btn btn-primary">Commander</a>
+    </div>
+  </div>
+</ng-template>
 <!-- Product Section End -->
