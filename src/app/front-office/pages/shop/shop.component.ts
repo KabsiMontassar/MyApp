@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/Models/Product.Model';
 import { CommonService } from 'src/app/services/common.service';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ categories: any[] = [];
 page: number = 1;
 itemsPerPage: number = 3;
 
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService, private cartService: CartService ) { }
 
   ngOnInit() {
     this.loadProducts();
@@ -33,4 +34,8 @@ itemsPerPage: number = 3;
     });
   }
  
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product, 1);
+    console.log(product.nom);
+  }
 }
