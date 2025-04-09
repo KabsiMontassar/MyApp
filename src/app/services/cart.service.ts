@@ -5,6 +5,7 @@ import { Product } from '../Models/Product.Model';
 export interface CartItem {
   product: Product;
   quantity: number;
+  isUnavailable?: boolean;
 }
 
 @Injectable({

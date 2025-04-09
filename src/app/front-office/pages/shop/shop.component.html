@@ -57,7 +57,7 @@
         </div>
     </div>
 </section>
-<ng-template  #cartModal let-modal>
+<ng-template class="modal-display" #cartModal let-modal>
   <div class="modal-display">
     <div class="modal-header">
         <h4 class="modal-title">Produit ajouté avec succès</h4>
@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="cart-summary">
-            <p>🛒 Il y a {{ selectedQuantity }} article(s) dans votre panier.</p>
+            <p>🛒 Il y a {{this.cartCount}} article(s) dans votre panier.</p>
             <h4>Total : {{ selectedTotal }} DT TTC</h4>
         </div>
     </div>
