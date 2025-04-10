@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Order } from '../Models/Order.Model';
 
 export interface OrderForm {
   productOrders: {
@@ -19,5 +20,16 @@ export class OrderService {
 
   createOrder(orderForm: OrderForm): Observable<any> {
     return this.http.post(this.baseUrl, orderForm);
+  }
+  getAllOrders(): Observable<Order[]> {
+    return this.http.get<Order[]>(this.baseUrl);
+  }
+  updateOrder(id: number, order: Order): Observable<Order> {
+    return this.http.put<Order>(`${this.baseUrl}/${id}`, order);
+  }
+
+  // Supprimer une commande
+  deleteOrder(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }
