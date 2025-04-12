@@ -42,7 +42,7 @@
                 <td>{{item.dateCreated}}</td>
                 <td>{{item.totalOrderPrice}} DT</td>
                 <td><button class="btn btn-outline-primary" (click)="onDeleteOrder(item.id)">Delete</button></td>
-                <td><button class="btn btn-outline-primary" (click)="openModal(this.cartModal,item)">details</button></td>
+                <td><button class="btn btn-outline-primary" (click)="openModal(item)">Details</button></td>
                 <td>{{item.status}}</td>
               </tr>
             </tbody>
@@ -54,34 +54,44 @@
 </div>
 </div>
 
-
-<ng-template class="modal-display" #cartModal let-modal>
-  <div class="modal-display">
-    <div class="modal-header">
-        <h4 class="modal-title">Products details</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of orderproducts">
-            <td>{{ item.product.nom }}</td>
-            <td>{{ item.quantity }}</td>
-          </tr>
-          
-        </tbody>
-      </table>
-    </div>
-    <div class="modal-footer">
-        
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="detailsModalLabel">
+          <i class="fa fa-info-circle me-2"></i>Order Details
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of orderproducts">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img [src]="item.product.imageURL" class="img-thumbnail me-2" style="width: 50px; height: 50px;">
+                    {{ item.product.nom }}
+                  </div>
+                </td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.product.prix* item.quantity }} DT</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
-</ng-template>
+</div>

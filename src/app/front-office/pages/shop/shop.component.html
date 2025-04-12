@@ -57,32 +57,42 @@
         </div>
     </div>
 </section>
-<ng-template class="modal-display" #cartModal let-modal>
-  <div class="modal-display">
-    <div class="modal-header">
-        <h4 class="modal-title">Produit ajouté avec succès</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-            <span aria-hidden="true">&times;</span>
-        </button>
+<ng-template #cartModal let-modal>
+  <div class="modal-content border-0">
+    <div class="modal-header bg-primary text-white border-0">
+      <h5 class="modal-title">
+        <i class="fa fa-check-circle me-2"></i>Added to Cart Successfully
+      </h5>
+      <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="modal.dismiss()"></button>
     </div>
-    <div class="modal-body">
-        <div class="product-details">
-            <img [src]="selectedProduct.imageURL" alt="image" />
-            <div>
-                <h5>{{ selectedProduct.nom }}</h5>
-                <p>{{ selectedProduct.description }}</p>
-                <p><strong>{{ selectedProduct.prix }} DT</strong></p>
-                <p>Qté : {{ selectedQuantity }}</p>
+    <div class="modal-body p-4">
+      <div class="row">
+        <div class="col-md-4">
+          <img [src]="selectedProduct.imageURL" class="img-fluid rounded product-modal-img" [alt]="selectedProduct.nom">
+        </div>
+        <div class="col-md-8">
+          <h4 class="product-title mb-2">{{ selectedProduct.nom }}</h4>
+          <p class="text-muted">{{ selectedProduct.description }}</p>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="price-tag">{{ selectedProduct.prix }} DT</span>
+            <span class="quantity-badge">Quantity: {{ selectedQuantity }}</span>
+          </div>
+          <div class="cart-info p-3 bg-light rounded">
+            <div class="d-flex justify-content-between align-items-center">
+              <span><i class="fa fa-shopping-cart me-2"></i>Cart Total ({{ cartCount }} items)</span>
+              <span class="total-price">{{ selectedTotal }} DT</span>
             </div>
+          </div>
         </div>
-        <div class="cart-summary">
-            <p>🛒 Il y a {{this.cartCount}} article(s) dans votre panier.</p>
-            <h4>Total : {{ selectedTotal }} DT TTC</h4>
-        </div>
+      </div>
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-outline-primary" (click)="modal.close()">Continuer</button>
-        <a routerLink="/frontoffice/shoping-cart" class="btn btn-primary">Commander</a>
+    <div class="modal-footer border-0">
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">
+        <i class="fa fa-shopping-basket me-2"></i>Continue Shopping
+      </button >
+      <a routerLink="/frontoffice/shoping-cart" (click)="modal.close()" class="btn btn-primary">
+        <i class="fa fa-credit-card me-2"></i>Proceed to Checkout
+      </a>
     </div>
   </div>
 </ng-template>

@@ -1,25 +1,23 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Order, OrderProduct } from 'src/app/Models/Order.Model';
 import { OrderService } from 'src/app/services/order.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Product } from 'src/app/Models/Product.Model';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-commandes',
   templateUrl: './commandes.component.html',
   styleUrls: ['./commandes.component.css']
 })
-export class CommandesComponent {
+export class CommandesComponent implements OnInit {
 
   orders: Order[] = [];
-  @ViewChild('cartModal') cartModal!: TemplateRef<any>; 
-  
+  orderproducts!: OrderProduct[];
+  private modal: any;
 
   constructor(
     private orderService: OrderService,
-    private toastr: ToastrService,
-    private modalService: NgbModal
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -43,17 +41,17 @@ export class CommandesComponent {
       this.loadOrders();
       this.toastr.success('Order deleted successfully','Succès'); // Reload the list of orders after deletion
     });
-    
   }
-  showModal = false;
-  orderproducts!: OrderProduct[];
-    openModal(content: any,order:Order) {
-      this.orderproducts=order.orderProducts
-      console.log(this.orderproducts);
-      this.modalService.open(content, { 
-          centered: true,
-          backdrop: false, // Empêche la fermeture en cliquant à l'extérieur
-          keyboard: false // Empêche la fermeture avec ESC
-      
-      });}
+
+  openModal(order: Order) {
+    this.orderproducts = order.orderProducts;
+    this.modal = new bootstrap.Modal(document.getElementById('detailsModal'));
+    this.modal.show();
+  }
+
+  closeModal() {
+    if (this.modal) {
+      this.modal.hide();
+    }
+  }
 }

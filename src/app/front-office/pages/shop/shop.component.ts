@@ -54,7 +54,8 @@ cartCount: number = 0;
     this.selectedTotal = product.prix * this.selectedQuantity;
     this.modalService.open(content, { 
         centered: true,
-        backdrop: false, // Empêche la fermeture en cliquant à l'extérieur
+        backdrop:false,
+         // Empêche la fermeture en cliquant à l'extérieur
         keyboard: false // Empêche la fermeture avec ESC
     
     });
