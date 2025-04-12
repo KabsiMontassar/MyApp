@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../Models/Product.Model';
 import { AvisProduit } from '../Models/AvisProduit.Model';
@@ -13,6 +13,12 @@ export class CommonService {
   private categorieUrl = 'http://localhost:8081/categories';
   private avisUrl = 'http://localhost:8081/avis';
 
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
@@ -24,11 +30,11 @@ export class CommonService {
   }
 
   addProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(`${this.produitsUrl}/add-Produits`, product);
+    return this.http.post<Product>(`${this.produitsUrl}/add-Produits`, product, this.httpOptions);
   }
 
   updateProduct(product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.produitsUrl}/update`, product);
+    return this.http.put<Product>(`${this.produitsUrl}/update`, product, this.httpOptions);
   }
 
   deleteProduct(id: number): Observable<void> {
@@ -40,11 +46,11 @@ export class CommonService {
   }
 
   addStock(stock: any): Observable<any> {
-    return this.http.post<any>(`${this.stockUrl}/add`, stock);
+    return this.http.post<any>(`${this.stockUrl}/add`, stock, this.httpOptions);
   }
 
   updateStock(stock: any): Observable<any> {
-    return this.http.put<any>(`${this.stockUrl}/update`, stock);
+    return this.http.put<any>(`${this.stockUrl}/update`, stock, this.httpOptions);
   }
 
   deleteStock(id: number): Observable<void> {
@@ -60,11 +66,11 @@ export class CommonService {
   }
 
   addCategory(category: any): Observable<any> {
-    return this.http.post<any>(`${this.categorieUrl}/add`, category);
+    return this.http.post<any>(`${this.categorieUrl}/add`, category, this.httpOptions);
   }
 
   updateCategory(category: any): Observable<any> {
-    return this.http.put<any>(`${this.categorieUrl}/update`, category);
+    return this.http.put<any>(`${this.categorieUrl}/update`, category, this.httpOptions);
   }
 
   deleteCategory(id: number): Observable<void> {
@@ -74,15 +80,19 @@ export class CommonService {
   getCategoryById(id: number): Observable<any> {
     return this.http.get<any>(`${this.categorieUrl}/${id}`);
   }
+
   getAvis(): Observable<any[]> {
     return this.http.get<any[]>(`${this.avisUrl}/all`);
   }
-  addAvis(avis: any): Observable<any> {
-    return this.http.post<AvisProduit>(`${this.avisUrl}/add`, avis);
+
+  addAvis(avis: AvisProduit): Observable<AvisProduit> {
+    return this.http.post<AvisProduit>(`${this.avisUrl}/add`, avis, this.httpOptions);
   }
+
   updateAvis(avis: any): Observable<any> {
-    return this.http.put<any>(`${this.avisUrl}/update`, avis);
+    return this.http.put<any>(`${this.avisUrl}/update`, avis, this.httpOptions);
   }
+
   deleteAvis(id: number): Observable<void> {
     return this.http.delete<void>(`${this.avisUrl}/delete/${id}`);
   }

@@ -8,7 +8,9 @@
                         <h4>Categories</h4>
                         <ul>
                             <li *ngFor="let categorie of categories">
-                                <a href="#">{{ categorie.nomCategorie }}</a>
+                                <a [routerLink]="[]" [queryParams]="{category: categorie.idCategorie}">
+                                    {{ categorie.nomCategorie }}
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -41,12 +43,12 @@
                             <div class="product__item__pic set-bg" [ngStyle]="{'background-image': 'url(' + product.imageURL + ')'}">
                                 <ul class="product__item__pic__hover">
                                     <li><a [routerLink]="['/frontoffice/shop-details', product.idProduit]"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a [routerLink]="['/frontoffice/cart']"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="#">{{ product.nom }}</a></h6>
-                                <h5>{{ product.prix | currency:'DT' }}</h5>
+                                <h6><a [routerLink]="['/frontoffice/shop-details', product.idProduit]">{{ product.nom }}</a></h6>
+                                <h5>{{ product.prix | number:'1.2-2' }} DT</h5>
                             </div>
                         </div>
                     </div>
