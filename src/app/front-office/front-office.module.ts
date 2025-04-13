@@ -17,6 +17,8 @@ import {ErrorComponentFront} from './components/error/error.component';
 import { FrontofficeLayoutComponent } from './layouts/frontoffice-layout.component';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -30,13 +32,17 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ShopingCartComponent,
     FrontNavComponent,
     FooterComponent,
-    ErrorComponentFront
+    ErrorComponentFront,
+    
+
   ],
   imports: [
     CommonModule,
     FrontOfficeRoutingModule,
     NgxPaginationModule,
     FormsModule,
+    NgbModule,
+    
   ]
 })
 export class FrontOfficeModule { }
