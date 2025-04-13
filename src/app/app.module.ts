@@ -10,6 +10,8 @@ import { ErrorAllComponent } from './error-all/error-all.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxStripeModule } from 'ngx-stripe';
+
 
 
 
@@ -30,7 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       timeOut: 3000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
-    })
+    }),
+    NgxStripeModule.forRoot('pk_test_51RDQT3P9HipHx10bx3g8OuT4xIOyUC9CiVBxbJpBfFzuzkCg4wDyR2af3MRvv9PsZSNHooMAaXKcdBFa7tGGbAsm003wkWErll')
 
   ],
   providers: [],

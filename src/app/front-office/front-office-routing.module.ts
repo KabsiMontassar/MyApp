@@ -10,6 +10,7 @@ import { ShopDetailsComponent } from './pages/shop-details/shop-details.componen
 import { ShopingCartComponent } from './pages/shoping-cart/shoping-cart.component';
 
 import {ErrorComponentFront} from './components/error/error.component';
+import { PaymentComponent } from './components/payment-form/payment.component';
 const routes: Routes = [
   {
     path: '',
@@ -22,6 +23,7 @@ const routes: Routes = [
        {path : 'shop-details/:id', component : ShopDetailsComponent},
        {path : 'shoping-cart', component : ShopingCartComponent},
        {path : 'checkout', component : CheckoutComponent},
+        {path : 'payment', component : PaymentComponent},
        {path : 'error', component : ErrorComponentFront}
     ]
   }

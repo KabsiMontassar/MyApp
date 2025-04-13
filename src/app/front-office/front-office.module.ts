@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FrontOfficeRoutingModule } from './front-office-routing.module';
@@ -15,13 +15,15 @@ import { FooterComponent } from './components/footer/footer.component';
 import {ErrorComponentFront} from './components/error/error.component';
 
 import { FrontofficeLayoutComponent } from './layouts/frontoffice-layout.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { PaymentComponent } from './components/payment-form/payment.component';
+import { NgxStripeModule } from 'ngx-stripe';
 
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     FrontofficeLayoutComponent,
     CheckoutComponent,
@@ -33,6 +35,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FrontNavComponent,
     FooterComponent,
     ErrorComponentFront,
+    PaymentComponent,
     
 
   ],
@@ -42,7 +45,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgxPaginationModule,
     FormsModule,
     NgbModule,
-    
+    ReactiveFormsModule,
+    NgxStripeModule.forRoot('pk_test_51RDQTVP7F0T8hpWytG3HjiS4YPwPFaUsdnbbSB2VFt8vGSQUaW70hZAXBuW2yQTHqBt9i1eGiBCaKbPOVK4ZljCF00kKHqICNM'),
   ]
 })
 export class FrontOfficeModule { }

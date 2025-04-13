@@ -1,0 +1,13 @@
+<!-- payment.component.html -->
+<div class="payment-container">
+  <div class="payment-card">
+    <h2>Payment Details</h2>
+    <div class="card-wrapper">
+      <div id="card-element" class="card-element"></div>
+    </div>
+    <button class="payment-button" (click)="handlePayment()" [disabled]="isLoading">
+      <span *ngIf="!isLoading">Pay Now</span>
+      <div *ngIf="isLoading" class="spinner"></div>
+    </button>
+  </div>
+</div>
