@@ -21,8 +21,8 @@ newProduct: any = {
   dateAjout: null,
   imageURL: '',
   status: '',
-  stock: null, 
-  categorie: null 
+  stock: null,      // objet Stock
+  categorie: null   // objet Categorie
 };
 
 
@@ -39,7 +39,7 @@ newProduct: any = {
   
 
   onFileChange(event: any) {
-    this.selectedFile = event.target.files[0];  
+    this.selectedFile = event.target.files[0];  // Récupère le fichier sélectionné
   }
 
   addProduct() {

@@ -65,16 +65,16 @@
                           <button type="submit" class="btn btn-primary" style="background-color: darkgreen; border-color: darkgreen;"  [disabled]="avisForm.invalid">Soumettre</button>
                         </form>
                         <hr>
-                        <div *ngIf="(selectedProduct?.avis?.length || 0) > 0">
+                        <!-- <div *ngIf="(selectedProduct?.avis?.length || 0) > 0">
                           <h6>Comments</h6>
                           <div *ngFor="let avis of selectedProduct.avis" class="border p-2 mb-2 rounded">
                             <p class="mb-0">{{ avis.comment }}</p>
                             <small class="text-muted">{{ avis.dateAvis }}</small>
                           </div>
-                        </div>
-                        <div *ngIf="selectedProduct?.avis?.length === 0">
+                        </div> -->
+                        <!-- <div *ngIf="selectedProduct?.avis?.length === 0">
                           <p class="text-muted">Aucun avis pour ce produit.</p>
-                        </div>
+                        </div> -->
                       </div>
                   </div>
                 </div>
