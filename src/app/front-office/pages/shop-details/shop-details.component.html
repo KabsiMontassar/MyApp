@@ -1,10 +1,10 @@
-  <!-- Breadcrumb Section Begin -->
-  <section class="breadcrumb-section set-bg" data-setbg="../../../assets/front/img/breadcrumb.jpg">
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="../../../assets/front/img/breadcrumb.jpg">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Fresh products</h2>
+                    <h2>{{ selectedProduct.nom }}</h2>
                     <div class="breadcrumb__option">
                         <a routerLink="home">Home</a>
                         <a routerLink="home">Products</a>
@@ -15,6 +15,7 @@
     </div>
 </section>
 <!-- Breadcrumb Section End -->
+
 <section class="product-details spad" *ngIf="selectedProduct">
   <div class="container">
     <div class="row">
@@ -45,50 +46,45 @@
       </div>
 
         <div class="col-lg-12">
-                    <div class="product__details__tab">
-                        <ul class="nav nav-tabs" role="tablist">
-                          
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                    aria-selected="false">Reviews</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                          
-<!-- Section Reviews -->
-<div class="tab-pane" id="tabs-3" role="tabpanel">
-    <div class="product__details__tab__desc">
-      <h6>Écrire un avis</h6>
-      <form (ngSubmit)="addAvis()" #avisForm="ngForm">
-        <div class="form-group">
-          <textarea class="form-control" [(ngModel)]="newAvis.comment" name="comment" rows="4"
-            placeholder="Laissez votre commentaire ici..." required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="background-color: darkgreen; border-color: darkgreen;"  [disabled]="avisForm.invalid">Soumettre</button>
-      </form>
-      <hr>
-      <div *ngIf="(selectedProduct?.avis?.length || 0) > 0">
-        <h6>Commentaires:</h6>
-        <div *ngFor="let avis of selectedProduct.avis" class="border p-2 mb-2 rounded">
-          <p class="mb-1"><strong>{{ avis.produit?.nom }}</strong></p>
-          <p class="mb-0">{{ avis.comment }}</p>
-          <small class="text-muted">{{ avis.dateAvis }}</small>
-        </div>
-      </div>
-      <div *ngIf="selectedProduct?.avis?.length === 0">
-        <p class="text-muted">Aucun avis pour ce produit.</p>
-      </div>
-    </div>
-  </div>
-  
-  
-                        </div>
-                    </div>
+            <div class="product__details__tab">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab" aria-selected="false">Reviews</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                  <!-- Section Reviews -->
+                  <div class="tab-pane" id="tabs-3" role="tabpanel">
+                      <div class="product__details__tab__desc">
+                        <h6>Écrire un avis</h6>
+                        <form (ngSubmit)="addAvis()" #avisForm="ngForm">
+                          <div class="form-group">
+                            <textarea class="form-control" [(ngModel)]="newAvis.comment" name="comment" rows="4"
+                              placeholder="Laissez votre commentaire ici..." required></textarea>
+                          </div>
+                          <button type="submit" class="btn btn-primary" style="background-color: darkgreen; border-color: darkgreen;"  [disabled]="avisForm.invalid">Soumettre</button>
+                        </form>
+                        <hr>
+                        <!-- <div *ngIf="(selectedProduct?.avis?.length || 0) > 0">
+                          <h6>Comments</h6>
+                          <div *ngFor="let avis of selectedProduct.avis" class="border p-2 mb-2 rounded">
+                            <p class="mb-0">{{ avis.comment }}</p>
+                            <small class="text-muted">{{ avis.dateAvis }}</small>
+                          </div>
+                        </div> -->
+                        <!-- <div *ngIf="selectedProduct?.avis?.length === 0">
+                          <p class="text-muted">Aucun avis pour ce produit.</p>
+                        </div> -->
+                      </div>
+                  </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Product Details Section End -->
+    </div>
+    </div>
+</section>
+<!-- Product Details Section End -->
+
 
     <!-- Related Product Section Begin -->
     <!-- <section class="related-product">

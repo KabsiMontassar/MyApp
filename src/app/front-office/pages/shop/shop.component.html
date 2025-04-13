@@ -8,7 +8,9 @@
                         <h4>Categories</h4>
                         <ul>
                             <li *ngFor="let categorie of categories">
-                                <a href="#">{{ categorie.nomCategorie }}</a>
+                                <a [routerLink]="[]" [queryParams]="{category: categorie.idCategorie}">
+                                    {{ categorie.nomCategorie }}
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -41,12 +43,12 @@
                             <div class="product__item__pic set-bg" [ngStyle]="{'background-image': 'url(' + product.imageURL + ')'}">
                                 <ul class="product__item__pic__hover">
                                     <li><a [routerLink]="['/frontoffice/shop-details', product.idProduit]"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="javascript:void(0)" (click)="addToCart(product)"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a [routerLink]="['/frontoffice/cart']"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="#">{{ product.nom }}</a></h6>
-                                <h5>{{ product.prix | currency:'DT' }}</h5>
+                                <h6><a [routerLink]="['/frontoffice/shop-details', product.idProduit]">{{ product.nom }}</a></h6>
+                                <h5>{{ product.prix | number:'1.2-2' }} DT</h5>
                             </div>
                         </div>
                     </div>
@@ -57,33 +59,4 @@
         </div>
     </div>
 </section>
-<ng-template class="modal-display" #cartModal let-modal>
-  <div class="modal-display">
-    <div class="modal-header">
-        <h4 class="modal-title">Produit ajouté avec succès</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="product-details">
-            <img [src]="selectedProduct.imageURL" alt="image" />
-            <div>
-                <h5>{{ selectedProduct.nom }}</h5>
-                <p>{{ selectedProduct.description }}</p>
-                <p><strong>{{ selectedProduct.prix }} DT</strong></p>
-                <p>Qté : {{ selectedQuantity }}</p>
-            </div>
-        </div>
-        <div class="cart-summary">
-            <p>🛒 Il y a {{this.cartCount}} article(s) dans votre panier.</p>
-            <h4>Total : {{ selectedTotal }} DT TTC</h4>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-outline-primary" (click)="modal.close()">Continuer</button>
-        <a routerLink="/frontoffice/shoping-cart" class="btn btn-primary">Commander</a>
-    </div>
-  </div>
-</ng-template>
 <!-- Product Section End -->
