@@ -9,7 +9,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { ShopDetailsComponent } from './pages/shop-details/shop-details.component';
 import { ShopingCartComponent } from './pages/shoping-cart/shoping-cart.component';
-
+import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { FrontNavComponent } from './components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {ErrorComponentFront} from './components/error/error.component';
@@ -30,6 +30,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ShopComponent,
     ShopDetailsComponent,
     ShopingCartComponent,
+    WishlistComponent,
     FrontNavComponent,
     FooterComponent,
     ErrorComponentFront,

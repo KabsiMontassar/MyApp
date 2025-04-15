@@ -74,15 +74,19 @@ export class CommonService {
   getCategoryById(id: number): Observable<any> {
     return this.http.get<any>(`${this.categorieUrl}/${id}`);
   }
+
   getAvis(): Observable<any[]> {
     return this.http.get<any[]>(`${this.avisUrl}/all`);
   }
+
   addAvis(avis: any): Observable<any> {
     return this.http.post<AvisProduit>(`${this.avisUrl}/add`, avis);
   }
+
   updateAvis(avis: any): Observable<any> {
     return this.http.put<any>(`${this.avisUrl}/update`, avis);
   }
+
   deleteAvis(id: number): Observable<void> {
     return this.http.delete<void>(`${this.avisUrl}/delete/${id}`);
   }

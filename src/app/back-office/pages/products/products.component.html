@@ -31,8 +31,15 @@
           <td>{{ product.prix | currency:'TND' }}</td>
           <td>{{ product.quantiteDisponible }}</td>
           <td>{{ product.dateAjout | date:'dd/MM/yyyy' }}</td>
-          <td><img [src]="product.imageURL" alt="{{ product.imageURL }}" class="img-thumbnail" style="width: 100px;"></td>
-          <td>{{ product.status }}</td>
+          <td><img [src]="getImageUrl(product.imageURL)" [alt]="product.nom" class="img-thumbnail" style="width: 100px;"></td>
+          <td [ngClass]="{
+              'text-success': product.status === 'En stock',
+              'text-warning': product.status === 'Dernier produit!',
+              'text-danger': product.status === 'Hors stock'
+          }">
+              {{ product.status }}
+              <i *ngIf="product.status === 'Dernier produit!'" class="fas fa-exclamation-triangle text-warning"></i>
+          </td>
           <td>{{ product.stock?.nom }}</td>
           <td>{{ product.categorie?.nomCategorie }}</td>
           <td>
