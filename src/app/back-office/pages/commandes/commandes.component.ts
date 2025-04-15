@@ -18,7 +18,7 @@ export class CommandesComponent {
 
   constructor(
     private orderService: OrderService,
-    private toastr: ToastrService,
+    // private toastr: ToastrService,
     private modalService: NgbModal
   ) { }
 
@@ -41,7 +41,7 @@ export class CommandesComponent {
   onDeleteOrder(id: number): void {
     this.orderService.deleteOrder(id).subscribe(() => {
       this.loadOrders();
-      this.toastr.success('Order deleted successfully','Succès'); // Reload the list of orders after deletion
+      // this.toastr.success('Order deleted successfully','Succès'); // Reload the list of orders after deletion
     });
     
   }

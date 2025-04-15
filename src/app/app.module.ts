@@ -8,8 +8,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { ErrorAllComponent } from './error-all/error-all.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrModule } from 'ngx-toastr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -24,14 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule, 
     HttpClientModule, 
-    NgxPaginationModule, NgbModule,
-    BrowserAnimationsModule, // Required for animations
-    ToastrModule.forRoot({
-      timeOut: 3000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-    })
-
+    NgxPaginationModule, 
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

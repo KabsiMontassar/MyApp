@@ -1,37 +1,53 @@
 <div class="container mt-4">
-    <h2 class="text-center mb-4">🛍️ Liste des avis</h2>
-  
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <span class="fs-5">📦 Nombre des avis : {{ avisProduit.length }}</span>
-     
+  <div class="row mb-4">
+    <div class="col">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h2 class="display-6">💬 Gestion des Avis</h2>
+          <p class="text-muted mb-0">Total des avis: {{ avisProduit.length }}</p>
+        </div>
+      </div>
     </div>
-  
-    <div class="table-responsive">
-      <table class="table table-hover table-bordered">
-        <thead class="table-dark">
-          <tr>
-            <th>Comment</th>
-            <th>Date</th>
-            <th>Produit</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let avisProduit of avisProduit | paginate: { itemsPerPage: 3, currentPage: page }">
-            <td>{{ avisProduit.comment }}</td>
-            <td>{{ avisProduit.dateAvis}}</td>
-            <td>{{ avisProduit.produit?.nom }}</td>
-            <td>
-              <button *ngIf="avisProduit.idAvis !== undefined" class="btn btn-danger btn-sm" (click)="deleteAvis(avisProduit.idAvis)">
-                🗑️ Supprimer
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <!-- Pagination -->
-    <pagination-controls (pageChange)="page = $event"></pagination-controls>
   </div>
-  
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="bg-light">
+                <tr>
+                  <th>Commentaire</th>
+                  <th>Date</th>
+                  <th>Produit</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let avisProduit of avisProduit | paginate: { itemsPerPage: 5, currentPage: page }">
+                  <td>
+                    <p class="mb-0">{{ avisProduit.comment }}</p>
+                  </td>
+                  <td>{{ avisProduit.dateAvis | date:'dd/MM/yyyy' }}</td>
+                  <td>
+                    <span class="badge bg-info">{{ avisProduit.produit?.nom }}</span>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-danger" (click)="deleteAvis(avisProduit.idAvis ?? 0)">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <div class="d-flex justify-content-center mt-4">
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

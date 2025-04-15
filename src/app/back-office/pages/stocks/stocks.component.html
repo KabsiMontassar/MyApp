@@ -1,40 +1,64 @@
 <div class="container mt-4">
-  <h2 class="text-center mb-4">🛍️ Liste des stocks</h2>
+  <div class="row mb-4">
+    <div class="col">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h2 class="display-6">📦 Gestion des Stocks</h2>
+          <p class="text-muted mb-0">Total des stocks: {{ stocks.length }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <button class="btn btn-primary" routerLink="/backoffice/add-stock">
-      ➕ Ajouter
+  <div class="d-flex justify-content-end mb-4">
+    <button class="btn btn-success" routerLink="/backoffice/add-stock">
+      <i class="fas fa-plus"></i> Ajouter un Stock
     </button>
   </div>
 
-  <div class="table-responsive">
-    <table class="table table-hover table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th>Nom</th>
-          <th>Quantité</th>
-          <th>DateMaj</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let stock of stocks | paginate: { itemsPerPage: 3, currentPage: page }">
-          <td>{{ stock.nom }}</td>
-          <td>{{ stock.quantite }}</td>
-          <td>{{ stock.dateMaj | date:'dd/MM/yyyy' }}</td>
-          <td>
-            <button class="btn btn-warning btn-sm me-2" [routerLink]="['/backoffice/edit-stock', stock.idStock]">
-              ✏️ Modifier
-            </button>
-            <button *ngIf="stock.idStock !== undefined" class="btn btn-danger btn-sm" (click)="deleteStocks(stock.idStock)">
-              🗑️ Supprimer
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="bg-light">
+                <tr>
+                  <th>Nom</th>
+                  <th>Quantité</th>
+                  <th>Date de mise à jour</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let stock of stocks | paginate: { itemsPerPage: 5, currentPage: page }">
+                  <td>
+                    <h6 class="mb-0">{{ stock.nom }}</h6>
+                  </td>
+                  <td>
+                    <span class="badge bg-info">{{ stock.quantite }}</span>
+                  </td>
+                  <td>{{ stock.dateMaj | date:'dd/MM/yyyy' }}</td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn btn-sm btn-outline-primary" [routerLink]="['/backoffice/edit-stock', stock.idStock]">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger" (click)="deleteStocks(stock.idStock)">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <div class="d-flex justify-content-center mt-4">
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+      </div>
+    </div>
   </div>
-
-  <!-- Pagination -->
-  <pagination-controls (pageChange)="page = $event"></pagination-controls>
 </div>

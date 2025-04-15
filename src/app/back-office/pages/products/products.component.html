@@ -1,60 +1,90 @@
 <div class="container mt-4">
-  <h2 class="text-center mb-4">🛍️ Liste des Produits</h2>
+  <div class="row mb-4">
+    <div class="col">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h2 class="display-6">🛍️ Gestion des Produits</h2>
+          <p class="text-muted mb-0">Total des produits: {{ products.length }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <span class="fs-5">📦 Nombre de produits : {{ products.length }}</span>
-    <button class="btn btn-primary" routerLink="/backoffice/add-product">
-      ➕ Ajouter un Produit
+  <div class="d-flex justify-content-end mb-4">
+    <button class="btn btn-success" routerLink="/backoffice/add-product">
+      <i class="fas fa-plus"></i> Ajouter un Produit
     </button>
   </div>
 
-  <div class="table-responsive">
-    <table class="table table-hover table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th>Nom</th>
-          <th>Description</th>
-          <th>Prix</th>
-          <th>Quantité</th>
-          <th>DateAjout</th>
-          <th>Image</th>
-          <th>Status</th>
-          <th>Stock</th>
-          <th>Catégorie</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products | paginate: { itemsPerPage: 3, currentPage: page }">
-          <td>{{ product.nom }}</td>
-          <td>{{ product.description }}</td>
-          <td>{{ product.prix | currency:'TND' }}</td>
-          <td>{{ product.quantiteDisponible }}</td>
-          <td>{{ product.dateAjout | date:'dd/MM/yyyy' }}</td>
-          <td><img [src]="getImageUrl(product.imageURL)" [alt]="product.nom" class="img-thumbnail" style="width: 100px;"></td>
-          <td [ngClass]="{
-              'text-success': product.status === 'En stock',
-              'text-warning': product.status === 'Dernier produit!',
-              'text-danger': product.status === 'Hors stock'
-          }">
-              {{ product.status }}
-              <i *ngIf="product.status === 'Dernier produit!'" class="fas fa-exclamation-triangle text-warning"></i>
-          </td>
-          <td>{{ product.stock?.nom }}</td>
-          <td>{{ product.categorie?.nomCategorie }}</td>
-          <td>
-            <button class="btn btn-warning btn-sm me-2" [routerLink]="['/backoffice/edit-product', product.idProduit]">
-              ✏️ Modifier
-            </button>
-            <button *ngIf="product.idProduit !== undefined" class="btn btn-danger btn-sm" (click)="deleteProduct(product.idProduit)">
-              🗑️ Supprimer
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="bg-light">
+                <tr>
+                  <th>Image</th>
+                  <th>Produit</th>
+                  <th>Prix</th>
+                  <th>Stock</th>
+                  <th>Statut</th>
+                  <th>Catégorie</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of products | paginate: { itemsPerPage: 5, currentPage: page }">
+                  <td style="width: 100px;">
+                    <img [src]="getImageUrl(product.imageURL)" [alt]="product.nom" 
+                         class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;">
+                  </td>
+                  <td>
+                    <h6 class="mb-1">{{ product.nom }}</h6>
+                    <small class="text-muted">{{ product.description | slice:0:50 }}...</small>
+                  </td>
+                  <td>
+                    <span class="fw-bold">{{ product.prix | currency:'TND ' }}</span>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <span class="me-2">{{ product.quantiteDisponible }}</span>
+                      <small class="text-muted">unités</small>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge rounded-pill" [ngClass]="{
+                      'bg-success': product.status === 'Disponible',
+                      'bg-warning text-dark': product.status === 'Dernier produit!',
+                      'bg-danger': product.status === 'Hors stock'
+                    }">
+                      {{ product.status }}
+                      <i *ngIf="product.status === 'Dernier produit!'" class="fas fa-exclamation-circle ms-1"></i>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="badge bg-info text-dark">{{ product.categorie?.nomCategorie }}</span>
+                  </td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn btn-sm btn-outline-primary" [routerLink]="['/backoffice/edit-product', product.idProduit]">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger" (click)="deleteProduct(product.idProduit!)">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <div class="d-flex justify-content-center mt-4">
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+      </div>
+    </div>
   </div>
-
-  <!-- Pagination -->
-  <pagination-controls (pageChange)="page = $event"></pagination-controls>
 </div>

@@ -29,7 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ContactComponent,
     ShopComponent,
     ShopDetailsComponent,
-    ShopingCartComponent,
+    // ShopingCartComponent,
     WishlistComponent,
     FrontNavComponent,
     FooterComponent,

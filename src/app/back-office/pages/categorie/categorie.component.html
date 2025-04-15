@@ -1,36 +1,58 @@
 <div class="container mt-4">
-  <h2 class="text-center mb-4">🛍️ Liste des catégories</h2>
+  <div class="row mb-4">
+    <div class="col">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h2 class="display-6">📁 Gestion des Catégories</h2>
+          <p class="text-muted mb-0">Total des catégories: {{ categories.length }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <button class="btn btn-primary" routerLink="/backoffice/add-categorie">
-      ➕ Ajouter
+  <div class="d-flex justify-content-end mb-4">
+    <button class="btn btn-success" routerLink="/backoffice/add-categorie">
+      <i class="fas fa-plus"></i> Ajouter une Catégorie
     </button>
   </div>
 
-  <div class="table-responsive">
-    <table class="table table-hover table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th>Nom</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let categorie of categories | paginate: { itemsPerPage: 3, currentPage: page }">
-          <td>{{ categorie.nomCategorie }}</td>
-          <td>
-            <button class="btn btn-warning btn-sm me-2" [routerLink]="['/backoffice/edit-categorie', categorie.idCategorie]">
-              ✏️ Modifier
-            </button>
-            <button *ngIf="categorie.idCategorie !== undefined" class="btn btn-danger btn-sm" (click)="deleteCategory(categorie.idCategorie)">
-              🗑️ Supprimer
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="bg-light">
+                <tr>
+                  <th>Nom de la catégorie</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let categorie of categories | paginate: { itemsPerPage: 5, currentPage: page }">
+                  <td>
+                    <h6 class="mb-0">{{ categorie.nomCategorie }}</h6>
+                  </td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn btn-sm btn-outline-primary" [routerLink]="['/backoffice/edit-categorie', categorie.idCategorie]">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger" (click)="deleteCategory(categorie.idCategorie)">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <div class="d-flex justify-content-center mt-4">
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+      </div>
+    </div>
   </div>
-
-  <!-- Pagination -->
-  <pagination-controls (pageChange)="page = $event"></pagination-controls>
 </div>

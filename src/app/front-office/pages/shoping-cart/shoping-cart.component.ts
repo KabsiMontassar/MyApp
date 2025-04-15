@@ -15,7 +15,7 @@ export class ShopingCartComponent implements OnInit {
   constructor(
     private cartService: CartService, 
     private orderService: OrderService, 
-    private toastr: ToastrService
+    // private toastr: ToastrService
     
   ) { }
 
@@ -53,13 +53,13 @@ export class ShopingCartComponent implements OnInit {
     this.orderService.createOrder(orderForm).subscribe({
       next: (response) => {
         console.log('Order submitted successfully', response);
-        this.toastr.success('Order submitted successfully','Succès');
+        // this.toastr.success('Order submitted successfully','Succès');
         this.cartService.clearCart();
       },
       error: (error) => {
         console.error('Error submitting order', error);
         const errorMessage = error?.error?.message || 'Une erreur est survenue lors de la commande.';
-        this.toastr.error(errorMessage, 'Erreur');
+        // this.toastr.error(errorMessage, 'Erreur');
       }
     });}
 }
