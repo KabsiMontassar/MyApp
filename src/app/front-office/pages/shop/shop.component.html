@@ -40,10 +40,17 @@
                     <!-- Loop through the products with pagination -->
                     <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let product of products | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" [ngStyle]="{'background-image': 'url(' + product.imageURL + ')'}">
+                            <div class="product__item__pic">
+                                <img [src]="getImageUrl(product.imageURL)" [alt]="product.nom" 
+                                     style="width: 100%; height: 270px; object-fit: cover;">
                                 <ul class="product__item__pic__hover">
                                     <li><a [routerLink]="['/frontoffice/shop-details', product.idProduit]"><i class="fa fa-eye"></i></a></li>
                                     <li><a [routerLink]="['/frontoffice/cart']"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <!-- 💖 Bouton wishlist -->
+                                    <li (click)="product.idProduit !== undefined && toggleWishlist(product.idProduit)" style="cursor: pointer;">
+                                        <span *ngIf="isInWishlist(product.idProduit ?? -1)">💖</span>
+                                        <span *ngIf="!isInWishlist(product.idProduit ?? -1)">🤍</span>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
@@ -53,6 +60,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <!-- Pagination -->
                 <pagination-controls (pageChange)="page = $event"></pagination-controls>
             </div>

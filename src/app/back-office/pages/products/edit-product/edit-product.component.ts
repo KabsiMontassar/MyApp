@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { Product } from 'src/app/Models/Product.Model';
-
+import { ImageStorageService } from 'src/app/services/image-storage.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -14,11 +14,13 @@ export class EditProductComponent implements OnInit {
   stocks: any[] = [];
   categories: any[] = [];
   selectedFile: File | null = null;
+  previewImageURL: string | null = null;
 
   constructor(
     private commonService: CommonService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private imageStorage: ImageStorageService
   ) {}
 
   ngOnInit() {
@@ -26,6 +28,9 @@ export class EditProductComponent implements OnInit {
     if (id) {
       this.commonService.getProductById(+id).subscribe((data) => {
         this.product = data;
+        // Utiliser le service pour récupérer l'image
+        this.previewImageURL = this.imageStorage.getImageUrl(this.product.imageURL) || this.product.imageURL;
+        this.updateStatus();
       });
     }
 
@@ -39,33 +44,49 @@ export class EditProductComponent implements OnInit {
     });
   }
 
-  updateProduct() {
-    // Si une image est sélectionnée, on met à jour l'URL de l'image.
-    if (this.selectedFile) {
-      // Ici, vous mettez l'URL de l'image après l'avoir téléchargée manuellement
-      // ou après avoir l'uploadé ailleurs. Par exemple :
-      this.product.imageURL = 'URL_DE_L_IMAGE_SUR_VOTRE_SERVEUR';
+  updateStatus() {
+    if (this.product.quantiteDisponible > 1) {
+      this.product.status = 'En stock';
+    } else if (this.product.quantiteDisponible === 1) {
+      this.product.status = 'Dernier produit!';
+    } else {
+      this.product.status = 'Hors stock';
     }
+  }
+
+  onQuantiteChange() {
+    this.updateStatus();
+  }
+
+  updateProduct() {
+    // Si une nouvelle image a été sélectionnée, elle est déjà stockée
+    // Si non, on garde l'ancienne image
     
-    this.commonService.updateProduct(this.product).subscribe(() => {
-      this.router.navigate(['/backoffice/products']);
+    this.commonService.updateProduct(this.product).subscribe({
+      next: (response) => {
+        console.log('Produit mis à jour avec succès:', response);
+        this.router.navigate(['/backoffice/products']);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la mise à jour:', error);
+      }
     });
   }
 
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
-      this.selectedFile = file;
-
-      // Optionnellement, vous pouvez afficher une prévisualisation de l'image.
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.product.imageURL = e.target.result;  // Affiche une prévisualisation
+        const base64String = e.target.result.split(',')[1];
+        const fileName = `product_${Date.now()}_${file.name}`;
+        this.product.imageURL = this.imageStorage.storeImage(fileName, base64String);
+        this.previewImageURL = e.target.result;
       };
-      reader.readAsDataURL(file);  // Prévisualisation du fichier local
+      reader.readAsDataURL(file);
     }
   }
 }
-  
-  
+
+
 

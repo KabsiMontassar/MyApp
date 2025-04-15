@@ -37,12 +37,17 @@
 
   <div class="mb-3">
     <label for="quantiteDisponible" class="form-label">Quantité Disponible</label>
-    <input type="number" id="quantiteDisponible" [(ngModel)]="newProduct.quantiteDisponible" name="quantiteDisponible"
-      class="form-control" placeholder="Quantité disponible"
-      #quantiteDisponible="ngModel" required min="0">
+    <input type="number" id="quantiteDisponible" 
+           [(ngModel)]="newProduct.quantiteDisponible" 
+           (ngModelChange)="onQuantiteChange()"
+           name="quantiteDisponible"
+           class="form-control" 
+           placeholder="Quantité disponible"
+           #quantiteDisponible="ngModel" 
+           required min="0">
     <div class="text-danger" *ngIf="quantiteDisponible.invalid && quantiteDisponible.touched">
-      <div *ngIf="quantiteDisponible.errors?.['required']">Quantité requise.</div>
-      <div *ngIf="quantiteDisponible.errors?.['min']">Doit être supérieur ou égal à 0.</div>
+        <div *ngIf="quantiteDisponible.errors?.['required']">Quantité requise.</div>
+        <div *ngIf="quantiteDisponible.errors?.['min']">Doit être supérieur ou égal à 0.</div>
     </div>
   </div>
 
@@ -58,19 +63,9 @@
   <div class="mb-3">
     <label for="image" class="form-label">Image</label>
     <input type="file" id="image" (change)="onFileChange($event)" class="form-control" accept="image/*">
-  </div>
-
-  <div class="mb-3">
-    <label for="status" class="form-label">Status</label>
-    <select [(ngModel)]="newProduct.status" name="status" class="form-control" required #status="ngModel">
-      <option value="" disabled selected>Sélectionnez un statut</option>
-      <option value="Disponible">Disponible</option>
-      <option value="Hors stock">Hors stock</option>
-    </select>
-    <div class="text-danger" *ngIf="status.invalid && status.touched">
-      Le statut est requis.
+    <div class="mt-2" *ngIf="previewImageURL">
+      <img [src]="previewImageURL" alt="Preview" style="max-width: 200px; height: auto;">
     </div>
-
   </div>
 
   <div class="mb-3">

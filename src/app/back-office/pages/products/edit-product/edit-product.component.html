@@ -32,8 +32,21 @@
   <!-- Quantité -->
   <div class="mb-3">
     <label class="form-label">Quantité</label>
-    <input type="number" [(ngModel)]="product.quantiteDisponible" name="quantiteDisponible" class="form-control"
+    <input type="number" [(ngModel)]="product.quantiteDisponible" 
+           (ngModelChange)="onQuantiteChange()"
+           name="quantiteDisponible" 
+           class="form-control"
            required min="0">
+    <div *ngIf="product.quantiteDisponible !== null" class="mt-2">
+      <span [ngClass]="{
+          'text-success': product.status === 'En stock',
+          'text-warning': product.status === 'Dernier produit!',
+          'text-danger': product.status === 'Hors stock'
+      }">
+          Status: {{ product.status }}
+          <i *ngIf="product.status === 'Dernier produit!'" class="fas fa-exclamation-triangle"></i>
+      </span>
+    </div>
   </div>
 
   <!-- Date -->
@@ -48,22 +61,11 @@
    <!-- Image -->
 <div class="mb-3">
   <label for="image" class="form-label">Image</label>
-  <input type="file" (change)="onFileChange($event)" name="image" class="form-control" [required]="!product.imageURL">
-</div>
-
-
-  <!-- Statut -->
-  <div class="mb-3">
-    <label class="form-label">Statut</label>
-    <select [(ngModel)]="product.status" name="status" class="form-control" required>
-      <option value="">-- Choisir --</option>
-      <option value="Disponible">Disponible</option>
-      <option value="Hors stock">Hors stock</option>
-    </select>
-    <div class="text-danger" *ngIf="editForm.controls['status']?.invalid && editForm.controls['status']?.touched">
-      Le statut est requis.
-    </div>
+  <input type="file" (change)="onFileChange($event)" name="image" class="form-control">
+  <div class="mt-2">
+    <img [src]="previewImageURL" alt="Preview" style="max-width: 200px; height: auto;">
   </div>
+</div>
 
  <!-- Stock -->
 <div class="mb-3">

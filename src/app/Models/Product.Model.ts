@@ -7,10 +7,13 @@ export class Product {
   dateAjout?: string;
   imageURL: string = '';
   status: string = '';
-  idStock: number = 0;
-  idCategorie: number = 0;
-  idUser?: number;
+  idStock?: number;
+  idCategorie?: number;
   stock?: any;
-  categorie?: any;
-  avis?: { produit?: { nom: string }; comment: string; dateAvis: string }[];
+  categorie?: {
+    idCategorie: number;
+    nomCategorie: string;
+  };
+  avis?: { comment: string; dateAvis: string }[]; // Optional 'avis' property
+
 }
