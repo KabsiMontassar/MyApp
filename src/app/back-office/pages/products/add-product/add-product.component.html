@@ -1,94 +1,146 @@
-<form (ngSubmit)="addProduct()" #productForm="ngForm" class="card p-4 shadow-lg">
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <form (ngSubmit)="addProduct()" #productForm="ngForm" class="card p-4 shadow-lg">
+        <h3 class="text-center mb-4 form-section-title">Ajouter un nouveau produit</h3>
 
-  <div class="mb-3">
-    <label for="nom" class="form-label">Nom</label>
-    <input type="text" id="nom" [(ngModel)]="newProduct.nom" name="nom"
-      class="form-control" placeholder="Nom du produit"
-      #nom="ngModel" required minlength="3" maxlength="50">
-    <div class="text-danger" *ngIf="nom.invalid && nom.touched">
-      <div *ngIf="nom.errors?.['required']">Le nom est requis.</div>
-      <div *ngIf="nom.errors?.['pattern']">Le nom ne doit contenir que des lettres.</div>
-      <div *ngIf="nom.errors?.['minlength']">Le nom doit contenir au moins 3 caractères.</div>
-      <div *ngIf="nom.errors?.['maxlength']">Le nom ne peut pas dépasser 50 caractères.</div>
+        <!-- Informations de base -->
+        <div class="form-section-title">Informations de base</div>
+
+        <div class="mb-3">
+          <label for="nom" class="form-label">Nom</label>
+          <input type="text" id="nom" [(ngModel)]="newProduct.nom" name="nom"
+            class="form-control" placeholder="Nom du produit"
+            #nom="ngModel" required minlength="3" maxlength="50">
+          <div class="text-danger" *ngIf="nom.invalid && nom.touched">
+            <div *ngIf="nom.errors?.['required']">Le nom est requis.</div>
+            <div *ngIf="nom.errors?.['pattern']">Le nom ne doit contenir que des lettres.</div>
+            <div *ngIf="nom.errors?.['minlength']">Le nom doit contenir au moins 3 caractères.</div>
+            <div *ngIf="nom.errors?.['maxlength']">Le nom ne peut pas dépasser 50 caractères.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <input type="text" id="description" [(ngModel)]="newProduct.description" name="description"
+            class="form-control" placeholder="Description du produit"
+            #description="ngModel" required minlength="5">
+          <div class="text-danger" *ngIf="description.invalid && description.touched">
+            <div *ngIf="description.errors?.['required']">La description est requise.</div>
+            <div *ngIf="description.errors?.['minlength']">Minimum 5 caractères requis.</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <!-- Prix -->
+            <div class="mb-3">
+              <label for="prix" class="form-label">
+                <i class="fas fa-tag me-2"></i>Prix (DT)
+              </label>
+              <input type="number" id="prix" [(ngModel)]="newProduct.prix" name="prix"
+                class="form-control" placeholder="Prix du produit"
+                #prix="ngModel" required min="0">
+              <div class="text-danger" *ngIf="prix.invalid && prix.touched">
+                <div *ngIf="prix.errors?.['required']">Le prix est requis.</div>
+                <div *ngIf="prix.errors?.['min']">Le prix doit être supérieur ou égal à 0.</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <!-- Quantité -->
+            <div class="mb-3">
+              <label for="quantiteDisponible" class="form-label">
+                <i class="fas fa-boxes me-2"></i>Quantité Disponible
+              </label>
+              <input type="number" id="quantiteDisponible" 
+                     [(ngModel)]="newProduct.quantiteDisponible" 
+                     (ngModelChange)="onQuantiteChange()"
+                     name="quantiteDisponible"
+                     class="form-control" 
+                     placeholder="Quantité disponible"
+                     #quantiteDisponible="ngModel" 
+                     required min="0">
+              <div class="text-danger" *ngIf="quantiteDisponible.invalid && quantiteDisponible.touched">
+                  <div *ngIf="quantiteDisponible.errors?.['required']">Quantité requise.</div>
+                  <div *ngIf="quantiteDisponible.errors?.['min']">Doit être supérieur ou égal à 0.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Date et Image -->
+        <div class="form-section-title">Détails supplémentaires</div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <!-- Date -->
+            <div class="mb-3">
+              <label for="dateAjout" class="form-label">
+                <i class="far fa-calendar-alt me-2"></i>Date d'Ajout
+              </label>
+              <input type="date" id="dateAjout" [(ngModel)]="newProduct.dateAjout" name="dateAjout"
+                class="form-control" required #dateAjout="ngModel">
+              <div class="text-danger" *ngIf="dateAjout.invalid && dateAjout.touched">
+                <div *ngIf="dateAjout.errors?.['required']">Date obligatoire.</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <!-- Image -->
+            <div class="mb-3">
+              <label for="image" class="form-label">
+                <i class="far fa-image me-2"></i>Image
+              </label>
+              <input type="file" id="image" (change)="onFileChange($event)" class="form-control" accept="image/*">
+              <div class="mt-2" *ngIf="previewImageURL">
+                <img [src]="previewImageURL" alt="Preview" style="max-width: 200px; height: auto;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stock et Catégorie -->
+        <div class="form-section-title">Classification</div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">
+                <i class="fas fa-warehouse me-2"></i>Stock
+              </label>
+              <select [(ngModel)]="newProduct.stock" name="stock" class="form-control" required>
+                <option [ngValue]="null" disabled selected>Choisissez un stock</option>
+                <option *ngFor="let stock of stocks" [ngValue]="stock" [title]="stock.nom">
+                  {{ stock.nom }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">
+                <i class="fas fa-tags me-2"></i>Catégorie
+              </label>
+              <select [(ngModel)]="newProduct.categorie" name="categorie" class="form-control" required>
+                <option [ngValue]="null" disabled selected>Choisissez une catégorie</option>
+                <option *ngFor="let categorie of categories" [ngValue]="categorie" [title]="categorie.nomCategorie">
+                  {{ categorie.nomCategorie }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="d-grid gap-2 mt-4">
+          <button type="submit" class="btn btn-success" [disabled]="productForm.invalid">
+            <i class="fas fa-plus-circle me-2"></i>Ajouter le Produit
+          </button>
+          <button type="button" routerLink="/backoffice/products" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-
-  <div class="mb-3">
-    <label for="description" class="form-label">Description</label>
-    <input type="text" id="description" [(ngModel)]="newProduct.description" name="description"
-      class="form-control" placeholder="Description du produit"
-      #description="ngModel" required minlength="5">
-    <div class="text-danger" *ngIf="description.invalid && description.touched">
-      <div *ngIf="description.errors?.['required']">La description est requise.</div>
-      <div *ngIf="description.errors?.['minlength']">Minimum 5 caractères requis.</div>
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <label for="prix" class="form-label">Prix (DT)</label>
-    <input type="number" id="prix" [(ngModel)]="newProduct.prix" name="prix"
-      class="form-control" placeholder="Prix du produit"
-      #prix="ngModel" required min="0">
-    <div class="text-danger" *ngIf="prix.invalid && prix.touched">
-      <div *ngIf="prix.errors?.['required']">Le prix est requis.</div>
-      <div *ngIf="prix.errors?.['min']">Le prix doit être supérieur ou égal à 0.</div>
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <label for="quantiteDisponible" class="form-label">Quantité Disponible</label>
-    <input type="number" id="quantiteDisponible" 
-           [(ngModel)]="newProduct.quantiteDisponible" 
-           (ngModelChange)="onQuantiteChange()"
-           name="quantiteDisponible"
-           class="form-control" 
-           placeholder="Quantité disponible"
-           #quantiteDisponible="ngModel" 
-           required min="0">
-    <div class="text-danger" *ngIf="quantiteDisponible.invalid && quantiteDisponible.touched">
-        <div *ngIf="quantiteDisponible.errors?.['required']">Quantité requise.</div>
-        <div *ngIf="quantiteDisponible.errors?.['min']">Doit être supérieur ou égal à 0.</div>
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <label for="dateAjout" class="form-label">Date d'Ajout</label>
-    <input type="date" id="dateAjout" [(ngModel)]="newProduct.dateAjout" name="dateAjout"
-      class="form-control" required #dateAjout="ngModel">
-    <div class="text-danger" *ngIf="dateAjout.invalid && dateAjout.touched">
-      <div *ngIf="dateAjout.errors?.['required']">Date obligatoire.</div>
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <label for="image" class="form-label">Image</label>
-    <input type="file" id="image" (change)="onFileChange($event)" class="form-control" accept="image/*">
-    <div class="mt-2" *ngIf="previewImageURL">
-      <img [src]="previewImageURL" alt="Preview" style="max-width: 200px; height: auto;">
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <label for="stock" class="form-label">Stock</label>
-    <select [(ngModel)]="newProduct.stock" name="stock" class="form-control" required>
-      <option [ngValue]="null" disabled selected>Choisissez un stock</option>
-      <option *ngFor="let stock of stocks" [ngValue]="stock">{{ stock.nom }}</option>
-    </select>
-  </div>
-  
-  <div class="mb-3">
-    <label for="categorie" class="form-label">Catégorie</label>
-    <select [(ngModel)]="newProduct.categorie" name="categorie" class="form-control" required>
-      <option [ngValue]="null" disabled selected>Choisissez une catégorie</option>
-      <option *ngFor="let categorie of categories" [ngValue]="categorie">{{ categorie.nomCategorie }}</option>
-    </select>
-  </div>
-  
-
-  <button type="submit" class="btn btn-success w-100" [disabled]="productForm.invalid">
-    Ajouter le Produit
-  </button>
-</form>
-<button routerLink="/backoffice/products" class="btn btn-outline-secondary mt-3 w-100">
-  Retour à la liste des produits
-</button>
+</div>

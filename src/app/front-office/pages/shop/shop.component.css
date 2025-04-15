@@ -2,3 +2,138 @@
     border: 2px solid green;
     z-index: 9999 !important;
 }
+
+.price-range {
+    padding: 10px 0;
+}
+
+.price-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.price-input input {
+    width: 70px;
+    padding: 5px;
+    margin: 0 5px;
+}
+
+.price-slider input[type="range"] {
+    width: 100%;
+    margin: 5px 0;
+}
+
+.price-filter {
+    width: 100%;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.price-filter .price-inputs {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.price-inputs .field {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% / 2 - 15px);
+}
+
+.field span {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.field input {
+    height: 30px;
+    width: 100%;
+    outline: none;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+
+.price-inputs .separator {
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.slider {
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+    position: relative;
+    margin: 20px 0;
+}
+
+.slider .progress {
+    height: 5px;
+    background: #7fad39;
+    border-radius: 5px;
+    position: absolute;
+}
+
+.range-input {
+    position: relative;
+}
+
+.range-input input {
+    position: absolute;
+    top: -5px;
+    height: 5px;
+    width: 100%;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    pointer-events: auto;
+    -webkit-appearance: none;
+    background: #7fad39;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    pointer-events: auto;
+    -moz-appearance: none;
+    background: #7fad39;
+    cursor: pointer;
+    border: none;
+}
+
+::ng-deep .ngx-pagination {
+    padding: 0;
+}
+
+::ng-deep .ngx-pagination .current {
+    background: #7fad39 !important;
+    border-radius: 3px;
+}
+
+::ng-deep .ngx-pagination a:hover {
+    background: #7fad39;
+    color: white !important;
+    border-radius: 3px;
+}
+
+::ng-deep .ngx-pagination a {
+    color: #7fad39 !important;
+}
+
+::ng-deep .ngx-pagination .disabled {
+    color: #969696 !important;
+}

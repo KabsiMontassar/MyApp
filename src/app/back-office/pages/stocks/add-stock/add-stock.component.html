@@ -1,26 +1,52 @@
-<div class="container mt-4">
-  <h2 class="text-center mb-4">Ajouter un Stock</h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <form #form="ngForm" (ngSubmit)="addStock()" class="card p-4 shadow-lg">
+        <h3 class="text-center mb-4 form-section-title">
+          <i class="fas fa-warehouse me-2"></i>Nouveau Stock
+        </h3>
 
-  <form #form="ngForm" (ngSubmit)="addStock()" class="card p-4 shadow-lg">
-    <div class="mb-3">
-      <label for="nom" class="form-label">Nom</label>
-      <input id="nom" type="text" [(ngModel)]="newStock.nom" name="nom" class="form-control" placeholder="Nom" required>
+        <div class="form-section-title">Informations du stock</div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">
+                <i class="fas fa-tag me-2"></i>Nom
+              </label>
+              <input type="text" [(ngModel)]="newStock.nom" name="nom" 
+                     class="form-control" placeholder="Nom du stock" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">
+                <i class="fas fa-boxes me-2"></i>Quantité
+              </label>
+              <input type="number" [(ngModel)]="newStock.quantite" 
+                     name="quantite" class="form-control" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">
+            <i class="far fa-calendar-alt me-2"></i>Date de mise à jour
+          </label>
+          <input type="date" [(ngModel)]="newStock.dateMaj" 
+                 name="dateMaj" class="form-control" required>
+        </div>
+
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-success" [disabled]="!form.valid">
+            <i class="fas fa-plus-circle me-2"></i>Ajouter le Stock
+          </button>
+          <button type="button" routerLink="/backoffice/stocks" 
+                  class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+          </button>
+        </div>
+      </form>
     </div>
-
-    <div class="mb-3">
-      <label for="quantite" class="form-label">Quantité</label>
-      <input id="quantite" type="number" [(ngModel)]="newStock.quantite" name="quantite" class="form-control" placeholder="Quantité" required>
-    </div>
-
-    <div class="mb-3">
-      <label for="dateMaj" class="form-label">Date de mise à jour</label>
-      <input id="dateMaj" type="date" [(ngModel)]="newStock.dateMaj" name="dateMaj" class="form-control" placeholder="Date" required>
-    </div>
-
-    <button type="submit" class="btn btn-success w-100" [disabled]="!form.valid">Ajouter</button>
-  </form>
-
-  <button routerLink="/backoffice/stocks" class="btn btn-outline-secondary mt-3 w-100">
-    Retour à la liste des stocks
-  </button>
+  </div>
 </div>

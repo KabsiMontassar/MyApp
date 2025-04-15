@@ -10,10 +10,15 @@ import { ImageStorageService } from 'src/app/services/image-storage.service';
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent implements OnInit {
-products: Product[] = [];
-categories: any[] = [];
-page: number = 1;
-itemsPerPage: number = 3;
+  products: Product[] = [];
+  filteredProducts: Product[] = [];
+  categories: any[] = [];
+  page: number = 1;
+  itemsPerPage: number = 3;
+  selectedCategory: string = 'all';
+  minPrice: number = 0;
+  maxPrice: number = 1000;
+  maxPriceLimit: number = 1000;
 
   constructor(
     private commonService: CommonService, 
@@ -24,7 +29,7 @@ itemsPerPage: number = 3;
   ngOnInit() {
     this.loadProducts();
     this.loadCategories();
-
+    this.initializePriceRange();
   }
 
   loadProducts() {
@@ -40,15 +45,22 @@ itemsPerPage: number = 3;
         }
         return product;
       });
+      this.filteredProducts = [...this.products]; // Initialize filtered products
     });
   }
+
   loadCategories() {
-    this.commonService.getCategories().subscribe(data => {
-      this.categories = data;
+    this.commonService.getCategories().subscribe({
+      next: (data) => {
+        console.log('Categories loaded:', data); // Pour déboguer
+        this.categories = data;
+      },
+      error: (error) => {
+        console.error('Error loading categories:', error);
+      }
     });
   }
  
-
   toggleWishlist(productId: number): void {
     if (this.wishlistService.isInWishlist(productId)) {
       this.wishlistService.removeFromWishlist(productId);
@@ -64,5 +76,32 @@ itemsPerPage: number = 3;
   getImageUrl(fileName: string): string {
     return this.imageStorage.getImageUrl(fileName) || fileName;
   }
-  
+
+  sortByCategory(event: any) {
+    const categoryId = event.target.value;
+    if (categoryId === 'all') {
+      this.filteredProducts = [...this.products];
+    } else {
+      this.filteredProducts = this.products.filter(product => 
+        product.categorie?.idCategorie === Number(categoryId)
+      );
+    }
+    this.page = 1; // Reset pagination when filtering
+  }
+
+  initializePriceRange() {
+    this.commonService.getProducts().subscribe(products => {
+      if (products.length > 0) {
+        this.maxPriceLimit = Math.max(...products.map(p => p.prix || 0));
+        this.maxPrice = this.maxPriceLimit;
+      }
+    });
+  }
+
+  filterByPrice() {
+    this.filteredProducts = this.products.filter(product => 
+      product.prix >= this.minPrice && product.prix <= this.maxPrice
+    );
+    this.page = 1; // Reset pagination when filtering
+  }
 }
