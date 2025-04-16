@@ -1,0 +1,31 @@
+.steps-indicator {
+  .btn-link {
+    color: #6c757d;
+    text-decoration: none;
+    
+    &.active {
+      color: #0d6efd;
+    }
+  }
+
+  .badge {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    background-color: #dee2e6;
+  }
+}
+
+.progress {
+  background-color: #dee2e6;
+  
+  .progress-bar {
+    transition: width 0.3s ease;
+    background-color: #0d6efd;
+  }
+}
+
+.step-content {
+  min-height: 300px;
+}

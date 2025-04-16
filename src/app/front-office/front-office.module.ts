@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { FrontOfficeRoutingModule } from './front-office-routing.module';
 
-import { CheckoutComponent } from './pages/checkout/checkout.component';
+
 import { HomeComponent } from './pages/home/home.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ShopComponent } from './pages/shop/shop.component';
@@ -20,7 +20,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PaymentComponent } from './components/payment-form/payment.component';
 import { NgxStripeModule } from 'ngx-stripe';
-
+import { AddressStepComponent } from './components/checkout/address-step/address-step.component';
+import { UserComponent } from './components/checkout/user/user.component';
+import { ConfirmationComponent } from './components/checkout/confirmation/confirmation.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -36,8 +39,13 @@ import { NgxStripeModule } from 'ngx-stripe';
     FooterComponent,
     ErrorComponentFront,
     PaymentComponent,
-    
-
+    AddressStepComponent,
+    UserComponent,
+    ConfirmationComponent,
+    AddressStepComponent,
+    UserComponent,
+    PaymentComponent,
+    ConfirmationComponent,
   ],
   imports: [
     CommonModule,
