@@ -37,10 +37,10 @@
             <li>
               <b>Availability</b> 
               <span class="badge" [ngClass]="{
-                'badge-success': selectedProduct.status === 'Disponible',
-                'badge-danger': selectedProduct.status === 'Hors stock',
-                'badge-warning': selectedProduct.status === 'Dernier produit!'
-              }" style="padding: 5px 10px; margin-left: 10px; font-size: 14px;">
+                'bg-success': selectedProduct.status === 'Disponible',
+                'bg-danger': selectedProduct.status === 'Hors stock',
+                'bg-warning text-dark': selectedProduct.status === 'Dernier produit!'
+              }">
                 {{ selectedProduct.status }}
                 <i *ngIf="selectedProduct.status === 'Dernier produit!'" 
                    class="fas fa-exclamation-triangle ms-1"></i>
