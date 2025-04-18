@@ -1,0 +1,189 @@
+:host {
+    display: block;
+    min-height: 100vh;
+    background: url('/assets/front/img/bg1.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+}
+
+/* Section Enhancements */
+.hero, .about, .contact {
+    background: rgba(255, 255, 255, 0.7);  /* Reduced opacity */
+    backdrop-filter: blur(5px);  /* Add slight blur effect */
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 1.5s ease-in;
+}
+
+.slide-up {
+    animation: slideUp 1s ease-out;
+}
+
+.bounce {
+    animation: bounce 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+/* Floating leaves animation */
+.floating-leaf {
+    position: fixed;
+    animation: float 15s infinite linear;
+    opacity: 0.6;
+    z-index: -1;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(100vw, 100vh) rotate(360deg);
+    }
+}
+
+.about__pic img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.about__text h2 {
+    margin-bottom: 25px;
+}
+
+.about__feature {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.about__feature i {
+    font-size: 36px;
+    color: #7fad39;
+    margin-bottom: 15px;
+}
+
+.team__item {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.team__item img {
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.team__item__social a {
+    display: inline-block;
+    font-size: 18px;
+    color: #7fad39;
+    margin: 0 10px;
+}
+
+.contact__widget {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact__widget i {
+    font-size: 36px;
+    color: #7fad39;
+    margin-bottom: 15px;
+}
+
+.contact__form input,
+.contact__form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ebebeb;
+}
+
+.contact__map iframe {
+    width: 100%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.section-title h2:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: #7fad39;
+}
+
+.hero__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+.hero__text span {
+    font-size: 24px;
+    color: #7fad39;
+    font-weight: 700;
+}
+
+.hero__text h2 {
+    font-size: 46px;
+    color: #252525;
+    line-height: 52px;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.hero__text p {
+    margin-bottom: 35px;
+    color: #252525;
+}
+
+.hero__item {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
