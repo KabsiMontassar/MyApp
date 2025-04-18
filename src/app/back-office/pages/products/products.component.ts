@@ -10,6 +10,8 @@ import { ImageStorageService } from 'src/app/services/image-storage.service';
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
+  filteredProducts: Product[] = [];
+  searchTerm: string = '';
   page: number = 1;
 
   constructor(
@@ -33,7 +35,15 @@ export class ProductsComponent implements OnInit {
         }
         return product;
       });
+      this.filteredProducts = this.products;
     });
+  }
+
+  searchProducts() {
+    this.filteredProducts = this.products.filter(product => 
+      product.nom.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+    this.page = 1;
   }
 
   deleteProduct(id: number) {

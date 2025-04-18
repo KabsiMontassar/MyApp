@@ -9,8 +9,9 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class AvisProduitsComponent implements OnInit {
   avisProduit: AvisProduit[] = [];
+  filteredAvis: AvisProduit[] = [];
   page: number = 1;
-
+  searchDate: string = '';
 
   constructor(private commonService: CommonService) { }
 
@@ -21,6 +22,7 @@ export class AvisProduitsComponent implements OnInit {
   loadAvis() {
     this.commonService.getAvis().subscribe(data => {
       this.avisProduit = data;
+      this.filteredAvis = data;
     });
   }
 
@@ -28,5 +30,22 @@ export class AvisProduitsComponent implements OnInit {
     this.commonService.deleteAvis(id).subscribe(() => {
       this.loadAvis();
     });
+  }
+
+  filterByDate() {
+    if (!this.searchDate) {
+      this.filteredAvis = this.avisProduit;
+      return;
+    }
+
+    this.filteredAvis = this.avisProduit.filter(avis => {
+      if (!avis.dateAvis) return false;
+      
+      const avisDate = new Date(avis.dateAvis).toLocaleDateString();
+      const searchDate = new Date(this.searchDate).toLocaleDateString();
+      
+      return avisDate === searchDate;
+    });
+    this.page = 1;
   }
 }
