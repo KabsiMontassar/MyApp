@@ -35,14 +35,19 @@ export class ShopDetailsComponent {
     });
   }
 
- 
-
   getProductById(id: number): void {
     this.commonService.getProductById(id).subscribe(
       (data: Product) => {
         this.selectedProduct = data;
-        console.log('Produit sélectionné:', this.selectedProduct);
-        // Charger directement tous les produits après avoir obtenu le produit sélectionné
+        // Mettre à jour le statut
+        if (this.selectedProduct.quantiteDisponible > 1) {
+          this.selectedProduct.status = 'Disponible';
+        } else if (this.selectedProduct.quantiteDisponible === 1) {
+          this.selectedProduct.status = 'Dernier produit!';
+        } else {
+          this.selectedProduct.status = 'Hors stock';
+        }
+        // Charger les produits similaires
         this.loadSimilarProducts(this.selectedProduct);
       },
       (error) => {
