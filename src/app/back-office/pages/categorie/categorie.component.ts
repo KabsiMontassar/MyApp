@@ -9,8 +9,9 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class CategorieComponent implements OnInit {
   categories: Categorie[] = [];
+  filteredCategories: Categorie[] = [];
+  searchTerm: string = '';
   page: number = 1;
-
 
   constructor(private commonService: CommonService) { }
 
@@ -21,6 +22,7 @@ export class CategorieComponent implements OnInit {
   loadCategories() {
     this.commonService.getCategories().subscribe(data => {
       this.categories = data;
+      this.filteredCategories = data;
     });
   }
 
@@ -28,5 +30,12 @@ export class CategorieComponent implements OnInit {
     this.commonService.deleteCategory(id).subscribe(() => {
       this.loadCategories();
     });
+  }
+
+  searchCategories() {
+    this.filteredCategories = this.categories.filter(categorie => 
+      categorie.nomCategorie.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+    this.page = 1;
   }
 }

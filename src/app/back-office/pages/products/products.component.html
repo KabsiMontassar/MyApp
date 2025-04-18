@@ -10,10 +10,19 @@
     </div>
   </div>
 
-  <div class="d-flex justify-content-end mb-4">
-    <button class="btn btn-success" routerLink="/backoffice/add-product">
-      <i class="fas fa-plus"></i> Ajouter un Produit
-    </button>
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-search"></i></span>
+        <input type="text" class="form-control" placeholder="Rechercher un produit..." 
+               [(ngModel)]="searchTerm" (keyup)="searchProducts()">
+      </div>
+    </div>
+    <div class="col-md-6 text-end">
+      <button class="btn btn-success" routerLink="/backoffice/add-product">
+        <i class="fas fa-plus"></i> Ajouter un Produit
+      </button>
+    </div>
   </div>
 
   <div class="row">
@@ -34,7 +43,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let product of products | paginate: { itemsPerPage: 5, currentPage: page }">
+                <tr *ngFor="let product of filteredProducts | paginate: { itemsPerPage: 5, currentPage: page }">
                   <td style="width: 100px;">
                     <img [src]="getImageUrl(product.imageURL)" [alt]="product.nom" 
                          class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;">

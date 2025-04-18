@@ -10,6 +10,26 @@
     </div>
   </div>
 
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                <input type="date" class="form-control" 
+                       placeholder="Rechercher par date..." 
+                       [(ngModel)]="searchDate" 
+                       (change)="filterByDate()">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-12">
       <div class="card shadow">
@@ -25,7 +45,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let avisProduit of avisProduit | paginate: { itemsPerPage: 5, currentPage: page }">
+                <tr *ngFor="let avisProduit of filteredAvis | paginate: { itemsPerPage: 5, currentPage: page }">
                   <td>
                     <p class="mb-0">{{ avisProduit.comment }}</p>
                   </td>
