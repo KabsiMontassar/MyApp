@@ -34,7 +34,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     ContactComponent,
     ShopComponent,
     ShopDetailsComponent,
-    // ShopingCartComponent,
+    ShopingCartComponent,
     WishlistComponent,
     FrontNavComponent,
     FooterComponent,
