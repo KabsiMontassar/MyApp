@@ -90,7 +90,10 @@ export class CommonService {
   deleteAvis(id: number): Observable<void> {
     return this.http.delete<void>(`${this.avisUrl}/delete/${id}`);
   }
+
   getDeletedOutOfStockProducts(): Observable<any> {
     return this.http.get<any>(`${this.produitsUrl}/deleted-out-of-stock`);
   }
+
+  
 }

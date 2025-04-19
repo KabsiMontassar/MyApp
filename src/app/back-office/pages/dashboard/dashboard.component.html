@@ -1,37 +1,448 @@
-<div class="container-fluid" id="container-wrapper">
+<div class="container-fluid animate__animated animate__fadeIn" id="container-wrapper">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a routerLink="/frontoffice/home">Home</a></li>
+    <h1 class="h3 mb-0 text-gray-800 animate__animated animate__slideInLeft">Dashboard</h1>
+    <ol class="breadcrumb animate__animated animate__slideInRight">
+      <li class="breadcrumb-item"><a routerLink="/frontoffice/home" class="text-success">Home</a></li>
     </ol>
   </div>
 
-<!-- Add this after the first row of cards -->
-<div class="col-xl-4 col-md-6 mb-4">
-  <div class="card h-100">
-    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-      <h6 class="m-0 font-weight-bold text-danger">Produits Hors Stock Supprimés</h6>
-      <small class="text-muted">Dernière mise à jour: {{lastDeletedUpdate | date:'HH:mm:ss'}}</small>
-    </div>
-    <div class="card-body">
-      <div *ngIf="deletedProducts.length === 0" class="text-center text-muted">
-        <p>Aucun produit supprimé récemment</p>
-      </div>
-      <div *ngFor="let product of deletedProducts" class="mb-3">
-        <div class="alert alert-danger">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <strong>{{product.nom}}</strong>
-              <br>
-              <small>ID: {{product.idProduit}}</small>
+  <div class="row">
+    <div class="col-xl-7">
+      <div class="row mb-3">
+        <!-- Carte Total Produits -->
+        <div class="col-xl-6 col-md-6 mb-2">
+          <div class="card hover-card small-card">
+            <div class="card-body py-2 gradient-success">
+              <div class="row align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-white text-uppercase">Total Produits</div>
+                  <div class="h6 mb-0 font-weight-bold text-white counter">{{totalProducts}}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-leaf fa-2x text-white pulse"></i>
+                </div>
+              </div>
             </div>
-            <div>
-              <span class="badge badge-danger">Supprimé</span>
+          </div>
+        </div>
+
+        <!-- Carte Total Avis -->
+        <div class="col-xl-6 col-md-6 mb-2">
+          <div class="card hover-card small-card">
+            <div class="card-body py-2 gradient-info">
+              <div class="row align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-white text-uppercase">Total Avis</div>
+                  <div class="h6 mb-0 font-weight-bold text-white counter">{{totalAvis}}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-comments fa-2x text-white pulse"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graphique des avis par produit -->
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card hover-card">
+            <div class="card-header py-3 gradient-primary">
+              <h6 class="m-0 font-weight-bold text-white">Nombre d'avis par produit</h6>
+            </div>
+            <div class="card-body chart-container">
+              <canvas id="productReviewChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-5">
+      <!-- Carte de Performance Globale -->
+      <div class="card mb-4 hover-card">
+        <div class="card-header py-3 gradient-warning">
+          <h6 class="m-0 font-weight-bold text-white">Performance Globale</h6>
+        </div>
+        <div class="card-body">
+          <div class="performance-stats">
+            <div class="stat-progress mb-4">
+              <div class="stat-header">
+                <span class="stat-label">Visites</span>
+                <span class="stat-value">92%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar progress-animated bg-info" 
+                     role="progressbar" 
+                     style="width: 92%" 
+                     aria-valuenow="92" 
+                     aria-valuemin="0" 
+                     aria-valuemax="100">
+                </div>
+              </div>
+            </div>
+            <div class="stat-progress">
+              <div class="stat-header">
+                <span class="stat-label">Ventes</span>
+                <span class="stat-value">85%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar progress-animated bg-success" 
+                     role="progressbar" 
+                     style="width: 85%" 
+                     aria-valuenow="85" 
+                     aria-valuemin="0" 
+                     aria-valuemax="100">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte Météo -->
+      <div class="card hover-card">
+        <div class="card-header py-3 gradient-blue">
+          <h6 class="m-0 font-weight-bold text-white">Météo Locale</h6>
+        </div>
+        <div class="card-body weather-body">
+          <div class="weather-main">
+            <i class="fas fa-sun fa-4x text-warning animated-weather-icon"></i>
+            <div class="weather-info">
+              <h2 class="weather-temp">24°C</h2>
+              <p class="weather-location">Tunis, Tunisie</p>
+            </div>
+          </div>
+          <div class="weather-details-grid">
+            <div class="weather-detail-item">
+              <i class="fas fa-tint text-info"></i>
+              <div class="detail-info">
+                <span class="detail-value">45%</span>
+                <span class="detail-label">Humidité</span>
+              </div>
+            </div>
+            <div class="weather-detail-item">
+              <i class="fas fa-wind text-primary"></i>
+              <div class="detail-info">
+                <span class="detail-value">13 km/h</span>
+                <span class="detail-label">Vent</span>
+              </div>
+            </div>
+            <div class="weather-detail-item">
+              <i class="fas fa-temperature-high text-danger"></i>
+              <div class="detail-info">
+                <span class="detail-value">28°C</span>
+                <span class="detail-label">Max</span>
+              </div>
+            </div>
+            <div class="weather-detail-item">
+              <i class="fas fa-temperature-low text-info"></i>
+              <div class="detail-info">
+                <span class="detail-value">19°C</span>
+                <span class="detail-label">Min</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  <style>
+    .hover-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    
+    .hover-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .gradient-success {
+      background: linear-gradient(45deg, #1cc88a, #20e3a2);
+      color: white;
+    }
+    .gradient-info {
+      background: linear-gradient(45deg, #36b9cc, #1ec7e6);
+      color: white;
+    }
+    .gradient-primary {
+      background: linear-gradient(45deg, #4e73df, #224abe);
+      color: white;
+    }
+    .gradient-danger {
+      background: linear-gradient(45deg, #e74a3b, #ff6b6b);
+      color: white;
+    }
+    .gradient-warning {
+      background: linear-gradient(45deg, #f6c23e, #ffd666);
+      color: white;
+    }
+    .gradient-purple {
+      background: linear-gradient(45deg, #8e44ad, #9b59b6);
+      color: white;
+    }
+    .gradient-blue {
+      background: linear-gradient(45deg, #3498db, #2980b9);
+      color: white;
+    }
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    .counter {
+      font-size: 2rem;
+    }
+
+    .chart-container {
+      padding: 1rem;
+      height: 300px;
+    }
+    .fade-alert {
+      transition: all 0.3s ease;
+    }
+    .pulse-badge {
+      animation: pulse 1.5s infinite;
+    }
+
+    .animated-placeholder {
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+    .animated-placeholder:hover {
+      opacity: 1;
+    }
+    .small-card {
+      min-height: auto;
+      margin-bottom: 0;
+    }
+    .small-card .card-body {
+      padding: 0.8rem;
+    }
+    .small-card .counter {
+      font-size: 1.25rem;
+    }
+
+    .small-card .text-xs {
+      font-size: 0.7rem;
+      margin-bottom: 0.2rem;
+    }
+    .progress-stats {
+      padding: 0.5rem;
+    }
+    .stat-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .progress {
+      height: 0.8rem;
+      border-radius: 1rem;
+      background-color: rgba(0,0,0,0.1);
+    }
+    .progress-animated {
+      animation: progressAnimation 1s ease-in-out;
+    }
+    .weather-card {
+      background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    .weather-temp {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+    .weather-desc {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .weather-details {
+      display: flex;
+      justify-content: space-around;
+    }
+    .weather-details span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .user-stats {
+      display: flex;
+      justify-content: space-around;
+      padding: 1rem 0;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .stat-details h4 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #2c3e50;
+    }
+    .stat-details span {
+      font-size: 0.9rem;
+      color: #7f8c8d;
+    }
+    .events-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .event-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 10px;
+      transition: transform 0.2s;
+    }
+    .event-item:hover {
+      transform: translateX(5px);
+    }
+    .event-date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      background: #3498db;
+      border-radius: 8px;
+      color: white;
+      margin-right: 1rem;
+    }
+    .event-date .day {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .event-date .month {
+      font-size: 0.8rem;
+    }
+    .event-content h6 {
+      margin: 0;
+      color: #2c3e50;
+    }
+    .event-content p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #7f8c8d;
+    }
+    @keyframes progressAnimation {
+      from { width: 0; }
+    }
+    .card {
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .hover-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: transform 0.5s;
+      transform: translateX(-100%);
+    }
+    .hover-card:hover:before {
+      transform: translateX(100%);
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    .weather-body {
+      padding: 1.5rem;
+      background: linear-gradient(120deg, #e0f7fa 0%, #b2ebf2 100%);
+    }
+    .weather-main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .animated-weather-icon {
+      animation: rotate 20s linear infinite;
+    }
+    .weather-info {
+      text-align: center;
+    }
+
+    .weather-temp {
+      font-size: 3rem;
+      font-weight: bold;
+      margin: 0;
+      color: #1a237e;
+    }
+    .weather-location {
+      font-size: 1.2rem;
+      color: #303f9f;
+      margin: 0;
+    }
+    .weather-details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 15px;
+    }
+    .weather-details-grid {
+    .weather-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .weather-detail-item i {
+      font-size: 1.5rem;
+    }
+    .detail-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .detail-value {
+      font-weight: bold;
+      color: #1a237e;
+    }
+    .detail-label {
+      font-size: 0.8rem;
+      color: #303f9f;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .performance-stats {
+      padding: 1rem 0.5rem;
+    }
+    .stat-progress {
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    .stat-value {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+  </style>
 </div>
