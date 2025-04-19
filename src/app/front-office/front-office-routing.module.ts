@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FrontofficeLayoutComponent } from './layouts/frontoffice-layout.component';
 
-import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+
 import { HomeComponent } from './pages/home/home.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ShopComponent } from './pages/shop/shop.component';
@@ -11,6 +12,9 @@ import { ShopingCartComponent } from './pages/shoping-cart/shoping-cart.componen
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 
 import {ErrorComponentFront} from './components/error/error.component';
+import { PaymentComponent } from './components/payment-form/payment.component';
+
+
 const routes: Routes = [
   {
     path: '',
@@ -23,6 +27,7 @@ const routes: Routes = [
        {path : 'shop-details/:id', component : ShopDetailsComponent},
        {path : 'shoping-cart', component : ShopingCartComponent},
        {path : 'checkout', component : CheckoutComponent},
+      {path : 'payment', component : PaymentComponent},
        {path : 'wishlist', component : WishlistComponent},
        {path : 'error', component : ErrorComponentFront}
     ]

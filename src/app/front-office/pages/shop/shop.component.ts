@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Product } from 'src/app/Models/Product.Model';
 import { CommonService } from 'src/app/services/common.service';
+import { CartService } from 'src/app/services/cart.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { ImageStorageService } from 'src/app/services/image-storage.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-shop',
@@ -19,12 +21,21 @@ export class ShopComponent implements OnInit {
   minPrice: number = 0;
   maxPrice: number = 1000;
   maxPriceLimit: number = 1000;
+  @ViewChild('cartModal') cartModal!: TemplateRef<any>; 
+  cartCount: number = 0;
+
 
   constructor(
     private commonService: CommonService, 
     private wishlistService: WishlistService,
-    private imageStorage: ImageStorageService
-  ) { }
+    private imageStorage: ImageStorageService,
+    private cartService: CartService,
+    private modalService: NgbModal
+  ) {
+    this.cartService.numberOfProducts$.subscribe(count => {
+      this.cartCount = count;
+    });
+   }
 
   ngOnInit() {
     this.loadProducts();
@@ -49,6 +60,28 @@ export class ShopComponent implements OnInit {
     });
   }
 
+  showModal = false;
+  selectedProduct!: Product;
+  selectedQuantity = 1;
+  selectedTotal = 0;
+  
+  openModal(content: any, product: Product) {
+    this.selectedProduct = product;
+    this.selectedQuantity = 1;
+    this.selectedTotal = product.prix * this.selectedQuantity;
+    this.modalService.open(content, { 
+        centered: true,
+        backdrop:false,
+         // Empêche la fermeture en cliquant à l'extérieur
+        keyboard: false // Empêche la fermeture avec ESC
+    
+    });
+  }
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product, 1);
+    console.log(product.nom);
+    this.openModal(this.cartModal, product);
+  }
   loadCategories() {
     this.commonService.getCategories().subscribe({
       next: (data) => {
