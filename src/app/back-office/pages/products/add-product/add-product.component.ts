@@ -46,11 +46,9 @@ export class AddProductComponent implements OnInit {
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
+      this.selectedFile = file;
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        const base64String = e.target.result.split(',')[1];
-        const fileName = `product_${Date.now()}_${file.name}`;
-        this.newProduct.imageURL = this.imageStorage.storeImage(fileName, base64String);
         this.previewImageURL = e.target.result;
       };
       reader.readAsDataURL(file);
@@ -58,20 +56,27 @@ export class AddProductComponent implements OnInit {
   }
 
   addProduct() {
-    // S'assurer que tous les champs nécessaires sont présents
-    this.newProduct = {
-      ...this.newProduct,
-      // Ajouter des valeurs par défaut si nécessaire
-      dateAjout: this.newProduct.dateAjout || new Date().toISOString().split('T')[0],
-      status: this.newProduct.quantiteDisponible > 0 ? 'Disponible' : 'Hors stock',
-      // Extraire les IDs nécessaires
-      idStock: this.newProduct.stock?.idStock,
-      idCategorie: this.newProduct.categorie?.idCategorie
-    };
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const base64String = e.target.result.split(',')[1];
+        const fileName = `product_${Date.now()}_${this.selectedFile!.name}`;
+        this.newProduct.imageURL = fileName;
 
-    // Log pour déboguer
+        // Stocker l'image d'abord
+        this.imageStorage.storeImage(fileName, base64String);
+
+        // Puis ajouter le produit
+        this.submitProduct();
+      };
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.submitProduct();
+    }
+  }
+
+  private submitProduct() {
     console.log('Produit à ajouter:', this.newProduct);
-
     this.commonService.addProduct(this.newProduct).subscribe({
       next: (response) => {
         console.log('Produit ajouté avec succès:', response);
@@ -79,7 +84,6 @@ export class AddProductComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erreur lors de l\'ajout du produit:', error);
-        // Afficher l'erreur complète pour le débogage
         console.error('Détails de l\'erreur:', error.error);
       }
     });

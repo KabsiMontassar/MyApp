@@ -23,6 +23,7 @@
     "@stripe/stripe-js": "^1.54.2",
     "@types/jquery": "^3.5.32",
     "bootstrap": "^5.3.3",
+    "chart.js": "^4.4.9",
     "jquery": "^3.7.1",
     "leaflet": "^1.9.4",
     "ngx-pagination": "^6.0.3",
