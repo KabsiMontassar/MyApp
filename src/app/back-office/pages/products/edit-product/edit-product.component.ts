@@ -58,10 +58,41 @@ export class EditProductComponent implements OnInit {
     this.updateStatus();
   }
 
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewImageURL = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   updateProduct() {
-    // Si une nouvelle image a été sélectionnée, elle est déjà stockée
-    // Si non, on garde l'ancienne image
-    
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const base64String = e.target.result.split(',')[1];
+        const fileName = `product_${Date.now()}_${this.selectedFile!.name}`;
+        
+        // Stocker la nouvelle image
+        this.imageStorage.storeImage(fileName, base64String);
+        
+        // Mettre à jour l'URL de l'image dans le produit
+        this.product.imageURL = fileName;
+        
+        // Puis mettre à jour le produit
+        this.submitUpdate();
+      };
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.submitUpdate();
+    }
+  }
+
+  private submitUpdate() {
     this.commonService.updateProduct(this.product).subscribe({
       next: (response) => {
         console.log('Produit mis à jour avec succès:', response);
@@ -71,19 +102,5 @@ export class EditProductComponent implements OnInit {
         console.error('Erreur lors de la mise à jour:', error);
       }
     });
-  }
-
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const base64String = e.target.result.split(',')[1];
-        const fileName = `product_${Date.now()}_${file.name}`;
-        this.product.imageURL = this.imageStorage.storeImage(fileName, base64String);
-        this.previewImageURL = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
   }
 }

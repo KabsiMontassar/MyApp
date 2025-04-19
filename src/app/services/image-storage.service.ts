@@ -4,28 +4,80 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ImageStorageService {
-  private readonly IMAGE_STORAGE_KEY = 'product_images';
+  private readonly STORAGE_KEY = 'product_images';
+  private readonly MAX_IMAGES = 20; // Nombre maximum d'images à stocker
 
-  constructor() {
-    this.initStorage();
-  }
+  constructor() {}
 
-  private initStorage() {
-    if (!localStorage.getItem(this.IMAGE_STORAGE_KEY)) {
-      localStorage.setItem(this.IMAGE_STORAGE_KEY, JSON.stringify({}));
+  storeImage(fileName: string, base64String: string): string {
+    try {
+      let images = this.getStoredImages();
+
+      // Supprimer les anciennes images si on dépasse la limite
+      while (images.size >= this.MAX_IMAGES) {
+        const firstKey = images.keys().next().value;
+        if (firstKey !== undefined) {
+          images.delete(firstKey);
+        }
+      }
+
+      // Ajouter la nouvelle image
+      images.set(fileName, base64String);
+
+      // Convertir la Map en objet pour le stockage
+      const imageObject = Object.fromEntries(images);
+      
+      try {
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(imageObject));
+      } catch (e) {
+        if ((e as Error).name === 'QuotaExceededError') {
+          // Si le quota est dépassé, on supprime la moitié des images
+          const halfSize = Math.floor(images.size / 2);
+          const entries = Array.from(images.entries());
+          const newImages = new Map(entries.slice(halfSize));
+          newImages.set(fileName, base64String);
+          
+          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(Object.fromEntries(newImages)));
+        }
+      }
+
+      return fileName;
+    } catch (error) {
+      console.error('Erreur lors du stockage de l\'image:', error);
+      return '';
     }
   }
 
-  storeImage(fileName: string, base64Data: string): string {
-    const images = JSON.parse(localStorage.getItem(this.IMAGE_STORAGE_KEY) || '{}');
-    const imageUrl = `data:image;base64,${base64Data}`;
-    images[fileName] = imageUrl;
-    localStorage.setItem(this.IMAGE_STORAGE_KEY, JSON.stringify(images));
-    return fileName;
+  getImageUrl(fileName: string): string {
+    try {
+      const images = this.getStoredImages();
+      const base64String = images.get(fileName);
+      return base64String ? `data:image/jpeg;base64,${base64String}` : '';
+    } catch (error) {
+      console.error('Erreur lors de la récupération de l\'image:', error);
+      return '';
+    }
   }
 
-  getImageUrl(fileName: string): string {
-    const images = JSON.parse(localStorage.getItem(this.IMAGE_STORAGE_KEY) || '{}');
-    return images[fileName] || '';
+  private getStoredImages(): Map<string, string> {
+    try {
+      const storedImages = localStorage.getItem(this.STORAGE_KEY);
+      return new Map(Object.entries(JSON.parse(storedImages || '{}')));
+    } catch {
+      return new Map();
+    }
+  }
+
+  clearOldImages() {
+    try {
+      const images = this.getStoredImages();
+      if (images.size > this.MAX_IMAGES) {
+        const entries = Array.from(images.entries());
+        const newImages = new Map(entries.slice(-this.MAX_IMAGES));
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(Object.fromEntries(newImages)));
+      }
+    } catch (error) {
+      console.error('Erreur lors du nettoyage des anciennes images:', error);
+    }
   }
 }

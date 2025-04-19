@@ -22,6 +22,7 @@
     "@popperjs/core": "^2.11.6",
     "@types/jquery": "^3.5.32",
     "bootstrap": "^5.3.3",
+    "chart.js": "^4.4.9",
     "jquery": "^3.7.1",
     "ngx-pagination": "^6.0.3",
     "ngx-toastr": "^19.0.0",
