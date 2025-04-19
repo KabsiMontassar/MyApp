@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { BackofficeRoutingModule } from './back-office-routing.module';
 import { BackofficeLayoutComponent } from './layouts/backoffice-layout.component';
@@ -13,7 +14,6 @@ import { StocksComponent } from './pages/stocks/stocks.component';
 import { ErrorComponent } from './components/error/error.component';
 
 import { NavComponent } from './components/nav/nav.component';
-import { FormsModule } from '@angular/forms';
 import { AddProductComponent } from './pages/products/add-product/add-product.component';
 import { EditProductComponent } from './pages/products/edit-product/edit-product.component';
 import { AddStockComponent } from './pages/stocks/add-stock/add-stock.component';

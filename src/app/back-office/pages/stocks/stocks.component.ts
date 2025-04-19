@@ -10,6 +10,8 @@ import { Stock } from 'src/app/Models/Stock.Model';
 })
 export class StocksComponent implements OnInit {
   stocks: Stock[] = [];
+  filteredStocks: Stock[] = [];
+  searchTerm: string = '';
   page: number = 1;
 
 
@@ -22,6 +24,7 @@ export class StocksComponent implements OnInit {
   loadStocks() {
     this.commonService.getStocks().subscribe(data => {
       this.stocks = data;
+      this.filteredStocks = data;
     });
   }
 
@@ -29,5 +32,12 @@ export class StocksComponent implements OnInit {
     this.commonService.deleteStock(id).subscribe(() => {
       this.loadStocks();
     });
+  }
+
+  searchStocks() {
+    this.filteredStocks = this.stocks.filter(stock => 
+      stock.nom.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+    this.page = 1;
   }
 }

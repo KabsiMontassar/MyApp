@@ -5,12 +5,31 @@
             <div class="col-lg-3 col-md-5">
                 <div class="sidebar">
                     <div class="sidebar__item">
-                        <h4>Categories</h4>
-                        <ul>
-                            <li *ngFor="let categorie of categories">
-                                <a href="#">{{ categorie.nomCategorie }}</a>
-                            </li>
-                        </ul>
+                        <span>Price</span>
+                        <div class="price-filter">
+                            <div class="price-inputs">
+                                <div class="field">
+                                    <p>Min</p>
+                                    <input type="number" class="input-min" [(ngModel)]="minPrice" (change)="filterByPrice()">
+                                </div>
+                                <div class="separator">-</div>
+                                <div class="field">
+                                    <p>Max</p>
+                                    <input type="number" class="input-max" [(ngModel)]="maxPrice" (change)="filterByPrice()">
+                                </div>
+                            </div>
+                            <div class="slider">
+                                <div class="progress" [style.left]="(minPrice/maxPriceLimit)*100 + '%'" 
+                                                    [style.right]="100-(maxPrice/maxPriceLimit)*100 + '%'">
+                                </div>
+                            </div>
+                            <div class="range-input">
+                                <input type="range" class="range-min" [min]="0" [max]="maxPriceLimit" 
+                                       [(ngModel)]="minPrice" (input)="filterByPrice()">
+                                <input type="range" class="range-max" [min]="0" [max]="maxPriceLimit" 
+                                       [(ngModel)]="maxPrice" (input)="filterByPrice()">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -20,9 +39,11 @@
                         <div class="col-lg-4 col-md-5">
                             <div class="filter__sort">
                                 <span>Sort By</span>
-                                <select>
-                                    <option value="0">Default</option>
-                                    <option value="0">Default</option>
+                                <select [(ngModel)]="selectedCategory" (change)="sortByCategory($event)" class="form-control">
+                                    <option value="all">All categories</option>
+                                    <option *ngFor="let cat of categories" [value]="cat.idCategorie">
+                                        {{cat.nomCategorie}}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -36,21 +57,29 @@
 
                 <div class="row">
                     <!-- Loop through the products with pagination -->
-                    <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let product of products | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+                    <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let product of filteredProducts | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" [ngStyle]="{'background-image': 'url(' + product.imageURL + ')'}">
+                            <div class="product__item__pic">
+                                <img [src]="getImageUrl(product.imageURL)" [alt]="product.nom" 
+                                     style="width: 100%; height: 270px; object-fit: cover;">
                                 <ul class="product__item__pic__hover">
                                     <li><a [routerLink]="['/frontoffice/shop-details', product.idProduit]"><i class="fa fa-eye"></i></a></li>
                                     <li><a href="javascript:void(0)" (click)="addToCart(product)"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <!-- 💖 Bouton wishlist -->
+                                    <li (click)="product.idProduit !== undefined && toggleWishlist(product.idProduit)" style="cursor: pointer;">
+                                        <span *ngIf="isInWishlist(product.idProduit ?? -1)">💖</span>
+                                        <span *ngIf="!isInWishlist(product.idProduit ?? -1)">🤍</span>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="#">{{ product.nom }}</a></h6>
-                                <h5>{{ product.prix | currency:'DT' }}</h5>
+                                <h6><a [routerLink]="['/frontoffice/shop-details', product.idProduit]">{{ product.nom }}</a></h6>
+                                <h5>{{ product.prix | number:'1.2-2' }} DT</h5>
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <!-- Pagination -->
                 <pagination-controls (pageChange)="page = $event"></pagination-controls>
             </div>

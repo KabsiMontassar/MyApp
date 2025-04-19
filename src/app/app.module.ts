@@ -33,8 +33,9 @@ import { NgxStripeModule } from 'ngx-stripe';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
-    NgxStripeModule.forRoot('pk_test_51RDQT3P9HipHx10bx3g8OuT4xIOyUC9CiVBxbJpBfFzuzkCg4wDyR2af3MRvv9PsZSNHooMAaXKcdBFa7tGGbAsm003wkWErll')
-
+    NgxStripeModule.forRoot('pk_test_51RDQT3P9HipHx10bx3g8OuT4xIOyUC9CiVBxbJpBfFzuzkCg4wDyR2af3MRvv9PsZSNHooMAaXKcdBFa7tGGbAsm003wkWErll'),
+    NgxPaginationModule, 
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

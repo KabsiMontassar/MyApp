@@ -1,0 +1,44 @@
+.table {
+    font-size: 0.9rem;
+}
+
+.table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.badge {
+    font-weight: 500;
+    padding: 0.5em 1em;
+}
+
+.btn-group .btn {
+    padding: 0.25rem 0.5rem;
+}
+
+.btn-group .btn i {
+    font-size: 0.9rem;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0,0,0,0.02);
+}
+
+.display-6 {
+    color: #2c3e50;
+}
+
+.text-muted {
+    color: #7f8c8d !important;
+}

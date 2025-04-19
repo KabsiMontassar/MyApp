@@ -1,26 +1,37 @@
-<div class="container mt-4">
-  <h2 class="text-center mb-4">Ajouter une Catégorie</h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <form (ngSubmit)="addCategory()" #form="ngForm" class="card p-4 shadow-lg">
+        <h3 class="text-center mb-4 form-section-title">
+          <i class="fas fa-layer-group me-2"></i>Nouvelle Catégorie
+        </h3>
 
-  <form (ngSubmit)="addCategory()" #form="ngForm" class="card p-4 shadow-lg">
-    <div class="mb-3">
-      <label for="nomCategorie" class="form-label">Nom de la catégorie</label>
-      <input
-        id="nomCategorie"
-        type="text"
-        [(ngModel)]="newCategorie.nomCategorie"
-        name="nomCategorie"
-        class="form-control"
-        placeholder="Entrez le nom de la catégorie"
-        required
-      />
+        <div class="form-section-title">Informations de la catégorie</div>
+
+        <div class="mb-3">
+          <label for="nomCategorie" class="form-label">
+            <i class="fas fa-tag me-2"></i>Nom de la catégorie
+          </label>
+          <input
+            id="nomCategorie"
+            type="text"
+            [(ngModel)]="newCategorie.nomCategorie"
+            name="nomCategorie"
+            class="form-control"
+            placeholder="Entrez le nom de la catégorie"
+            required
+          />
+        </div>
+
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-success" [disabled]="!form.valid">
+            <i class="fas fa-plus-circle me-2"></i>Ajouter la Catégorie
+          </button>
+          <button routerLink="/backoffice/categorie" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Retour à la liste des catégories
+          </button>
+        </div>
+      </form>
     </div>
-
-    <button type="submit" class="btn btn-success w-100" [disabled]="!form.valid">
-      Ajouter
-    </button>
-  </form>
-
-  <button routerLink="/backoffice/categorie" class="btn btn-outline-secondary mt-3 w-100">
-    Retour à la liste des catégories
-  </button>
+  </div>
 </div>

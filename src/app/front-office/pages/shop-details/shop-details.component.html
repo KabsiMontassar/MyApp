@@ -1,10 +1,10 @@
-  <!-- Breadcrumb Section Begin -->
-  <section class="breadcrumb-section set-bg" data-setbg="../../../assets/front/img/breadcrumb.jpg">
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" [style.background-image]="'url(' + getImageUrl(selectedProduct.imageURL) + ')'">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Fresh products</h2>
+                    <h2>{{ selectedProduct.nom }}</h2>
                     <div class="breadcrumb__option">
                         <a routerLink="home">Home</a>
                         <a routerLink="home">Products</a>
@@ -15,13 +15,16 @@
     </div>
 </section>
 <!-- Breadcrumb Section End -->
+
 <section class="product-details spad" *ngIf="selectedProduct">
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6">
         <div class="product__details__pic">
           <div class="product__details__pic__item">
-            <img class="product__details__pic__item--large" [src]="selectedProduct.imageURL" alt="">
+            <img class="product__details__pic__item--large" 
+                 [src]="getImageUrl(selectedProduct.imageURL)" 
+                 [alt]="selectedProduct.nom">
           </div>
         </div>
       </div>
@@ -31,7 +34,18 @@
           <div class="product__details__price">{{ selectedProduct.prix | currency }}</div>
           <p>{{ selectedProduct.description }}</p>
           <ul>
-            <li><b>Availability</b> <span>{{ selectedProduct.status }}</span></li>
+            <li>
+              <b>Availability</b> 
+              <span class="badge" [ngClass]="{
+                'bg-success': selectedProduct.status === 'Disponible',
+                'bg-danger': selectedProduct.status === 'Hors stock',
+                'bg-warning text-dark': selectedProduct.status === 'Dernier produit!'
+              }">
+                {{ selectedProduct.status }}
+                <i *ngIf="selectedProduct.status === 'Dernier produit!'" 
+                   class="fas fa-exclamation-triangle ms-1"></i>
+              </span>
+            </li>
             <li><b>Share on</b>
                 <div class="share">
                     <a href="#"><i class="fa fa-facebook"></i></a>
@@ -45,123 +59,74 @@
       </div>
 
         <div class="col-lg-12">
-                    <div class="product__details__tab">
-                        <ul class="nav nav-tabs" role="tablist">
+            <div class="product__details__tab">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab" aria-selected="false">Reviews</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                  <!-- Section Reviews -->
+                  <div class="tab-pane" id="tabs-3" role="tabpanel">
+                      <div class="product__details__tab__desc">
+                        <h6>Écrire un avis</h6>
+                        <form (ngSubmit)="addAvis()" #avisForm="ngForm">
+                          <div class="form-group">
+                            <textarea class="form-control" [(ngModel)]="newAvis.comment" name="comment" rows="4"
+                              placeholder="Laissez votre commentaire ici..." required></textarea>
+                          </div>
+                          <button type="submit" class="btn btn-primary" style="background-color: darkgreen; border-color: darkgreen;"  [disabled]="avisForm.invalid">Soumettre</button>
+                        </form>
+                        <hr>
+                        <div *ngIf="(selectedProduct?.avis?.length || 0) > 0">
+                          <h6>Comments</h6>
+                          <div *ngFor="let avis of selectedProduct.avis" class="border p-2 mb-2 rounded">
+                            <p class="mb-0"><strong>Anonyme</strong> : {{ avis.comment }}</p>
+                            <small class="text-muted">{{ avis.dateAvis }}</small>
+                          </div>
                           
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                    aria-selected="false">Reviews</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                          
-<!-- Section Reviews -->
-<div class="tab-pane" id="tabs-3" role="tabpanel">
-    <div class="product__details__tab__desc">
-      <h6>Écrire un avis</h6>
-      <form (ngSubmit)="addAvis()" #avisForm="ngForm">
-        <div class="form-group">
-          <textarea class="form-control" [(ngModel)]="newAvis.comment" name="comment" rows="4"
-            placeholder="Laissez votre commentaire ici..." required></textarea>
+                        </div> 
+                        <div *ngIf="selectedProduct?.avis?.length === 0">
+                          <p class="text-muted">Aucun avis pour ce produit.</p>
+                        </div> 
+                      </div>
+                  </div>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary" style="background-color: darkgreen; border-color: darkgreen;"  [disabled]="avisForm.invalid">Soumettre</button>
-      </form>
-      <hr>
-      <div *ngIf="(selectedProduct?.avis?.length || 0) > 0">
-        <h6>Commentaires:</h6>
-        <div *ngFor="let avis of selectedProduct.avis" class="border p-2 mb-2 rounded">
-          <p class="mb-1"><strong>{{ avis.produit?.nom }}</strong></p>
-          <p class="mb-0">{{ avis.comment }}</p>
-          <small class="text-muted">{{ avis.dateAvis }}</small>
-        </div>
-      </div>
-      <div *ngIf="selectedProduct?.avis?.length === 0">
-        <p class="text-muted">Aucun avis pour ce produit.</p>
-      </div>
     </div>
-  </div>
-  
-  
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Product Details Section End -->
+    </div>
+</section>
+<!-- Product Details Section End -->
 
-    <!-- Related Product Section Begin -->
-    <!-- <section class="related-product">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title related__product__title">
-                        <h2>Related Product</h2>
-                    </div>
+
+
+ <!-- Related Product Section Begin -->
+<section class="related-product" *ngIf="similarProducts.length > 0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title related__product__title">
+                    <h2>Produits Similaires ({{similarProducts.length}})</h2>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="../../../assets/front/img/product/product-1.jpg">
-                            <ul class="product__item__pic__hover">
-                                
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let product of similarProducts">
+                <div class="product__item">
+                    <div class="product__item__pic">
+                        <img [src]="getImageUrl(product.imageURL)" [alt]="product.nom" style="width: 100%; height: 270px; object-fit: cover;">
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="../../../assets/front/img/product/product-2.jpg">
-                            <ul class="product__item__pic__hover">
-                                
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="../../../assets/front/img/product/product-3.jpg">
-                            <ul class="product__item__pic__hover">
-                                
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="../../../assets/front/img/product/product-7.jpg">
-                            <ul class="product__item__pic__hover">
-                                
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
+                    <div class="product__item__text">
+                        <h6>{{product.nom}}</h6>
+                        <h5>{{product.prix | currency}}</h5>
+                        <a [routerLink]="['/frontoffice/shop-details', product.idProduit]" class="btn btn-outline-success btn-sm">
+                            Voir détails
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-    </section> -->
-    <!-- Related Product Section End -->
+    </div>
+</section>
+<!-- Related Product Section End -->
