@@ -22,9 +22,28 @@ export class StocksComponent implements OnInit {
   }
 
   loadStocks() {
-    this.commonService.getStocks().subscribe(data => {
-      this.stocks = data;
-      this.filteredStocks = data;
+    this.commonService.getStocks().subscribe(stocks => {
+      this.commonService.getProducts().subscribe(products => {
+        this.stocks = stocks.map(stock => {
+          const stockProducts = products.filter(p => p.stock?.idStock === stock.idStock);
+          const totalQuantity = stockProducts.reduce(
+            (sum, product) => sum + (product.quantiteDisponible || 0),
+            0
+          );
+          
+          const updatedStock = {
+            ...stock,
+            quantite: totalQuantity,
+            dateMaj: new Date()
+          };
+
+          this.commonService.updateStock(updatedStock).subscribe();
+          
+          return updatedStock;
+        });
+        
+        this.filteredStocks = this.stocks;
+      });
     });
   }
 
