@@ -1,5 +1,0 @@
-export enum TypePost {
-  MANAGER = 'MANAGER',
-  EMPLOYE = 'EMPLOYE',
-  CONTRACTUEL = 'CONTRACTUEL',
-}
