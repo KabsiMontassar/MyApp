@@ -1,0 +1,14 @@
+<div class="task-item" (click)="onEdit()">
+  <div class="task-header">
+    <h3>{{ task.titre }}</h3>
+    <button class="delete-btn" (click)="onDelete($event)">×</button>
+  </div>
+  <p>{{ task.description }}</p>
+  <div class="task-dates">
+    <span>Start: {{ task.dateDebut | date }}</span>
+    <span>End: {{ task.dateFin | date }}</span>
+  </div>
+  <div *ngIf="task.sousTaches && task.sousTaches.length > 0" class="subtasks">
+    Subtasks: {{ task.sousTaches.length }}
+  </div>
+</div>
