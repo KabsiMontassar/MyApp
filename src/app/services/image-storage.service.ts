@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ImageStorageService {
   private readonly STORAGE_KEY = 'product_images';
-  private readonly MAX_IMAGES = 20; // Nombre maximum d'images à stocker
+  private readonly MAX_IMAGES = 40; 
 
   constructor() {}
 
@@ -13,7 +13,7 @@ export class ImageStorageService {
     try {
       let images = this.getStoredImages();
 
-      // Supprimer les anciennes images si on dépasse la limite
+      
       while (images.size >= this.MAX_IMAGES) {
         const firstKey = images.keys().next().value;
         if (firstKey !== undefined) {
@@ -21,17 +21,14 @@ export class ImageStorageService {
         }
       }
 
-      // Ajouter la nouvelle image
       images.set(fileName, base64String);
 
-      // Convertir la Map en objet pour le stockage
       const imageObject = Object.fromEntries(images);
       
       try {
         localStorage.setItem(this.STORAGE_KEY, JSON.stringify(imageObject));
       } catch (e) {
         if ((e as Error).name === 'QuotaExceededError') {
-          // Si le quota est dépassé, on supprime la moitié des images
           const halfSize = Math.floor(images.size / 2);
           const entries = Array.from(images.entries());
           const newImages = new Map(entries.slice(halfSize));
