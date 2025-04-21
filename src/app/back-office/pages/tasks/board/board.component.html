@@ -1,0 +1,61 @@
+<div class="board-container">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <mat-icon>assignment</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>Total des tâches</h3>
+        <p>{{statsGlobales.totalTaches || 0}}</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <mat-icon>pending_actions</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>En cours</h3>
+        <p>{{statsGlobales.tachesEnCours || 0}}</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>Terminées</h3>
+        <p>{{statsGlobales.tachesTerminees || 0}}</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <mat-icon>trending_up</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>Progression</h3>
+        <p>{{statsGlobales.tauxProgression || 0}}%</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="board-header">
+    <h2>Movadex Project</h2>
+    <div class="board-actions">
+      <button mat-stroked-button color="primary" (click)="openAddTaskModal()">
+        <mat-icon>add</mat-icon>
+        Nouvelle tâche
+      </button>
+    </div>
+  </div>
+
+  <div class="board-columns" cdkDropListGroup>
+    <app-task-list
+      *ngFor="let status of statusColumns"
+      [status]="status"
+      [tasks]="tasksByStatus[status]"
+      [connectedTo]="connectedLists"
+      (taskDropped)="handleTaskDrop($event)"
+      (taskDeleted)="deleteTask($event)"
+    ></app-task-list>
+  </div>
+</div>
