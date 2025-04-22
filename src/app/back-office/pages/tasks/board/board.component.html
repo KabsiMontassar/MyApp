@@ -1,0 +1,97 @@
+<div class="modern-dashboard">
+  <!-- Stats Overview Section -->
+  <div class="stats-overview">
+    <div class="stat-card gradient-purple">
+      <div class="stat-icon">
+        <mat-icon>assignment</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>Total Tasks</h3>
+        <p>{{statsGlobales.totalTaches || 0}}</p>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="100"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="stat-card gradient-blue">
+      <div class="stat-icon">
+        <mat-icon>pending_actions</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>In Progress</h3>
+        <p>{{statsGlobales.tachesEnCours || 0}}</p>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="(statsGlobales.tachesEnCours / statsGlobales.totalTaches) * 100"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="stat-card gradient-green">
+      <div class="stat-icon">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>Completed</h3>
+        <p>{{statsGlobales.tachesTerminees || 0}}</p>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="(statsGlobales.tachesTerminees / statsGlobales.totalTaches) * 100"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="stat-card gradient-orange">
+      <div class="stat-icon">
+        <mat-icon>trending_up</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>Progress</h3>
+        <p>{{statsGlobales.tauxProgression || 0}}%</p>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="statsGlobales.tauxProgression"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Board Header -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1>Vos Tâches</h1>
+      <p class="project-status">Bon Travail • {{lastUpdated | date:'short'}}</p>
+    </div>
+    <div class="filter-controls">
+    <mat-form-field appearance="outline" class="employee-filter">
+      <mat-label>Filtrer par employé</mat-label>
+      <mat-select [(value)]="selectedEmployeeId" (selectionChange)="filterByEmployee($event.value)">
+        <mat-option [value]="null">Tous les employés</mat-option>
+        <mat-option *ngFor="let employee of employees" [value]="employee.idEmployee">
+          {{employee.nom}} {{employee.prenom}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-flat-button class="modern-add-btn" (click)="openAddTaskModal()">
+  <div class="btn-content">
+    <div class="icon-container">
+      <mat-icon>add</mat-icon>
+    </div>
+    <span>Ajouter</span>
+  </div>
+  <div class="hover-effect"></div>
+</button>
+</div> <!-- End of filter-controls -->
+  </div>
+
+  <!-- Kanban Board -->
+  <div class="kanban-board" cdkDropListGroup>
+    <app-task-list
+      *ngFor="let status of statusColumns"
+      [status]="status"
+      [tasks]="tasksByStatus[status]"
+      [connectedTo]="connectedLists"
+      (taskDropped)="handleTaskDrop($event)"
+      (taskDeleted)="deleteTask($event)"
+      class="kanban-column"
+    ></app-task-list>
+  </div>
+</div>

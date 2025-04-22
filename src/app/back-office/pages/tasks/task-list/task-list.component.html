@@ -1,0 +1,41 @@
+<div class="modern-task-list">
+  <div class="list-header">
+    <h2 class="status-title">{{ status | statusDisplay }}</h2>
+    <span class="task-count">{{ tasks.length || 0 }}</span>
+  </div>
+  
+  <div
+    cdkDropList
+    [id]="'status-' + status"
+    [cdkDropListData]="tasks"
+    [cdkDropListConnectedTo]="connectedTo"
+    class="task-board"
+    (cdkDropListDropped)="onTaskDrop($event)"
+  >
+    <div
+      *ngFor="let task of tasks; trackBy: trackByTaskId"
+      cdkDrag
+      [cdkDragData]="task"
+      class="task-card-wrapper"
+    >
+      <app-task-item
+        [task]="task"
+        (delete)="onDeleteTask(task.idTache!)"
+        (edit)="onEditTask(task)"
+      ></app-task-item>
+      
+      <div *cdkDragPlaceholder class="task-placeholder"></div>
+      <div *cdkDragPreview class="task-preview">
+        <app-task-item [task]="task"></app-task-item>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="tasks && tasks.length === 0">
+      <i class="fas fa-tasks"></i>
+      <p>No tasks in this column</p>
+      <div class="drop-hint" *cdkDropListPlaceholder></div>
+    </div>
+  </div>
+  
+  <div class="list-footer"></div>
+</div>

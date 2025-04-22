@@ -17,15 +17,23 @@ import { CategorieComponent } from './pages/categorie/categorie.component';
 import { AddCategorieComponent } from './pages/categorie/add-categorie/add-categorie.component';
 import { EditCategorieComponent } from './pages/categorie/edit-categorie/edit-categorie.component';
 import { AvisProduitsComponent } from './pages/avis-produits/avis-produits.component';
+import { TachesComponent } from './pages/taches/taches.component';
+import { EmployeeComponent } from './pages/employee/employee.component';
 const routes: Routes = [
   {
-    path: '', 
+    path: '',
     component: BackofficeLayoutComponent,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'commandes', component: CommandesComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'employees', component: EmployeesComponent },
+      {
+        path: 'employee',
+        loadChildren: () =>
+          import('./pages/employee/employee.module').then(
+            (m) => m.EmployeeModule)},
+      { path: 'taches', component: TachesComponent },
       { path: 'planning', component: PlanningComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'add-product', component: AddProductComponent },
@@ -33,14 +41,14 @@ const routes: Routes = [
       { path: 'sponsors', component: SponsorsComponent },
       { path: 'stocks', component: StocksComponent },
       { path: 'add-stock', component: AddStockComponent },
-      { path: 'edit-stock/:id', component: EditStockComponent }, 
+      { path: 'edit-stock/:id', component: EditStockComponent },
       { path: 'categorie', component: CategorieComponent },
       { path: 'add-categorie', component: AddCategorieComponent }, // Assuming you want to use the same component for adding categories
       { path: 'edit-categorie/:id', component: EditCategorieComponent }, // Assuming you want to use the same component for editing categories
-     { path: 'avis-produits', component: AvisProduitsComponent },
-      { path: '**', component: ErrorComponent }, 
-    ]
-  }
+      { path: 'avis-produits', component: AvisProduitsComponent },
+      { path: '**', component: ErrorComponent },
+    ],
+  },
 ];
 
 @NgModule({

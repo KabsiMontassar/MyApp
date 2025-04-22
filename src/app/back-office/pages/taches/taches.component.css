@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9fafb;
+}
+
+.kanban-board {
+  display: flex;
+  gap: 1.2rem;
+  padding: 1.5rem;
+  overflow-x: auto;
+  background-color: #ffffff;
+}
+
+.kanban-column {
+  background-color: #fefefe;
+  border-radius: 12px;
+  padding: 0.75rem;
+  min-width: 260px;
+  flex: 1;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+}
+
+/* Couleurs pastel des colonnes */
+.kanban-column:nth-child(1) { background-color: #e6f4ea; } /* A_FAIRE */
+.kanban-column:nth-child(2) { background-color: #e4f5f7; } /* EN_ATTENTE */
+.kanban-column:nth-child(3) { background-color: #e8f0fe; } /* EN_COURS */
+.kanban-column:nth-child(4) { background-color: #f4ebfe; } /* TERMINEE */
+.kanban-column:nth-child(5) { background-color: #fff0ef; } /* ANNULEE */
+.kanban-column:nth-child(6) { background-color: #fffceb; } /* RETARDEE */
+
+.kanban-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.task-card {
+  background-color: #ffffff;
+  border-left: 4px solid #60a5fa;
+  border-radius: 6px;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.74rem;
+  line-height: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  cursor: grab;
+  min-height: 58px;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.task-card .font-medium {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.task-card .text-xs {
+  font-size: 0.68rem;
+  color: #6b7280;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.2rem;
+}
+
+.actions button {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+}
