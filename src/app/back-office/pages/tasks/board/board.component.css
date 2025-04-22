@@ -158,7 +158,7 @@
   padding: 1.25rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   height: fit-content;
-  max-height: calc(100vh - 200px);
+  /* max-height: calc(100vh - 200px); */
   display: flex;
   flex-direction: column;
   
@@ -209,7 +209,7 @@
   height: 48px;
   min-width: 140px;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  /* box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2); */
   
   .btn-content {
     position: relative;
