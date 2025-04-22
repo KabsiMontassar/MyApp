@@ -13,6 +13,26 @@ import { SponsorsComponent } from './pages/sponsors/sponsors.component';
 import { StocksComponent } from './pages/stocks/stocks.component';
 import { ErrorComponent } from './components/error/error.component';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+
 import { NavComponent } from './components/nav/nav.component';
 import { AddProductComponent } from './pages/products/add-product/add-product.component';
 import { EditProductComponent } from './pages/products/edit-product/edit-product.component';
@@ -49,7 +69,29 @@ import { AvisProduitsComponent } from './pages/avis-produits/avis-produits.compo
     CommonModule,
     FormsModule,
     NgxPaginationModule,
-    BackofficeRoutingModule
-  ]
+    BackofficeRoutingModule,
+    DragDropModule,
+    HttpClientModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatIconModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatTooltipModule,
+    MatTableModule,
+    CdkDrag,
+    CdkDropList,
+    ReactiveFormsModule,
+    MatListModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+  ],
 })
-export class BackOfficeModule { }
+export class BackOfficeModule {}
