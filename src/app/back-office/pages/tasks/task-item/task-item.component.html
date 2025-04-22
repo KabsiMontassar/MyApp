@@ -7,13 +7,15 @@
       </div>
     </div>
     <div class="card-actions">
-      <button mat-icon-button class="icon-btn edit" 
+      <button
+       type="button"
+      mat-icon-button class="icon-btn edit" 
               (click)="onEdit(task, $event)" 
               matTooltip="Modifier"
               [disabled]="isLoading">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button class="icon-btn delete" 
+      <button  type="button" mat-icon-button class="icon-btn delete" 
               (click)="onDelete($event)" 
               matTooltip="Supprimer"
               [disabled]="isLoading" title="Delete Task">
