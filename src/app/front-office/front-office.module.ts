@@ -18,7 +18,7 @@ import { FrontofficeLayoutComponent } from './layouts/frontoffice-layout.compone
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { PaymentComponent } from './components/payment-form/payment.component';
+import { PaymentComponent } from './components/checkout/payment/payment.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { AddressStepComponent } from './components/checkout/address-step/address-step.component';
 import { UserComponent } from './components/checkout/user/user.component';

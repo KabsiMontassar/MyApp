@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { loadStripe, Stripe, StripeElements, StripeCardElement } from '@stripe/stripe-js';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../front-office/components/payment-form/environment';
+import { environment } from '../front-office/components/checkout/payment/environment';
 
 @Injectable({
   providedIn: 'root'

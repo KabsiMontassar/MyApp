@@ -34,10 +34,10 @@
       </div>
 
       <div class="step-content p-3">
-        <app-address-step *ngIf="step === 1" (next)="nextStep()"></app-address-step>
-        <app-user *ngIf="step === 2" (next)="nextStep()" (back)="prevStep()"></app-user>
-        <app-payment *ngIf="step === 3" (next)="nextStep()" (back)="prevStep()"></app-payment>
-        <app-confirmation *ngIf="step === 4" (back)="prevStep()"></app-confirmation>
+        <app-address-step *ngIf="step === 1" [orderId]="orderId"  (next)="nextStep(); "></app-address-step>
+        <app-user *ngIf="step === 2" [orderId]="orderId" (next)="nextStep()" (back)="prevStep()"></app-user>
+        <app-payment *ngIf="step === 3" [orderId]="orderId" (next)="nextStep()" (back)="prevStep()"></app-payment>
+        <app-confirmation *ngIf="step === 4" [orderId]="orderId"  (back)="prevStep()"></app-confirmation>
       </div>
 
       <div class="d-flex justify-content-between mt-4">
