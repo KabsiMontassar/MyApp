@@ -4,40 +4,20 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ImageStorageService {
+  // Clé unique pour stocker toutes les images dans le localStorage
   private readonly STORAGE_KEY = 'product_images';
-  private readonly MAX_IMAGES = 40; 
 
   constructor() {}
 
+  // Point 1: Stockage d'une image
   storeImage(fileName: string, base64String: string): string {
     try {
+      // Récupère la Map des images existantes
       let images = this.getStoredImages();
-
-      
-      while (images.size >= this.MAX_IMAGES) {
-        const firstKey = images.keys().next().value;
-        if (firstKey !== undefined) {
-          images.delete(firstKey);
-        }
-      }
-
+      // Ajoute ou met à jour l'image
       images.set(fileName, base64String);
-
-      const imageObject = Object.fromEntries(images);
-      
-      try {
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(imageObject));
-      } catch (e) {
-        if ((e as Error).name === 'QuotaExceededError') {
-          const halfSize = Math.floor(images.size / 2);
-          const entries = Array.from(images.entries());
-          const newImages = new Map(entries.slice(halfSize));
-          newImages.set(fileName, base64String);
-          
-          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(Object.fromEntries(newImages)));
-        }
-      }
-
+      // Convertit la Map en objet et sauvegarde dans localStorage
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(Object.fromEntries(images)));
       return fileName;
     } catch (error) {
       console.error('Erreur lors du stockage de l\'image:', error);
@@ -45,6 +25,7 @@ export class ImageStorageService {
     }
   }
 
+  // Point 2: Récupération d'une image
   getImageUrl(fileName: string): string {
     try {
       const images = this.getStoredImages();
@@ -56,25 +37,13 @@ export class ImageStorageService {
     }
   }
 
+  // Point 3: Gestion interne des données
   private getStoredImages(): Map<string, string> {
     try {
       const storedImages = localStorage.getItem(this.STORAGE_KEY);
       return new Map(Object.entries(JSON.parse(storedImages || '{}')));
     } catch {
       return new Map();
-    }
-  }
-
-  clearOldImages() {
-    try {
-      const images = this.getStoredImages();
-      if (images.size > this.MAX_IMAGES) {
-        const entries = Array.from(images.entries());
-        const newImages = new Map(entries.slice(-this.MAX_IMAGES));
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(Object.fromEntries(newImages)));
-      }
-    } catch (error) {
-      console.error('Erreur lors du nettoyage des anciennes images:', error);
     }
   }
 }
