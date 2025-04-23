@@ -24,6 +24,7 @@ import { EditCategorieComponent } from './pages/categorie/edit-categorie/edit-ca
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AvisProduitsComponent } from './pages/avis-produits/avis-produits.component';
 
+
 @NgModule({
   declarations: [
     BackofficeLayoutComponent,

@@ -32,4 +32,25 @@ export class OrderService {
   deleteOrder(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+
+  async getOrderTotalPrice(orderId: number): Promise<number> {
+    const response = await this.http.get<{ totalPrice: number }>(
+      `${this.baseUrl}/api/orders/${orderId}/total-price`
+    ).toPromise();
+    
+    if (!response?.totalPrice) {
+      throw new Error('Could not retrieve order total price');
+    }
+    return response.totalPrice;
+  }
+  
+  getOrderDetails(orderId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/orders/${orderId}`);
+  }
+
+  downloadInvoice(orderId: number): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/${orderId}/invoice`, {
+      responseType: 'blob'
+    });
+  }
 }
