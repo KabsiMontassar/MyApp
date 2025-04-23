@@ -81,6 +81,18 @@ export class EmployeeComponent implements OnInit {
       );
     }
   }
+  getPositionIcon(position: string): string {
+  switch(position.toLowerCase()) {
+    case 'manager':
+      return 'supervisor_account';
+    case 'employe':
+      return 'person';
+    case 'contractuel':
+      return 'assignment_ind';
+    default:
+      return 'work';
+  }
+}
 
   resetEmployee(): any {
     return {
