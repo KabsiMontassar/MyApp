@@ -13,6 +13,7 @@ export class ProductsComponent implements OnInit {
   filteredProducts: Product[] = [];
   searchTerm: string = '';
   page: number = 1;
+  itemsPerPage: number = 3;  // Définir 3 produits par page
 
   constructor(
     private commonService: CommonService,
@@ -54,5 +55,9 @@ export class ProductsComponent implements OnInit {
 
   getImageUrl(fileName: string): string {
     return this.imageStorage.getImageUrl(fileName) || fileName;
+  }
+
+  onPageChange(page: number) {
+    this.page = page;
   }
 }
