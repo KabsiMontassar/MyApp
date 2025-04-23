@@ -14,6 +14,10 @@ import { FrontNavComponent } from './components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {ErrorComponentFront} from './components/error/error.component';
 
+import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password/forgot-password.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { RegisterComponent } from './pages/auth/register/register.component';
+import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { FrontofficeLayoutComponent } from './layouts/frontoffice-layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -24,6 +28,15 @@ import { AddressStepComponent } from './components/checkout/address-step/address
 import { UserComponent } from './components/checkout/user/user.component';
 import { ConfirmationComponent } from './components/checkout/confirmation/confirmation.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { AccountComponent } from './pages/account/account.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
+//import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.component';
+import { RouterModule } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+
+
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -47,6 +60,13 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     UserComponent,
     PaymentComponent,
     ConfirmationComponent,
+    AccountComponent,
+    SignUpComponent,
+    //ResetpasswordComponent,
+    ForgotPasswordComponent,
+    LoginComponent,
+    RegisterComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +75,14 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     FormsModule,
     NgbModule,
     ReactiveFormsModule,
-    NgxStripeModule.forRoot('pk_test_51RDQTVP7F0T8hpWytG3HjiS4YPwPFaUsdnbbSB2VFt8vGSQUaW70hZAXBuW2yQTHqBt9i1eGiBCaKbPOVK4ZljCF00kKHqICNM'),
-  ]
+    NgxStripeModule.forRoot(
+      'pk_test_51RDQTVP7F0T8hpWytG3HjiS4YPwPFaUsdnbbSB2VFt8vGSQUaW70hZAXBuW2yQTHqBt9i1eGiBCaKbPOVK4ZljCF00kKHqICNM'
+    ),
+    ReactiveFormsModule,
+    RouterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+  ],
 })
-export class FrontOfficeModule { }
+export class FrontOfficeModule {}

@@ -27,6 +27,7 @@
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.9",
     "jquery": "^3.7.1",
+    "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
     "ngx-pagination": "^6.0.3",
     "ngx-stripe": "^14.0.0",
