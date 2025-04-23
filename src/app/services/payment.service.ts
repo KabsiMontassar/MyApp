@@ -25,31 +25,32 @@ export class PaymentService {
     this.card.mount(`#${elementId}`);
   }
 
- // payment.service.ts
- async createPaymentIntent(amount: number): Promise<string> {
-  const response = await this.http.post<{ clientSecret: string }>(
-    'http://localhost:8081/api/payment/create-intent',
-    { amount },
-    { responseType: 'json' } // Explicitly expect JSON
-  ).toPromise();
-
-  if (!response?.clientSecret) {
-    throw new Error('Missing client secret');
+  async createPaymentIntent(orderId: number): Promise<{ clientSecret: string; paymentIntentId: string }> {
+    const response = await this.http.post<any>(
+      'http://localhost:8081/api/payment/create-intent',
+      { orderId },
+      { responseType: 'json' }
+    ).toPromise();
+    return response!;
   }
-  return response.clientSecret;
-}
-
+  
   async confirmPayment(clientSecret: string): Promise<any> {
     const stripe = await this.stripePromise;
     if (!stripe || !this.card) throw new Error('Stripe not initialized');
-
+  
     const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: this.card,
-      }
+      payment_method: { card: this.card }
     });
-
+  
     if (error) throw error;
     return paymentIntent;
   }
+  
+  async updatePaymentStatus(paymentIntentId: string, status: string): Promise<void> {
+    await this.http.post(
+      'http://localhost:8081/api/payment/update-status',
+      { paymentIntentId, status }
+    ).toPromise();
+  }
+  
 }

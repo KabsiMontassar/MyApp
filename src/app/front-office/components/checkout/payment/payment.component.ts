@@ -8,9 +8,8 @@ import { PaymentService } from 'src/app/services/payment.service';
   styleUrls: ['./payment-form.component.css']
 })
 export class PaymentComponent implements OnInit {
-  amount = 1000; // Amount in cents ($10.00)
-  isLoading = false;
   @Input() orderId!: number;
+  isLoading = false;
 
   constructor(private paymentService: PaymentService) {}
 
@@ -21,13 +20,14 @@ export class PaymentComponent implements OnInit {
   async handlePayment() {
     this.isLoading = true;
     try {
-      const clientSecret = await this.paymentService.createPaymentIntent(this.amount);
+      const { clientSecret, paymentIntentId } = await this.paymentService.createPaymentIntent(this.orderId);
       const paymentIntent = await this.paymentService.confirmPayment(clientSecret);
-      console.log('Payment successful:', paymentIntent);
-      // Handle successful payment
+
+      await this.paymentService.updatePaymentStatus(paymentIntentId, paymentIntent.status.toUpperCase());
+
+      console.log('Payment result:', paymentIntent);
     } catch (error) {
-      console.error('Payment failed:', error);
-      // Handle error
+      console.error('Payment error:', error);
     } finally {
       this.isLoading = false;
     }
