@@ -4,19 +4,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ImageStorageService {
-  // Clé unique pour stocker toutes les images dans le localStorage
   private readonly STORAGE_KEY = 'product_images';
 
   constructor() {}
 
-  // Point 1: Stockage d'une image
   storeImage(fileName: string, base64String: string): string {
     try {
-      // Récupère la Map des images existantes
       let images = this.getStoredImages();
-      // Ajoute ou met à jour l'image
       images.set(fileName, base64String);
-      // Convertit la Map en objet et sauvegarde dans localStorage
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(Object.fromEntries(images)));
       return fileName;
     } catch (error) {
@@ -25,7 +20,6 @@ export class ImageStorageService {
     }
   }
 
-  // Point 2: Récupération d'une image
   getImageUrl(fileName: string): string {
     try {
       const images = this.getStoredImages();
@@ -37,7 +31,6 @@ export class ImageStorageService {
     }
   }
 
-  // Point 3: Gestion interne des données
   private getStoredImages(): Map<string, string> {
     try {
       const storedImages = localStorage.getItem(this.STORAGE_KEY);
