@@ -1,0 +1,53 @@
+<div class="modern-task-item" (click)="onEdit(task)">
+  <div class="task-header">
+    <div class="task-title-wrapper">
+      <h3 class="task-title">{{ task.titre }}</h3>
+      <div
+        *ngIf="task.sousTaches && task.sousTaches.length > 0"
+        class="subtasks-badge"
+      >
+        {{ task.sousTaches.length }} subtasks
+      </div>
+    </div>
+    <div class="card-actions">
+      <button
+        type="button"
+        mat-icon-button
+        class="icon-btn edit"
+        (click)="onEdit(task, $event)"
+        matTooltip="Modifier"
+        [disabled]="isLoading"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        type="button"
+        mat-icon-button
+        class="icon-btn delete"
+        (click)="onDelete($event)"
+        matTooltip="Supprimer"
+        [disabled]="isLoading"
+        title="Delete Task"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <p class="task-description">{{ task.description }}</p>
+
+  <div class="task-dates">
+    <div class="date-item">
+      <i class="far fa-calendar-alt"></i>
+      <span>{{ task.dateDebut | date : "shortDate" }}</span>
+    </div>
+    <div class="date-item">
+      <i class="far fa-calendar-check"></i>
+      <span>{{ task.dateFin | date : "shortDate" }}</span>
+    </div>
+  </div>
+
+  <div class="task-footer">
+    <div class="progress-indicator"></div>
+  </div>
+</div>

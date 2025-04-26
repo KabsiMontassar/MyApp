@@ -31,7 +31,7 @@
       <div class="col-lg-6 col-md-6">
         <div class="product__details__text">
           <h3>{{ selectedProduct.nom }}</h3>
-          <div class="product__details__price">{{ selectedProduct.prix | currency }}</div>
+          <div class="product__details__price">{{ selectedProduct.prix }} DT</div>
           <p>{{ selectedProduct.description }}</p>
           <ul>
             <li>
@@ -119,7 +119,7 @@
                     </div>
                     <div class="product__item__text">
                         <h6>{{product.nom}}</h6>
-                        <h5>{{product.prix | currency}}</h5>
+                        <h5>{{product.prix}} DT</h5>
                         <a [routerLink]="['/frontoffice/shop-details', product.idProduit]" class="btn btn-outline-success btn-sm">
                             Voir détails
                         </a>

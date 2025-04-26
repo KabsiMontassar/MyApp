@@ -5,42 +5,19 @@ import { Injectable } from '@angular/core';
 })
 export class ImageStorageService {
   private readonly STORAGE_KEY = 'product_images';
-  private readonly MAX_IMAGES = 20; // Nombre maximum d'images à stocker
 
   constructor() {}
 
   storeImage(fileName: string, base64String: string): string {
     try {
       let images = this.getStoredImages();
-
-      // Supprimer les anciennes images si on dépasse la limite
-      while (images.size >= this.MAX_IMAGES) {
-        const firstKey = images.keys().next().value;
-        if (firstKey !== undefined) {
-          images.delete(firstKey);
-        }
-      }
-
-      // Ajouter la nouvelle image
       images.set(fileName, base64String);
-
-      // Convertir la Map en objet pour le stockage
-      const imageObject = Object.fromEntries(images);
-      
-      try {
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(imageObject));
-      } catch (e) {
-        if ((e as Error).name === 'QuotaExceededError') {
-          // Si le quota est dépassé, on supprime la moitié des images
-          const halfSize = Math.floor(images.size / 2);
-          const entries = Array.from(images.entries());
-          const newImages = new Map(entries.slice(halfSize));
-          newImages.set(fileName, base64String);
-          
-          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(Object.fromEntries(newImages)));
-        }
-      }
-
+      const imageData = Object.fromEntries(images);
+      console.log('Storing image:', fileName, 'Images size:', images.size);
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(imageData));
+      // Vérification immédiate
+      const stored = localStorage.getItem(this.STORAGE_KEY);
+      console.log('Stored successfully:', !!stored);
       return fileName;
     } catch (error) {
       console.error('Erreur lors du stockage de l\'image:', error);
@@ -52,7 +29,17 @@ export class ImageStorageService {
     try {
       const images = this.getStoredImages();
       const base64String = images.get(fileName);
-      return base64String ? `data:image/jpeg;base64,${base64String}` : '';
+      console.log('Getting image:', fileName, 'Found:', !!base64String);
+      if (!base64String) {
+        console.warn('Image non trouvée:', fileName);
+        return '';
+      }
+      // Vérifier si la chaîne base64 est valide
+      if (!base64String.match(/^[A-Za-z0-9+/=]+$/)) {
+        console.error('Format base64 invalide pour:', fileName);
+        return '';
+      }
+      return `data:image/jpeg;base64,${base64String}`;
     } catch (error) {
       console.error('Erreur lors de la récupération de l\'image:', error);
       return '';
@@ -65,19 +52,6 @@ export class ImageStorageService {
       return new Map(Object.entries(JSON.parse(storedImages || '{}')));
     } catch {
       return new Map();
-    }
-  }
-
-  clearOldImages() {
-    try {
-      const images = this.getStoredImages();
-      if (images.size > this.MAX_IMAGES) {
-        const entries = Array.from(images.entries());
-        const newImages = new Map(entries.slice(-this.MAX_IMAGES));
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(Object.fromEntries(newImages)));
-      }
-    } catch (error) {
-      console.error('Erreur lors du nettoyage des anciennes images:', error);
     }
   }
 }

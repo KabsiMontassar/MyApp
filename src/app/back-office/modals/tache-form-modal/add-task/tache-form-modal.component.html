@@ -1,0 +1,96 @@
+<div class="modern-task-dialog">
+  <div class="dialog-header">
+    <h2 mat-dialog-title class="dialog-title">
+      <mat-icon class="dialog-icon">{{ taskForm.value.idTache ? 'edit' : 'add_task' }}</mat-icon>
+      {{ taskForm.value.idTache ? 'Modifier une tâche' : 'Ajouter une tâche' }}
+    </h2>
+    <div class="header-divider"></div>
+  </div>
+
+  <mat-dialog-content [formGroup]="taskForm" class="dialog-content">
+    <div class="form-grid">
+      <!-- Title Field -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Titre</mat-label>
+        <input matInput formControlName="titre" placeholder="Entrez un titre" />
+        <mat-icon matPrefix>title</mat-icon>
+        <mat-error *ngIf="taskForm.get('titre')?.invalid">
+          <mat-icon>error</mat-icon>
+          Titre requis
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Description Field -->
+      <mat-form-field appearance="outline" class="form-field full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput rows="3" formControlName="description" placeholder="Entrez une description"></textarea>
+        <mat-icon matPrefix>description</mat-icon>
+      </mat-form-field>
+
+      <!-- Date Fields -->
+      <div class="date-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Date de début</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="dateDebut" placeholder="Sélectionnez une date" />
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          <mat-icon matPrefix>event_available</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Date de fin</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="dateFin" placeholder="Sélectionnez une date" />
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <mat-icon matPrefix>event_busy</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="taskForm.hasError('dateOrderInvalid')" class="error-message">
+        <mat-icon>warning</mat-icon>
+        La date de fin doit être postérieure à la date de début
+      </div>
+
+      <!-- Status Field -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Statut</mat-label>
+        <mat-select formControlName="statutTache">
+          <mat-icon matPrefix>flag</mat-icon>
+          <mat-option *ngFor="let statut of ['A_FAIRE', 'EN_ATTENTE', 'EN_COURS', 'TERMINEE', 'ANNULEE', 'RETARDEE']" 
+                      [value]="statut" [ngClass]="'status-' + statut.toLowerCase()">
+            {{ statut | statusDisplay }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Employee Field -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Employé assigné</mat-label>
+        <mat-select formControlName="employee" required>
+          <mat-icon matPrefix>person</mat-icon>
+          <mat-option *ngFor="let emp of employees" [value]="emp">
+            <div class="employee-option">
+              <span class="employee-name">{{ emp.nom }} {{ emp.prenom }}</span>
+              <span class="employee-position" *ngIf="emp.typePoste">{{ emp.typePoste }}</span>
+            </div>
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="taskForm.get('employee')?.hasError('required')">
+          <mat-icon>error</mat-icon>
+          Sélectionnez un employé
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <button mat-stroked-button (click)="onCancel()" class="cancel-btn">
+      <mat-icon>close</mat-icon>
+      Annuler
+    </button>
+    <button mat-flat-button color="primary" (click)="onSave()" [disabled]="!taskForm.valid" class="save-btn">
+      <mat-icon>{{ taskForm.value.idTache ? 'save' : 'add' }}</mat-icon>
+      {{ taskForm.value.idTache ? 'Mettre à jour' : 'Ajouter' }}
+    </button>
+  </mat-dialog-actions>
+</div>
