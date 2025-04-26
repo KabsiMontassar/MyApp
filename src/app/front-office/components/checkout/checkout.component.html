@@ -42,7 +42,7 @@
 
       <div class="d-flex justify-content-between mt-4">
         <button *ngIf="step === 2 || step === 3  " (click)="prevStep()" class="btn btn-outline-primary">Précédent</button>
-        <button *ngIf="step < 4" (click)="nextStep()" class="btn btn-primary ms-auto">Suivant</button>
+        <button *ngIf="step === 2" (click)="nextStep()" class="btn btn-primary ms-auto">Suivant</button>
       </div>
     </div>
   </div>
