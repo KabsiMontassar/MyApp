@@ -1,0 +1,132 @@
+<div class="container mt-4">
+  <!-- Formulaire d'ajout/modification -->
+  <mat-card class="mb-6 p-4 shadow-sm rounded-lg">
+    <h2 class="text-xl font-semibold mb-4">Ajouter ou modifier un employé</h2>
+    <form (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Nom</mat-label>
+        <input matInput placeholder="Nom de l'employé" [(ngModel)]="selectedEmployee.nom" name="nom" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Prénom</mat-label>
+        <input matInput placeholder="Prénom de l'employé" [(ngModel)]="selectedEmployee.prenom" name="prenom" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email de l'employé" [(ngModel)]="selectedEmployee.email" name="email" type="email" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Téléphone</mat-label>
+        <input matInput placeholder="Téléphone de l'employé" [(ngModel)]="selectedEmployee.telephone" name="telephone">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Poste</mat-label>
+        <mat-select [(ngModel)]="selectedEmployee.typePoste" name="typePoste" placeholder="Type de poste">
+          <mat-option *ngFor="let type of typePostes" [value]="type">{{ type }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Salaire</mat-label>
+        <input matInput placeholder="Salaire de l'employé" [(ngModel)]="selectedEmployee.salaire" name="salaire" type="number">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="md:col-span-2">
+        <mat-label>Date d'embauche</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="selectedEmployee.dateEmbauche" name="dateEmbauche" placeholder="jj/mm/aaaa">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <div class="md:col-span-2 text-right">
+        <button mat-flat-button color="primary" type="submit">
+          {{ selectedEmployee.idEmployee ? 'Mettre à jour' : 'Ajouter' }}
+        </button>
+      </div>
+    </form>
+  </mat-card>
+
+  <!-- Liste des employés -->
+  <mat-card class="p-4 shadow-md rounded-lg">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h2 class="text-xl font-semibold">Liste des employés</h2>
+    </div>
+
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+
+        <ng-container matColumnDef="idEmployee">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let element">{{ element.idEmployee }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="avatar">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <img [src]="getAvatarPath(element.nom)" width="32" height="32" class="rounded-full shadow-sm" alt="avatar">
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nom">
+          <th mat-header-cell *matHeaderCellDef>Nom</th>
+          <td mat-cell *matCellDef="let element">{{ element.nom }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="prenom">
+          <th mat-header-cell *matHeaderCellDef>Prénom</th>
+          <td mat-cell *matCellDef="let element">{{ element.prenom }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="telephone">
+          <th mat-header-cell *matHeaderCellDef>Téléphone</th>
+          <td mat-cell *matCellDef="let element">{{ element.telephone }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="typePoste">
+          <th mat-header-cell *matHeaderCellDef>Poste</th>
+          <td mat-cell *matCellDef="let element">{{ element.typePoste }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="salaire">
+          <th mat-header-cell *matHeaderCellDef>Salaire</th>
+          <td mat-cell *matCellDef="let element">{{ element.salaire }} DT</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateEmbauche">
+          <th mat-header-cell *matHeaderCellDef>Embauche</th>
+          <td mat-cell *matCellDef="let element">{{ element.dateEmbauche | date: 'yyyy/MM/dd' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="goToPlanning(element.idEmployee)" matTooltip="Voir planning">
+               <mat-icon>event</mat-icon>
+            </button>
+
+            <button mat-icon-button color="accent" matTooltip="Modifier" (click)="editEmployee(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" matTooltip="Supprimer" (click)="deleteEmployee(element.idEmployee)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <mat-paginator [length]="employees.length" [pageSize]="3"></mat-paginator>
+  </mat-card>
+</div>

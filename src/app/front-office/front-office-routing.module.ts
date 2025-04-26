@@ -4,6 +4,13 @@ import { FrontofficeLayoutComponent } from './layouts/frontoffice-layout.compone
 
 import { CheckoutComponent } from './components/checkout/checkout.component';
 
+//import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { RegisterComponent } from './pages/auth/register/register.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password/forgot-password.component';
+import { AccountComponent } from './pages/account/account.component';
+
 import { HomeComponent } from './pages/home/home.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ShopComponent } from './pages/shop/shop.component';
@@ -29,6 +36,11 @@ const routes: Routes = [
        {path : 'checkout/:id', component : CheckoutComponent},
       {path : 'payment', component : PaymentComponent},
        {path : 'wishlist', component : WishlistComponent},
+       {path: 'signup', component: RegisterComponent},
+       { path:'login', component: LoginComponent},
+       { path:'account', component: AccountComponent},
+       {path: 'reset-password', component: ResetPasswordComponent},
+       {path: 'forgot-password', component: ForgotPasswordComponent},
        {path : 'error', component : ErrorComponentFront}
     ]
   }

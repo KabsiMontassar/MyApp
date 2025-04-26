@@ -1,0 +1,184 @@
+.modern-task-dialog {
+  padding: 24px;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.dialog-header {
+  margin-bottom: 20px;
+  
+  .dialog-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 0;
+  }
+  
+  .dialog-icon {
+    margin-right: 12px;
+    color: #667eea;
+  }
+  
+  .header-divider {
+    height: 2px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    margin-top: 12px;
+    opacity: 0.2;
+  }
+}
+
+.dialog-content {
+  padding: 16px 0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 8px;
+  
+  .mat-icon {
+    color: #64748b;
+    margin-right: 8px;
+  }
+}
+
+.date-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  grid-column: 1 / -1;
+}
+
+.error-message {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin: -8px 0 16px;
+  
+  mat-icon {
+    font-size: 1rem;
+    margin-right: 8px;
+  }
+}
+
+.employee-option {
+  display: flex;
+  flex-direction: column;
+  
+  .employee-name {
+    font-weight: 500;
+  }
+  
+  .employee-position {
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+}
+
+.dialog-actions {
+  margin-top: 24px;
+  padding: 16px 0 0;
+  border-top: 1px solid #e2e8f0;
+  
+  button {
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    mat-icon {
+      font-size: 20px;
+    }
+  }
+  
+  .cancel-btn {
+    border-color: #cbd5e1;
+    color: #4a5568;
+    
+    &:hover {
+      background: #f7fafc;
+    }
+  }
+  
+  .save-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
+    }
+    
+    &:disabled {
+      background: #cbd5e1;
+      box-shadow: none;
+      transform: none;
+    }
+  }
+}
+
+/* Status colors */
+.status-a_faire {
+  color: #4299e1;
+}
+
+.status-en_attente {
+  color: #a0aec0;
+}
+
+.status-en_cours {
+  color: #ed8936;
+}
+
+.status-terminee {
+  color: #48bb78;
+}
+
+.status-annulee {
+  color: #e53e3e;
+}
+
+.status-retardee {
+  color: #f56565;
+}
+
+/* Material overrides */
+.mat-form-field {
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+  
+  .mat-form-field-outline {
+    background-color: #f8fafc;
+    border-radius: 8px;
+  }
+}
+
+.mat-error {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  
+  .mat-icon {
+    font-size: 1rem;
+    margin-right: 4px;
+  }
+}

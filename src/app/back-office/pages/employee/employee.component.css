@@ -1,0 +1,109 @@
+.container {
+  padding: 1.5rem;
+}
+
+mat-card {
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-form-field.mat-form-field {
+  font-size: 0.875rem;
+}
+
+button[mat-flat-button] {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+button[mat-icon-button] {
+  vertical-align: middle;
+  padding: 4px;
+  margin-right: 4px;
+}
+
+
+button[mat-icon-button]:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Table */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+th, td {
+  padding: 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+thead {
+  background-color: #f9fafb;
+}
+
+tr:hover {
+  background-color: #f1f5f9;
+}
+
+
+.mat-header-row {
+  background: #f5f6f8;
+}
+
+.mat-header-cell,
+.mat-cell {
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Avatar */
+img.rounded-full {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mat-row:hover {
+  background-color: #f9fafb;
+  transition: background-color 0.2s ease;
+}
+
+
+/* Titles */
+h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+/* Icon Coloring */
+mat-icon {
+  font-size: 18px;
+}
+body {
+  font-family: 'Inter', sans-serif;
+}
+.mat-column-avatar {
+  border-right: 1px solid #e2e8f0;
+}

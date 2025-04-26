@@ -1,0 +1,102 @@
+<div class="modern-task-detail" *ngIf="task">
+  <div class="detail-header">
+    <h2 class="detail-title">Task Details</h2>
+    <div class="status-badge" [ngClass]="'status-' + task.statutTache">
+      {{ task.statutTache | statusDisplay }}
+    </div>
+  </div>
+
+  <div class="detail-content">
+    <div class="task-meta">
+      <div class="meta-item">
+        <i class="far fa-calendar-start"></i>
+        <div>
+          <span class="meta-label">Start Date</span>
+          <span class="meta-value">{{ task.dateDebut | date: 'mediumDate' }}</span>
+        </div>
+      </div>
+      <div class="meta-item">
+        <i class="far fa-calendar-check"></i>
+        <div>
+          <span class="meta-label">End Date</span>
+          <span class="meta-value">{{ task.dateFin | date: 'mediumDate' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subtasks-container" *ngIf="task.sousTaches && task.sousTaches.length > 0">
+      <h3 class="subtasks-title">
+        <i class="fas fa-tasks"></i>
+        Subtasks ({{ task.sousTaches.length }})
+      </h3>
+      <div class="subtasks-list">
+        <div class="subtask-item" *ngFor="let subTask of task.sousTaches">
+          <mat-checkbox [checked]="subTask.statutTache === 'DONE'"></mat-checkbox>
+          <span class="subtask-title">{{ subTask.titre }}</span>
+          <span class="subtask-status">{{ subTask.statutTache | statusDisplay }}</span>
+        </div>
+      </div>
+    </div>
+
+    <button
+      mat-flat-button
+      color="primary"
+      class="add-subtask-btn"
+      (click)="showSubTaskForm = true"
+      *ngIf="!showSubTaskForm"
+    >
+      <i class="fas fa-plus"></i> Add Subtask
+    </button>
+
+    <div class="subtask-form-container" *ngIf="showSubTaskForm">
+      <h4 class="form-title">New Subtask</h4>
+      
+      <mat-form-field appearance="outline" class="modern-form-field">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          [(ngModel)]="newSubTask.titre"
+          name="titre"
+          required
+          #titreInput="ngModel"
+          placeholder="Enter title"
+        />
+        <mat-icon matPrefix>title</mat-icon>
+        <mat-error *ngIf="titreInput.invalid && titreInput.touched">
+          <i class="fas fa-exclamation-circle"></i> Title is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="modern-form-field">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          [(ngModel)]="newSubTask.description"
+          name="description"
+          rows="3"
+          placeholder="Enter description"
+        ></textarea>
+        <mat-icon matPrefix>notes</mat-icon>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button 
+          mat-stroked-button 
+          (click)="showSubTaskForm = false"
+          class="cancel-btn"
+        >
+          Cancel
+        </button>
+        <button 
+          mat-flat-button 
+          color="primary" 
+          (click)="addSubTask()" 
+          [disabled]="titreInput.invalid"
+          class="submit-btn"
+        >
+          Add Subtask
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
