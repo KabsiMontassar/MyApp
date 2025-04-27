@@ -1,14 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { Product } from 'src/app/Models/Product.Model';
 import { AvisProduit } from 'src/app/Models/AvisProduit.Model';
 import { CommonService } from 'src/app/services/common.service';
 import { ImageStorageService } from 'src/app/services/image-storage.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-shop-details',
   templateUrl: './shop-details.component.html',
-  styleUrls: ['./shop-details.component.css']
+  styleUrls: ['./shop-details.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule
+  ]
 })
 
 export class ShopDetailsComponent {

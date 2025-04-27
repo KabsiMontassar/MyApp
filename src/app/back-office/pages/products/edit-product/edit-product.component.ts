@@ -93,6 +93,10 @@ export class EditProductComponent implements OnInit {
   }
 
   private submitUpdate() {
+    // Assurons-nous que conseilsCulture est bien défini
+    if (!this.product.conseilsCulture) {
+      this.product.conseilsCulture = '';
+    }
     this.commonService.updateProduct(this.product).subscribe({
       next: (response) => {
         console.log('Produit mis à jour avec succès:', response);

@@ -3,8 +3,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
   selector: 'app-frontoffice-layout',
   templateUrl: './frontoffice-layout.component.html',
   styleUrls: ['./frontoffice-layout.component.css'],
-    encapsulation: ViewEncapsulation.None  
-  
+  encapsulation: ViewEncapsulation.None
 })
 export class FrontofficeLayoutComponent  implements OnInit , OnDestroy {
 
