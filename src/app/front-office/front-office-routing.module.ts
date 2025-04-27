@@ -20,7 +20,7 @@ import { WishlistComponent } from './pages/wishlist/wishlist.component';
 
 import {ErrorComponentFront} from './components/error/error.component';
 import { PaymentComponent } from './components/checkout/payment/payment.component';
-
+import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
 
 const routes: Routes = [
   {
@@ -41,6 +41,7 @@ const routes: Routes = [
        { path:'account', component: AccountComponent},
        {path: 'reset-password', component: ResetPasswordComponent},
        {path: 'forgot-password', component: ForgotPasswordComponent},
+       {path: 'my-orders', component: MyOrdersComponent},
        {path : 'error', component : ErrorComponentFront}
     ]
   }

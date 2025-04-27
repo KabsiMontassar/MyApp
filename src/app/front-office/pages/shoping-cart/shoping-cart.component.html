@@ -1,5 +1,4 @@
-
-    <!-- Breadcrumb Section Begin -->
+<!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="../../../assets/front/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
@@ -45,7 +44,9 @@
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
-                                                <input type="text" value={{item.quantity}}>
+                                                <span class="dec qtybtn" (click)="decreaseQuantity(item)">-</span>
+                                                <input type="text" [value]="item.quantity" readonly>
+                                                <span class="inc qtybtn" (click)="increaseQuantity(item)">+</span>
                                             </div>
                                         </div>
                                     </td>

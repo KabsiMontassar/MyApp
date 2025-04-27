@@ -42,6 +42,21 @@ export class ShopingCartComponent implements OnInit {
     this.cartService.clearCart();
   }
 
+  increaseQuantity(item: any) {
+    item.quantity++;
+    this.updateTotalPrice();
+  }
+
+  decreaseQuantity(item: any) {
+    if (item.quantity > 1) {
+      item.quantity--;
+      this.updateTotalPrice();
+    }
+  }
+
+  updateTotalPrice() {
+    this.totalPrice = this.cartItems.reduce((total, item) => total + (item.quantity * item.product.prix), 0);
+  }
 
   submitOrder(): void {
     const orderForm = {

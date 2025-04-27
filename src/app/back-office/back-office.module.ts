@@ -50,6 +50,7 @@ import { TachesComponent } from './pages/taches/taches.component';
 import { TacheFormModalComponent } from './modals/tache-form-modal/add-task/tache-form-modal.component';
 import { EmployeeComponent } from './pages/employee/employee.component';
 import { StatusDisplayPipe } from '../shared/pipes/status-display.pipe';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { StatusDisplayPipe } from '../shared/pipes/status-display.pipe';
     TachesComponent,
     EmployeeComponent,
     StatusDisplayPipe,
+    AdminDashboardComponent
   ],
   imports: [
     CommonModule,
