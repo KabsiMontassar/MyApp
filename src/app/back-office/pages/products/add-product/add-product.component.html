@@ -19,7 +19,6 @@
             <div *ngIf="nom.errors?.['maxlength']">Le nom ne peut pas dépasser 50 caractères.</div>
           </div>
         </div>
-
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
           <input type="text" id="description" [(ngModel)]="newProduct.description" name="description"
@@ -32,9 +31,14 @@
         </div>
         <div class="mb-3">
           <label for="conseilsCultures" class="form-label">conseilsCultures</label>
-<input type="text" id="conseilsCulture" [(ngModel)]="newProduct.conseilsCulture" name="conseilsCulture">
-     
-</div>
+          <input type="text" id="conseilsCultures" [(ngModel)]="newProduct.conseilsCultures" name="description"
+            class="form-control" placeholder="conseilsCultures"
+            #conseilsCultures="ngModel" required minlength="5">
+          <div class="text-danger" *ngIf="conseilsCultures.invalid && conseilsCultures.touched">
+            <div *ngIf="conseilsCultures.errors?.['required']">conseilsCultures est requis.</div>
+            <div *ngIf="conseilsCultures.errors?.['minlength']">Minimum 5 caractères requis.</div>
+          </div>
+        </div>
 
         <div class="row">
           <div class="col-md-6">
@@ -104,16 +108,7 @@
             </div>
           </div>
            <div class="col-md-6">
-            <!-- Image -->
-            <div class="mb-3">
-              <label for="image" class="form-label">
-                <i class="far fa-image me-2"></i>Image
-              </label>
-              <input type="file" id="image" (change)="onFileChange($event)" class="form-control" accept="image/*">
-              <div class="mt-2" *ngIf="previewImageURL">
-                <img [src]="previewImageURL" alt="Preview" style="max-width: 200px; height: auto;">
-              </div>
-            </div>
+         
           </div>
         </div>
 
