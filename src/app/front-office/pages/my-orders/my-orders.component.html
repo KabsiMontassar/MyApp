@@ -1,0 +1,31 @@
+<div class="orders-container">
+    <h2>🛒 My Orders</h2>
+  
+    <div class="filter">
+      <label>Status: </label>
+      <select [(ngModel)]="selectedStatus" (change)="onStatusChange()">
+        <option value="">All</option>
+        <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+      </select>
+    </div>
+  
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Total Amount</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.totalAmount | currency:'USD' }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.createdAt | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

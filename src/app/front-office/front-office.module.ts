@@ -35,6 +35,7 @@ import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
 
 
 
@@ -66,7 +67,8 @@ import { MatIconModule } from '@angular/material/icon';
     ForgotPasswordComponent,
     LoginComponent,
     RegisterComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    MyOrdersComponent
   ],
   imports: [
     CommonModule,
