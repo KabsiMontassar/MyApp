@@ -34,6 +34,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AccountComponent } from './pages/account/account.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { PlantDiseaseDetectionComponent } from './components/plant-disease-detection/plant-disease-detection.component';
+import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -45,7 +46,10 @@ import { PlantDiseaseDetectionComponent } from './components/plant-disease-detec
     AddressStepComponent,
     UserComponent,
     ConfirmationComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    MyOrdersComponent,
+    ShopingCartComponent,
+    MyOrdersComponent
   ],
   imports: [
     CommonModule,

@@ -11,9 +11,8 @@ import { Router } from '@angular/router';
 })
 export class PaymentComponent implements OnInit {
   @Input() orderId!: number;
-  @Output() next = new EventEmitter<void>();
-  @Output() back = new EventEmitter<void>();
   isLoading = false;
+  @Output() next = new EventEmitter<void>();
 
   constructor(
     private paymentService: PaymentService,

@@ -18,7 +18,7 @@ export class MyOrdersComponent implements OnInit {
   }
 
   loadOrders() {
-    let url = '/api/orders/my-orders';
+    let url = 'http://localhost:8081/commande/my-orders';
     if (this.selectedStatus) {
       url += `?status=${this.selectedStatus}`;
     }
