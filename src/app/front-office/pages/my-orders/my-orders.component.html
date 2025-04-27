@@ -1,31 +1,73 @@
-<div class="orders-container">
-    <h2>🛒 My Orders</h2>
-  
-    <div class="filter">
-      <label>Status: </label>
-      <select [(ngModel)]="selectedStatus" (change)="onStatusChange()">
-        <option value="">All</option>
-        <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
-      </select>
-    </div>
-  
-    <table class="orders-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Total Amount</th>
-          <th>Status</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of orders">
-          <td>{{ order.id }}</td>
-          <td>{{ order.totalAmount | currency:'USD' }}</td>
-          <td>{{ order.status }}</td>
-          <td>{{ order.createdAt | date:'short' }}</td>
-        </tr>
-      </tbody>
-    </table>
+<div class="container my-4">
+
+  <!-- Filter -->
+  <div class="mb-4">
+    <label for="statusFilter" class="form-label">Filter by Status:</label>
+    <select id="statusFilter" class="form-select" [(ngModel)]="selectedStatus">
+      <option value="">All Statuses</option>
+      <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+    </select>
   </div>
-  
+
+  <!-- Orders Display -->
+  <div class="row">
+    <div class="col-md-6 col-lg-4 mb-4" *ngFor="let item of filteredOrders()">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Order #{{ item.id }}</h5>
+        
+          <p class="card-text"><strong>Total:</strong> {{ item.totalOrderPrice }} DT</p>
+          <p class="card-text"><strong>Status:</strong> 
+            <span class="badge bg-primary">{{ item.status }}</span>
+          </p>
+          <button class="btn btn-outline-primary btn-sm" (click)="openModal(item)">View Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header bg-primary text-white">
+      <h5 class="modal-title" id="detailsModalLabel">
+        <i class="fa fa-info-circle me-2"></i>Order Details
+      </h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of orderproducts">
+              <td>
+                <div class="d-flex align-items-center">
+                  <img [src]="item.product.imageURL" class="img-thumbnail me-2" style="width: 50px; height: 50px;">
+                  {{ item.product.nom }}
+                </div>
+              </td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.product.prix* item.quantity }} DT</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
