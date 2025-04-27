@@ -30,6 +30,11 @@
             <div *ngIf="description.errors?.['minlength']">Minimum 5 caractères requis.</div>
           </div>
         </div>
+        <div class="mb-3">
+          <label for="conseilsCultures" class="form-label">conseilsCultures</label>
+<input type="text" id="conseilsCulture" [(ngModel)]="newProduct.conseilsCulture" name="conseilsCulture">
+     
+</div>
 
         <div class="row">
           <div class="col-md-6">
@@ -98,7 +103,20 @@
               </div>
             </div>
           </div>
+           <div class="col-md-6">
+            <!-- Image -->
+            <div class="mb-3">
+              <label for="image" class="form-label">
+                <i class="far fa-image me-2"></i>Image
+              </label>
+              <input type="file" id="image" (change)="onFileChange($event)" class="form-control" accept="image/*">
+              <div class="mt-2" *ngIf="previewImageURL">
+                <img [src]="previewImageURL" alt="Preview" style="max-width: 200px; height: auto;">
+              </div>
+            </div>
+          </div>
         </div>
+
 
         <!-- Stock et Catégorie -->
         <div class="form-section-title">Classification</div>
@@ -141,6 +159,7 @@
           </button>
         </div>
       </form>
+    
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 // payment.component.ts
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { PaymentService } from 'src/app/services/payment.service';
 })
 export class PaymentComponent implements OnInit {
   @Input() orderId!: number;
+  @Output() next = new EventEmitter<void>();
+  @Output() back = new EventEmitter<void>();
   isLoading = false;
 
   constructor(private paymentService: PaymentService) {}

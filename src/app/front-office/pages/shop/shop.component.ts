@@ -1,15 +1,29 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { CommonModule, DecimalPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from 'src/app/Models/Product.Model';
 import { CommonService } from 'src/app/services/common.service';
 import { CartService } from 'src/app/services/cart.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { ImageStorageService } from 'src/app/services/image-storage.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.css']
+  styleUrls: ['./shop.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    RouterLink,
+    NgxPaginationModule,
+    NgbModule,
+    DecimalPipe
+  ]
 })
 export class ShopComponent implements OnInit {
   products: Product[] = [];
@@ -21,9 +35,12 @@ export class ShopComponent implements OnInit {
   minPrice: number = 0;
   maxPrice: number = 1000;
   maxPriceLimit: number = 1000;
-  @ViewChild('cartModal') cartModal!: TemplateRef<any>; 
+  @ViewChild('cartModal') cartModal!: TemplateRef<any>;
+  @ViewChild('adviceModal') adviceModal!: TemplateRef<any>; // Reference to the advice modal
   cartCount: number = 0;
-
+  adviceMessage: string = ''; // Variable to store the raw advice message
+  formattedAdviceMessage: string = ''; // Variable to store the formatted advice message
+  adviceProduct: Product = {} as Product; // Variable to store the selected product for the advice modal
 
   constructor(
     private commonService: CommonService, 
@@ -35,7 +52,7 @@ export class ShopComponent implements OnInit {
     this.cartService.numberOfProducts$.subscribe(count => {
       this.cartCount = count;
     });
-   }
+  }
 
   ngOnInit() {
     this.loadProducts();
@@ -45,26 +62,35 @@ export class ShopComponent implements OnInit {
 
   loadProducts() {
     this.commonService.getProducts().subscribe(data => {
-      this.products = data.map(product => {
-        // Mettre à jour le statut en fonction de la quantité
-        if (product.quantiteDisponible > 1) {
-          product.status = 'Disponible';
-        } else if (product.quantiteDisponible === 1) {
-          product.status = 'Dernier produit!';
-        } else {
-          product.status = 'Hors stock';
-        }
-        return product;
-      });
-      this.filteredProducts = [...this.products]; // Initialize filtered products
+      this.products = data;
+      this.filteredProducts = [...this.products];
     });
   }
 
+  openAdviceModal(product: Product) {
+    this.adviceProduct = product; // Store the selected product for advice modal
+    this.adviceMessage = product.conseilsCulture || 'Aucun conseil de culture disponible pour ce produit.'; 
+    this.formattedAdviceMessage = this.formatAdviceText(this.adviceMessage); // Format the advice message
+    
+    // Ouvrir le modal SANS backdrop pour éviter les problèmes d'interface floue
+    const modalRef = this.modalService.open(this.adviceModal, { 
+      centered: true,
+      backdrop: false,    // Pas de backdrop pour éviter de griser l'interface
+      keyboard: true,     // Permet de fermer avec la touche ESC
+      windowClass: 'conseil-culture-modal-window conseil-culture-modal-no-backdrop',
+      size: 'md'          // Taille moyenne pour ne pas prendre tout l'écran
+    });
+    
+    // Ajouter un gestionnaire d'événements pour s'assurer que le modal peut être fermé
+    modalRef.result.catch(() => {
+      // Gestion des erreurs de fermeture si nécessaire
+      console.log('Modal fermé ou rejeté');
+    });
+  }
   showModal = false;
   selectedProduct!: Product;
   selectedQuantity = 1;
   selectedTotal = 0;
-  
   openModal(content: any, product: Product) {
     this.selectedProduct = product;
     this.selectedQuantity = 1;
@@ -79,13 +105,12 @@ export class ShopComponent implements OnInit {
   }
   addToCart(product: Product): void {
     this.cartService.addToCart(product, 1);
-    console.log(product.nom);
     this.openModal(this.cartModal, product);
   }
+
   loadCategories() {
     this.commonService.getCategories().subscribe({
       next: (data) => {
-        console.log('Categories loaded:', data); // Pour déboguer
         this.categories = data;
       },
       error: (error) => {
@@ -93,7 +118,7 @@ export class ShopComponent implements OnInit {
       }
     });
   }
- 
+
   toggleWishlist(productId: number): void {
     if (this.wishlistService.isInWishlist(productId)) {
       this.wishlistService.removeFromWishlist(productId);
@@ -101,7 +126,7 @@ export class ShopComponent implements OnInit {
       this.wishlistService.addToWishlist(productId);
     }
   }
-  
+
   isInWishlist(productId: number): boolean {
     return this.wishlistService.isInWishlist(productId);
   }
@@ -137,4 +162,33 @@ export class ShopComponent implements OnInit {
     );
     this.page = 1; // Reset pagination when filtering
   }
+   // Méthode pour améliorer le formatage du texte des conseils
+   private formatAdviceText(text: string): string {
+    // Si le texte est court, on le retourne tel quel
+    if (text.length < 100) return text;
+    
+    // Sinon, on peut ajouter des formatages, par exemple:
+    // - Ajouter des emojis
+    // - Diviser en paragraphes
+    // - Mettre en évidence certains mots clés
+    
+    let formattedText = text;
+    
+    // Exemples de formatage (à adapter selon vos besoins)
+    const keywords = ['arrosage', 'soleil', 'fertilisation', 'taille'];
+    
+    keywords.forEach(keyword => {
+      if (text.toLowerCase().includes(keyword)) {
+        formattedText = formattedText.replace(
+          new RegExp(`(${keyword})`, 'gi'), 
+          match => `<strong class="text-success">${match}</strong>`
+        );
+      }
+    });
+    
+    return formattedText;
+  }
+  
+  // ... autres méthodes existantes
+
 }
