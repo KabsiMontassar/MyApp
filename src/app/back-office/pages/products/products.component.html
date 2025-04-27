@@ -39,6 +39,8 @@
                   <th>Stock</th>
                   <th>Statut</th>
                   <th>Catégorie</th>
+                  <th>date</th>
+                  <th>AdviceMessage</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -73,6 +75,12 @@
                   </td>
                   <td>
                     <span class="badge bg-info text-dark">{{ product.categorie?.nomCategorie }}</span>
+                  </td>
+                  <td>
+                    <span class="badge bg-secondary">{{ product.dateAjout | date:'dd/MM/yyyy' }}</span>
+                  </td>
+                  <td>
+                    <span class="badge bg-primary">{{ product.conseilsCulture }}</span>
                   </td>
                   <td>
                     <div class="btn-group">

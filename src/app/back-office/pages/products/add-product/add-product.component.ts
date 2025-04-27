@@ -22,6 +22,7 @@ export class AddProductComponent implements OnInit {
     quantiteDisponible: null,
     dateAjout: null,
     imageURL: '',
+    conseilsCulture: '',
     stock: null,      // objet Stock
     categorie: null   // objet Categorie
   };
@@ -76,6 +77,10 @@ export class AddProductComponent implements OnInit {
   }
 
   private submitProduct() {
+    // Assurons-nous que conseilsCulture est bien défini
+    if (!this.newProduct.conseilsCulture) {
+      this.newProduct.conseilsCulture = '';
+    }
     console.log('Produit à ajouter:', this.newProduct);
     this.commonService.addProduct(this.newProduct).subscribe({
       next: (response) => {
