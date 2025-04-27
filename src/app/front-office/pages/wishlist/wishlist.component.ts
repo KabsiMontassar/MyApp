@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { Product } from 'src/app/Models/Product.Model';
@@ -7,7 +9,9 @@ import { ImageStorageService } from 'src/app/services/image-storage.service';
 @Component({
   selector: 'app-wishlist',
   templateUrl: './wishlist.component.html',
-  styleUrls: ['./wishlist.component.css']
+  styleUrls: ['./wishlist.component.css'],
+  standalone: true,
+  imports: [CommonModule, RouterModule]
 })
 export class WishlistComponent implements OnInit {
   products: Product[] = [];

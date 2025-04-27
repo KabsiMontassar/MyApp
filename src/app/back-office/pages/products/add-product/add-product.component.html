@@ -19,7 +19,6 @@
             <div *ngIf="nom.errors?.['maxlength']">Le nom ne peut pas dépasser 50 caractères.</div>
           </div>
         </div>
-
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
           <input type="text" id="description" [(ngModel)]="newProduct.description" name="description"
@@ -28,6 +27,16 @@
           <div class="text-danger" *ngIf="description.invalid && description.touched">
             <div *ngIf="description.errors?.['required']">La description est requise.</div>
             <div *ngIf="description.errors?.['minlength']">Minimum 5 caractères requis.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="conseilsCultures" class="form-label">conseilsCultures</label>
+          <input type="text" id="conseilsCultures" [(ngModel)]="newProduct.conseilsCultures" name="description"
+            class="form-control" placeholder="conseilsCultures"
+            #conseilsCultures="ngModel" required minlength="5">
+          <div class="text-danger" *ngIf="conseilsCultures.invalid && conseilsCultures.touched">
+            <div *ngIf="conseilsCultures.errors?.['required']">conseilsCultures est requis.</div>
+            <div *ngIf="conseilsCultures.errors?.['minlength']">Minimum 5 caractères requis.</div>
           </div>
         </div>
 
@@ -98,7 +107,11 @@
               </div>
             </div>
           </div>
+           <div class="col-md-6">
+         
+          </div>
         </div>
+
 
         <!-- Stock et Catégorie -->
         <div class="form-section-title">Classification</div>
@@ -141,6 +154,7 @@
           </button>
         </div>
       </form>
+    
     </div>
   </div>
 </div>

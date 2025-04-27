@@ -1,18 +1,15 @@
-<div class="confirmation">
-    <h2>Confirmation de la commande</h2>
+<!-- invoice.component.html -->
+<div class="d-flex gap-3 justify-content-center">
+  <button (click)="downloadInvoice()" [disabled]="isLoading" class="btn btn-primary">
+    <span *ngIf="!isLoading">Télécharger la facture</span>
+    <span *ngIf="isLoading">Génération en cours...</span>
+  </button>
   
-    <div *ngIf="orderSummary">
-      <h3>Produits commandés</h3>
-      <ul>
-        <li *ngFor="let item of orderSummary.items">
-          {{ item.name }} - {{ item.quantity }} x {{ item.price }}€
-        </li>
-      </ul>
+  <button (click)="back.emit()" class="btn btn-outline-primary">
+    <i class="fas fa-arrow-left me-2"></i>Précédent
+  </button>
   
-      <p><strong>Total :</strong> {{ orderSummary.total }} €</p>
-      <p><strong>Mode de paiement :</strong> {{ paymentMethod }}</p>
-    </div>
-  
-    <button (click)="printInvoice()">🖨️ Imprimer la facture</button>
-  </div>
-  
+  <button routerLink="/" class="btn btn-secondary">
+    <i class="fas fa-home me-2"></i>Retour à l'accueil
+  </button>
+</div>

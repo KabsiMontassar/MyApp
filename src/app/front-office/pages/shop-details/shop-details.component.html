@@ -6,8 +6,8 @@
                 <div class="breadcrumb__text">
                     <h2>{{ selectedProduct.nom }}</h2>
                     <div class="breadcrumb__option">
-                        <a routerLink="home">Home</a>
-                        <a routerLink="home">Products</a>
+                        <a [routerLink]="['/frontoffice/home']">Home</a>
+                        <a [routerLink]="['/frontoffice/shop']">Products</a>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
       <div class="col-lg-6 col-md-6">
         <div class="product__details__text">
           <h3>{{ selectedProduct.nom }}</h3>
-          <div class="product__details__price">{{ selectedProduct.prix | currency }}</div>
+          <div class="product__details__price">{{ selectedProduct.prix }} DT</div>
           <p>{{ selectedProduct.description }}</p>
           <ul>
             <li>
@@ -70,12 +70,13 @@
                   <div class="tab-pane" id="tabs-3" role="tabpanel">
                       <div class="product__details__tab__desc">
                         <h6>Écrire un avis</h6>
-                        <form (ngSubmit)="addAvis()" #avisForm="ngForm">
+                        <form (ngSubmit)="addAvis()">
                           <div class="form-group">
                             <textarea class="form-control" [(ngModel)]="newAvis.comment" name="comment" rows="4"
                               placeholder="Laissez votre commentaire ici..." required></textarea>
                           </div>
-                          <button type="submit" class="btn btn-primary" style="background-color: darkgreen; border-color: darkgreen;"  [disabled]="avisForm.invalid">Soumettre</button>
+                          <button type="submit" class="btn btn-primary" style="background-color: darkgreen; border-color: darkgreen;"
+                                  [disabled]="!newAvis.comment">Soumettre</button>
                         </form>
                         <hr>
                         <div *ngIf="(selectedProduct?.avis?.length || 0) > 0">
@@ -119,7 +120,7 @@
                     </div>
                     <div class="product__item__text">
                         <h6>{{product.nom}}</h6>
-                        <h5>{{product.prix | currency}}</h5>
+                        <h5>{{product.prix}} DT</h5>
                         <a [routerLink]="['/frontoffice/shop-details', product.idProduit]" class="btn btn-outline-success btn-sm">
                             Voir détails
                         </a>

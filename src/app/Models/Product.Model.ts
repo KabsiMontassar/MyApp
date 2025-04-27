@@ -7,6 +7,7 @@ export class Product {
   dateAjout?: string;
   imageURL: string = '';
   status: string = '';
+  conseilsCulture: string = '';
   idStock?: number;
   idCategorie?: number;
   stock?: any;

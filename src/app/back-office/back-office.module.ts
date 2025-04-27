@@ -51,6 +51,7 @@ import { TacheFormModalComponent } from './modals/tache-form-modal/add-task/tach
 import { EmployeeComponent } from './pages/employee/employee.component';
 import { StatusDisplayPipe } from '../shared/pipes/status-display.pipe';
 
+
 @NgModule({
   declarations: [
     BackofficeLayoutComponent,

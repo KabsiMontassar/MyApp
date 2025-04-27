@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CartService, CartItem } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
@@ -15,8 +16,9 @@ export class ShopingCartComponent implements OnInit {
   constructor(
     private cartService: CartService, 
     private orderService: OrderService, 
-    // private toastr: ToastrService
-    
+    private toastr: ToastrService,
+    private router: Router
+
   ) { }
 
   ngOnInit(): void {
@@ -42,24 +44,25 @@ export class ShopingCartComponent implements OnInit {
 
 
   submitOrder(): void {
-
     const orderForm = {
       productOrders: this.cartItems.map(item => ({
         product: { idProduit: item.product.idProduit! },
         quantity: item.quantity
       }))
     };
-
+  
     this.orderService.createOrder(orderForm).subscribe({
       next: (response) => {
-        console.log('Order submitted successfully', response);
-        // this.toastr.success('Order submitted successfully','Succès');
+        const orderId = response?.id; // adjust this depending on your backend response
+        this.toastr.success('Order submitted successfully', 'Succès');
         this.cartService.clearCart();
+        this.router.navigate(['/frontoffice/checkout', orderId]); // Redirect with order ID
       },
       error: (error) => {
-        console.error('Error submitting order', error);
         const errorMessage = error?.error?.message || 'Une erreur est survenue lors de la commande.';
-        // this.toastr.error(errorMessage, 'Erreur');
+        this.toastr.error(errorMessage, 'Erreur');
       }
-    });}
+    });
+  }
+  
 }

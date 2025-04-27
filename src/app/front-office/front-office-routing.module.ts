@@ -19,7 +19,7 @@ import { ShopingCartComponent } from './pages/shoping-cart/shoping-cart.componen
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 
 import {ErrorComponentFront} from './components/error/error.component';
-import { PaymentComponent } from './components/payment-form/payment.component';
+import { PaymentComponent } from './components/checkout/payment/payment.component';
 
 
 const routes: Routes = [
@@ -33,7 +33,7 @@ const routes: Routes = [
        {path : 'shop', component : ShopComponent},
        {path : 'shop-details/:id', component : ShopDetailsComponent},
        {path : 'shoping-cart', component : ShopingCartComponent},
-       {path : 'checkout', component : CheckoutComponent},
+       {path : 'checkout/:id', component : CheckoutComponent},
       {path : 'payment', component : PaymentComponent},
        {path : 'wishlist', component : WishlistComponent},
        {path: 'signup', component: RegisterComponent},
