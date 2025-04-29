@@ -3,46 +3,38 @@
     <div class="card-body">
       <div class="steps-indicator mb-4">
         <div class="row text-center">
-          <div class="col-3">
+          <div class="col-4">
             <button class="btn btn-link p-0" [class.active]="step === 1">
-              <span class="badge rounded-circle" [class.bg-primary]="step === 1">1</span>
-              <div class="mt-2">Adresse</div>
+              <span class="badge rounded-circle" [class.bg-success]="step === 1">1</span>
+              <div class="mt-2 text-success">Adresse</div>
             </button>
           </div>
-          <div class="col-3">
+          <div class="col-4">
             <button class="btn btn-link p-0" [class.active]="step === 2">
-              <span class="badge rounded-circle" [class.bg-primary]="step === 2">2</span>
-              <div class="mt-2">Informations</div>
+              <span class="badge rounded-circle" [class.bg-success]="step === 2">2</span>
+              <div class="mt-2 text-success">Paiement</div>
             </button>
           </div>
-          <div class="col-3">
+          <div class="col-4">
             <button class="btn btn-link p-0" [class.active]="step === 3">
-              <span class="badge rounded-circle" [class.bg-primary]="step === 3">3</span>
-              <div class="mt-2">Paiement</div>
-            </button>
-          </div>
-          <div class="col-3">
-            <button class="btn btn-link p-0" [class.active]="step === 4">
-              <span class="badge rounded-circle" [class.bg-primary]="step === 4">4</span>
-              <div class="mt-2">Confirmation</div>
+              <span class="badge rounded-circle" [class.bg-success]="step === 3">3</span>
+              <div class="mt-2 text-success">Confirmation</div>
             </button>
           </div>
         </div>
         <div class="progress mt-3" style="height: 2px;">
-          <div class="progress-bar" [style.width]="(step * 25) + '%'"></div>
+          <div class="progress-bar bg-success" [style.width]="(step * 33.33) + '%'"></div>
         </div>
       </div>
 
       <div class="step-content p-3">
         <app-address-step *ngIf="step === 1" [orderId]="orderId"  (next)="nextStep(); "></app-address-step>
-        <app-user *ngIf="step === 2" [orderId]="orderId" (next)="nextStep()" (back)="prevStep()"></app-user>
-        <app-payment *ngIf="step === 3" [orderId]="orderId" (next)="nextStep()" (back)="prevStep()"></app-payment>
-        <app-confirmation *ngIf="step === 4" [orderId]="orderId"  (back)="prevStep()"></app-confirmation>
+        <app-payment *ngIf="step === 2" [orderId]="orderId" (next)="nextStep()" (back)="prevStep()"></app-payment>
+        <app-confirmation *ngIf="step === 3" [orderId]="orderId"  (back)="prevStep()"></app-confirmation>
       </div>
 
       <div class="d-flex justify-content-between mt-4">
-        <button *ngIf="step === 2 || step === 3  " (click)="prevStep()" class="btn btn-outline-primary">Précédent</button>
-        <button *ngIf="step === 2" (click)="nextStep()" class="btn btn-primary ms-auto">Suivant</button>
+        <button *ngIf="step === 2" (click)="prevStep()" class="btn btn-outline-success">Précédent</button>
       </div>
     </div>
   </div>

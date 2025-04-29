@@ -1,1 +1,75 @@
-<div id="map" style="height: 500px;"></div>
+<div class="container-fluid py-4 bg-light">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title text-primary mb-4">Order Tracking</h5>
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-success rounded-circle p-2 me-3">
+                            <i class="fas fa-truck text-white"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-1">Your order is on the way</h6>
+                            <small class="text-muted">Estimated delivery: 25 mins</small>
+                        </div>
+                    </div>
+                    <div class="progress mb-4" style="height: 4px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 75%"></div>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item active">
+                            <span class="timeline-point"></span>
+                            <p class="mb-1">Order picked up</p>
+                            <small class="text-muted">10:30 AM</small>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-point"></span>
+                            <p class="mb-1">On the way</p>
+                            <small class="text-muted">Current status</small>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-point"></span>
+                            <p class="mb-1">Delivery</p>
+                            <small class="text-muted">Expected 11:00 AM</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-0">
+                    <div id="map" class="rounded" style="height: 600px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+.timeline-item {
+    position: relative;
+    padding-bottom: 20px;
+    border-left: 2px solid #e9ecef;
+    padding-left: 20px;
+}
+.timeline-item.active {
+    border-left: 2px solid #198754;
+}
+.timeline-point {
+    width: 12px;
+    height: 12px;
+    background: #e9ecef;
+    border-radius: 50%;
+    position: absolute;
+    left: -7px;
+    top: 5px;
+}
+.timeline-item.active .timeline-point {
+    background: #198754;
+}
+</style>

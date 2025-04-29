@@ -17,6 +17,10 @@ export class AddressStepComponent {
   description: string = '';
   lat!: number;
   lng!: number;
+  map!: L.Map;
+  marker!: L.Marker;
+  livraisonExistante?: Livraison;
+  editMode = false;
 
   constructor(
     private livraisonService: LivraisonService,
@@ -24,27 +28,46 @@ export class AddressStepComponent {
   ) {}
 
   ngOnInit(): void {
-    const map = L.map('map').setView([36.8065, 10.1815], 13); // Tunis par défaut
+    this.initMap();
 
+    this.livraisonService.getLivraisonByCommandeId(this.orderId).subscribe({
+      next: (livraison) => {
+        this.livraisonExistante = livraison;
+        this.address = livraison.adresse;
+        this.description = livraison.description;
+        this.lat = livraison.latitude;
+        this.lng = livraison.longitude;
+        this.setMarker(this.lat, this.lng);
+        this.map.setView([this.lat, this.lng], 13);
+      },
+      error: () => {
+        // Aucune livraison existante : on laisse la carte au point par défaut
+      }
+    });
+  }
+
+  initMap(): void {
+    this.map = L.map('map').setView([36.8065, 10.1815], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+    }).addTo(this.map);
 
-    let marker: L.Marker;
-
-    map.on('click', (e: L.LeafletMouseEvent) => {
+    this.map.on('click', (e: L.LeafletMouseEvent) => {
+      if (!this.editMode && this.livraisonExistante) return;
       const { lat, lng } = e.latlng;
       this.lat = lat;
       this.lng = lng;
-
-      if (marker) {
-        marker.setLatLng([lat, lng]);
-      } else {
-        marker = L.marker([lat, lng]).addTo(map);
-      }
-
+      this.setMarker(lat, lng);
       this.reverseGeocode(lat, lng);
     });
+  }
+
+  setMarker(lat: number, lng: number): void {
+    if (this.marker) {
+      this.marker.setLatLng([lat, lng]);
+    } else {
+      this.marker = L.marker([lat, lng]).addTo(this.map);
+    }
   }
 
   reverseGeocode(lat: number, lng: number): void {
@@ -55,7 +78,12 @@ export class AddressStepComponent {
       });
   }
 
-  goToNext() {
+  enableEditMode(): void {
+    this.editMode = true;
+    this.toastr.info("Vous pouvez maintenant sélectionner une nouvelle adresse", "Modification activée");
+  }
+
+  goToNext(): void {
     const livraison: Livraison = {
       adresse: this.address,
       description: this.description,
@@ -64,16 +92,28 @@ export class AddressStepComponent {
       commandeId: this.orderId
     };
 
-    this.livraisonService.createLivraison(livraison).subscribe({
-      next: (res) => {
-        this.toastr.success('Adresse de livraison enregistrée avec succès', 'Succès');
-        console.log('Livraison enregistrée avec succès :', res);
-        this.next.emit();
-      },
-      error: (err) => {
-        this.toastr.error('Erreur lors de l\'enregistrement de l\'adresse', 'Erreur');
-        console.error('Erreur lors de l\'enregistrement de la livraison :', err);
-      }
-    });
+    if (this.livraisonExistante && this.editMode) {
+     if (this.livraisonExistante?.idPanier !== undefined) {
+  this.livraisonService.updateLivraison(this.livraisonExistante.idPanier, livraison).subscribe({
+    next: () => {
+      this.toastr.success('Adresse mise à jour avec succès');
+      this.next.emit();
+    },
+    error: () => this.toastr.error('Erreur lors de la mise à jour')
+  });
+} else {
+  this.toastr.error("ID de livraison introuvable");
+};
+    } else if (!this.livraisonExistante) {
+      this.livraisonService.createLivraison(livraison).subscribe({
+        next: () => {
+          this.toastr.success('Adresse enregistrée avec succès');
+          this.next.emit();
+        },
+        error: () => this.toastr.error('Erreur lors de l’enregistrement')
+      });
+    } else {
+      this.next.emit(); // Pas de modification
+    }
   }
 }

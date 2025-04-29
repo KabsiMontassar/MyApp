@@ -8,6 +8,8 @@ import { BehaviorSubject, forkJoin } from 'rxjs';
 import { componentServcie } from './component.service';
 import { SponsorsComponent } from './plateformeComps/others/sponsors/sponsors.component';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+//import { PlantDiseaseDetectionComponent } from '../../components/plant-disease-detection/plant-disease-detection.component';
 
 @Component({
   selector: 'app-home',

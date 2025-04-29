@@ -35,7 +35,7 @@
                             <tbody>
                                 <tr *ngFor="let item of cartItems">
                                     <td class="shoping__cart__item">
-                                        <img src={{item.product.imageURL}} alt="">
+                                        <img src={{item.product.imageURL}} alt="" style="width: 80px; height: 80px; object-fit: cover;">
                                         <h5>{{ item.product.nom }}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
