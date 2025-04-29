@@ -34,6 +34,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AccountComponent } from './pages/account/account.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { PlantDiseaseDetectionComponent } from './components/plant-disease-detection/plant-disease-detection.component';
+import { AgriculturalMapComponent } from './pages/agricultural-map/agricultural-map.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

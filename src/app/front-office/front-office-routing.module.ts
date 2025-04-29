@@ -10,6 +10,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password/forgot-password.component';
 import { AccountComponent } from './pages/account/account.component';
+import { AgriculturalMapComponent } from './pages/agricultural-map/agricultural-map.component';
 
 import { HomeComponent } from './pages/home/home.component';
 import { ContactComponent } from './pages/contact/contact.component';
@@ -41,6 +42,7 @@ const routes: Routes = [
        { path:'account', component: AccountComponent},
        {path: 'reset-password', component: ResetPasswordComponent},
        {path: 'forgot-password', component: ForgotPasswordComponent},
+       {path: 'agricultural-map', component: AgriculturalMapComponent},
        {path : 'error', component : ErrorComponentFront}
     ]
   }
