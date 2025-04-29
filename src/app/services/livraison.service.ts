@@ -14,4 +14,13 @@ export class LivraisonService {
   createLivraison(livraison: Livraison): Observable<Livraison> {
     return this.http.post<Livraison>(this.apiUrl, livraison);
   }
+
+  getLivraisonByCommandeId(orderId: number): Observable<Livraison> {
+    return this.http.get<Livraison>(`${this.apiUrl}/commande/${orderId}`);
+  }
+  
+  updateLivraison(id: number, livraison: Livraison): Observable<Livraison> {
+    return this.http.put<Livraison>(`${this.apiUrl}/update/${id}`, livraison);
+  }
+  
 }
