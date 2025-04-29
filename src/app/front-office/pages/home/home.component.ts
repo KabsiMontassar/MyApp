@@ -57,39 +57,81 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.platformService.getRandomPlateforme().subscribe({
-      next: (data) => {
-        this.platform = data;
-        console.log('Platform data:', this.platform);
-        this.sponsors = data.plateformeSponsors;
-        this.color.next(this.platform.couleur);
-        if (this.platform.content) {
-          const content = JSON.parse(this.platform.content);
-          this.selectedElements = Object.values(content)
-            .map((element: any) => element.type.type)
-            .filter(type => ComponentRegistry[type]);
+    this.route.params.subscribe(params => {
+      const platformName = params['platformName'];
+      
+      if (platformName) {
+        // Load specific platform by name
+        this.platformService.getPlateformeByName(platformName).subscribe({
+          next: (data) => {
+            this.platform = data;
+            console.log('Platform data:', this.platform);
+            this.sponsors = data.plateformeSponsors;
+            this.color.next(this.platform.couleur);
+            if (this.platform.content) {
+              const content = JSON.parse(this.platform.content);
+              this.selectedElements = Object.values(content)
+                .map((element: any) => element.type.type)
+                .filter(type => ComponentRegistry[type]);
 
-          const componentRequests = Object.values(content).map((element: any) =>
-            this.componentService.getComponent(element.type.id)
-          );
+              const componentRequests = Object.values(content).map((element: any) =>
+                this.componentService.getComponent(element.type.id)
+              );
 
-          forkJoin(componentRequests).subscribe({
-            next: (components) => {
-              components.forEach(component => {
-                const type = component.type;
-                settings[type as keyof typeof settings] = JSON.parse(component.content);
+              forkJoin(componentRequests).subscribe({
+                next: (components) => {
+                  components.forEach(component => {
+                    const type = component.type;
+                    settings[type as keyof typeof settings] = JSON.parse(component.content);
+                  });
+
+                  this.loadSelectedComponents();
+                },
+                error: (error) => {
+                  console.error('Error loading components:', error);
+                }
               });
-
-              this.loadSelectedComponents();
-            },
-            error: (error) => {
-              console.error('Error loading components:', error);
             }
-          });
-        }
-      },
-      error: (error) => {
-        console.error('Error loading platform:', error);
+          },
+          error: (err) => console.error('Error loading platform:', err)
+        });
+      } else {
+        // Load random platform as fallback
+        this.platformService.getRandomPlateforme().subscribe({
+          next: (data) => {
+            this.platform = data;
+            console.log('Platform data:', this.platform);
+            this.sponsors = data.plateformeSponsors;
+            this.color.next(this.platform.couleur);
+            if (this.platform.content) {
+              const content = JSON.parse(this.platform.content);
+              this.selectedElements = Object.values(content)
+                .map((element: any) => element.type.type)
+                .filter(type => ComponentRegistry[type]);
+
+              const componentRequests = Object.values(content).map((element: any) =>
+                this.componentService.getComponent(element.type.id)
+              );
+
+              forkJoin(componentRequests).subscribe({
+                next: (components) => {
+                  components.forEach(component => {
+                    const type = component.type;
+                    settings[type as keyof typeof settings] = JSON.parse(component.content);
+                  });
+
+                  this.loadSelectedComponents();
+                },
+                error: (error) => {
+                  console.error('Error loading components:', error);
+                }
+              });
+            }
+          },
+          error: (error) => {
+            console.error('Error loading platform:', error);
+          }
+        });
       }
     });
   }

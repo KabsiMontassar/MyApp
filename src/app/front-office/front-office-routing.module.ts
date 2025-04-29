@@ -23,29 +23,51 @@ import { PaymentComponent } from './components/checkout/payment/payment.componen
 import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
 import { LivreurLocationComponent } from './components/livreur-location/livreur-location.component';
 import { LivreurTrackingComponent } from './components/livreur-tracking/livreur-tracking.component';  
+
 const routes: Routes = [
   {
     path: '',
     component: FrontofficeLayoutComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-       {path : 'home', component : HomeComponent},
-       {path : 'contact', component : ContactComponent},
-       {path : 'shop', component : ShopComponent},
-       {path : 'shop-details/:id', component : ShopDetailsComponent},
-       {path : 'shoping-cart', component : ShopingCartComponent},
-       {path : 'checkout/:id', component : CheckoutComponent},
-      {path : 'payment', component : PaymentComponent},
-       {path : 'wishlist', component : WishlistComponent},
-       {path: 'signup', component: RegisterComponent},
-       { path:'login', component: LoginComponent},
-       { path:'account', component: AccountComponent},
-       {path: 'reset-password', component: ResetPasswordComponent},
-       {path: 'forgot-password', component: ForgotPasswordComponent},
-       {path: 'my-orders', component: MyOrdersComponent},
-       {path: 'livreur-location', component: LivreurLocationComponent},
-       {path: 'livreur-tracking', component: LivreurTrackingComponent},
-       {path : 'error', component : ErrorComponentFront}
+      // Direct routes without platform name
+      { path: 'home', component: HomeComponent },
+      { path: 'contact', component: ContactComponent },
+      { path: 'shop', component: ShopComponent },
+      { path: 'shop-details/:id', component: ShopDetailsComponent },
+      { path: 'shoping-cart', component: ShopingCartComponent },
+      { path: 'checkout/:id', component: CheckoutComponent },
+      { path: 'payment', component: PaymentComponent },
+      { path: 'wishlist', component: WishlistComponent },
+      { path: 'signup', component: RegisterComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'account', component: AccountComponent },
+      { path: 'reset-password', component: ResetPasswordComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'my-orders', component: MyOrdersComponent },
+      { path: 'livreur-location', component: LivreurLocationComponent },
+      { path: 'livreur-tracking', component: LivreurTrackingComponent },
+      { path: 'error', component: ErrorComponentFront },
+      
+      // Platform-specific routes
+      { path: ':platformName', redirectTo: ':platformName/home', pathMatch: 'full' },
+      { path: ':platformName/home', component: HomeComponent },
+      { path: ':platformName/contact', component: ContactComponent },
+      { path: ':platformName/shop', component: ShopComponent },
+      { path: ':platformName/shop-details/:id', component: ShopDetailsComponent },
+      { path: ':platformName/shoping-cart', component: ShopingCartComponent },
+      { path: ':platformName/checkout/:id', component: CheckoutComponent },
+      { path: ':platformName/payment', component: PaymentComponent },
+      { path: ':platformName/wishlist', component: WishlistComponent },
+      { path: ':platformName/signup', component: RegisterComponent },
+      { path: ':platformName/login', component: LoginComponent },
+      { path: ':platformName/account', component: AccountComponent },
+      { path: ':platformName/reset-password', component: ResetPasswordComponent },
+      { path: ':platformName/forgot-password', component: ForgotPasswordComponent },
+      { path: ':platformName/my-orders', component: MyOrdersComponent },
+      { path: ':platformName/livreur-location', component: LivreurLocationComponent },
+      { path: ':platformName/livreur-tracking', component: LivreurTrackingComponent },
+      { path: ':platformName/error', component: ErrorComponentFront }
     ]
   }
 ];
