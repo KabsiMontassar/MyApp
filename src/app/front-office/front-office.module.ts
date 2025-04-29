@@ -1,6 +1,6 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import {  CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FrontOfficeRoutingModule } from './front-office-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -37,9 +37,21 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
 import { LivreurTrackingComponent } from './components/livreur-tracking/livreur-tracking.component';
 import { LivreurLocationComponent } from './components/livreur-location/livreur-location.component';
+import { CenteredheroComponent } from './pages/home/plateformeComps/heros/centeredhero/centeredhero.component';
+import { VerticallycenteredheroComponent } from './pages/home/plateformeComps/heros/verticallycenteredhero/verticallycenteredhero.component';
+import { HerowithimageComponent } from './pages/home/plateformeComps/heros/herowithimage/herowithimage.component';
+import { HeaderwithiconsComponent } from './pages/home/plateformeComps/heros/headerwithicons/headerwithicons.component';
+import { CustomcardsComponent } from './pages/home/plateformeComps/features/customcards/customcards.component';
+import { ColumnswithiconsComponent } from './pages/home/plateformeComps/features/columnswithicons/columnswithicons.component';
+import { HeadingsComponent } from './pages/home/plateformeComps/others/headings/headings.component';
+import { HeadingleftwithimageComponent } from './pages/home/plateformeComps/others/headingleftwithimage/headingleftwithimage.component';
+import { HeadingrightwithimageComponent } from './pages/home/plateformeComps/others/headingrightwithimage/headingrightwithimage.component';
+import { NewsletterComponent } from './pages/home/plateformeComps/others/newsletter/newsletter.component';
+import { SponsorsComponent } from './pages/home/plateformeComps/others/sponsors/sponsors.component';
+import { plateformeaboutComponent } from './pages/home/plateformeComps/others/about/about.component';
 
 @NgModule({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
     FrontofficeLayoutComponent,
     FrontNavComponent,
@@ -53,7 +65,8 @@ import { LivreurLocationComponent } from './components/livreur-location/livreur-
     ShopingCartComponent,
     MyOrdersComponent,
     LivreurTrackingComponent,
-    LivreurLocationComponent
+    LivreurLocationComponent,
+ 
   ],
   imports: [
     CommonModule,
@@ -70,6 +83,18 @@ import { LivreurLocationComponent } from './components/livreur-location/livreur-
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    CenteredheroComponent,
+    VerticallycenteredheroComponent,
+    HerowithimageComponent,
+    HeaderwithiconsComponent,
+    CustomcardsComponent,
+    ColumnswithiconsComponent,
+    HeadingsComponent,
+    HeadingleftwithimageComponent,
+    HeadingrightwithimageComponent,
+    NewsletterComponent,
+    SponsorsComponent,
+    plateformeaboutComponent,
   ],
 })
-export class FrontOfficeModule {}
+export class FrontOfficeModule { }
