@@ -116,4 +116,29 @@ export class AddressStepComponent {
       this.next.emit(); // Pas de modification
     }
   }
+
+  getCurrentPosition(): void {
+    if (!navigator.geolocation) {
+      this.toastr.error('La géolocalisation n\'est pas supportée par votre navigateur');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        
+        this.lat = lat;
+        this.lng = lng;
+        this.setMarker(lat, lng);
+        this.map.setView([lat, lng], 13);
+        this.reverseGeocode(lat, lng);
+        this.toastr.success('Position actuelle détectée');
+      },
+      (error) => {
+        this.toastr.error('Impossible d\'obtenir votre position');
+        console.error(error);
+      }
+    );
+  }
 }

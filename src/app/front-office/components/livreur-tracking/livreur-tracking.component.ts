@@ -39,7 +39,35 @@ export class LivreurTrackingComponent implements OnInit {
       if (position) {
         this.marker.setLatLng([position.latitude, position.longitude]);
         this.map.panTo([position.latitude, position.longitude]);
+    
+        const eta = this.calculateETA(position);
+        const etaElement = document.querySelector('.text-muted');
+        if (etaElement) etaElement.textContent = `Estimated delivery: ${eta}`;
       }
     });
+    
   }
+  destination = {
+    latitude: 36.81897,
+    longitude: 10.16579
+  };
+  calculateETA(current: { latitude: number, longitude: number }): string {
+    const R = 6371; // Radius of Earth in km
+    const dLat = (this.destination.latitude - current.latitude) * Math.PI / 180;
+    const dLon = (this.destination.longitude - current.longitude) * Math.PI / 180;
+  
+    const lat1 = current.latitude * Math.PI / 180;
+    const lat2 = this.destination.latitude * Math.PI / 180;
+  
+    const a = Math.sin(dLat/2)**2 + Math.sin(dLon/2)**2 * Math.cos(lat1) * Math.cos(lat2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const distanceKm = R * c;
+  
+    const speedKmPerHour = 40; // average delivery scooter speed
+    const estimatedMinutes = (distanceKm / speedKmPerHour) * 60;
+  
+    return `${Math.max(5, Math.round(estimatedMinutes))} mins`; // min 5 mins
+  }
+  
+
 }

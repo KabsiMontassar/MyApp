@@ -6,8 +6,12 @@
     <input type="text" id="address" [(ngModel)]="address" readonly>
   </div>
 
-  <button *ngIf="livraisonExistante && !editMode" class="btn btn-warning mb-2" (click)="enableEditMode()">
+  <button *ngIf="livraisonExistante && !editMode" class="btn btn-warning mb-2 me-2" (click)="enableEditMode()">
     Changer l'adresse
+  </button>
+
+  <button class="btn btn-info" (click)="getCurrentPosition()" [disabled]="!editMode && livraisonExistante">
+    <i class="fas fa-location-arrow"></i> Use current location
   </button>
 
   <div id="map" style="height: 300px; margin-top: 10px;"></div>

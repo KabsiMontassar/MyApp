@@ -13,21 +13,10 @@
         <span class="product-badge">{{ productName }}</span> est cultivé dans cette région
       </div>
       
-      <p class="zone-description">{{ selectedZone?.description }}</p>
       
       <!-- Autres produits de la région -->
       <div>
-        <h4>Produits de cette région:</h4>
-        <div class="products-container">
-          <div class="product-card" *ngFor="let product of selectedZone?.products">
-            <div class="product-header">
-              <h5>{{ product.name }}</h5>
-              <span class="highlight-badge" *ngIf="productName && product.name.toLowerCase().includes(productName.toLowerCase())">★</span>
-            </div>
-            <p *ngIf="product.season" class="season">Saison: {{ product.season }}</p>
-            <p>{{ product.description }}</p>
-          </div>
-        </div>
+       
       </div>
     </div>
   </div>
