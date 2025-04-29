@@ -22,4 +22,10 @@ export class PlateformeService {
     return this.http.get<any>(`${this.apiUrl}/random`);
   }
 
+  // get platform by name 
+
+  getPlateformeByName(name: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/name/${name}`);
+  }
+
 }
