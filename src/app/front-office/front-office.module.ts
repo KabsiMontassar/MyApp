@@ -33,7 +33,7 @@ import { ConfirmationComponent } from './components/checkout/confirmation/confir
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AccountComponent } from './pages/account/account.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
-import { PlantDiseaseDetectionComponent } from './components/plant-disease-detection/plant-disease-detection.component';
+//import { PlantDiseaseDetectionComponent } from './components/plant-disease-detection/plant-disease-detection.component';
 import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
 import { LivreurTrackingComponent } from './components/livreur-tracking/livreur-tracking.component';
 import { LivreurLocationComponent } from './components/livreur-location/livreur-location.component';

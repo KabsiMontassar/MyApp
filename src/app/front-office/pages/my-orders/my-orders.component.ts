@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { OrderService } from 'src/app/services/order.service';
 import { Order, OrderProduct } from 'src/app/Models/Order.Model';
+import { Router } from '@angular/router';
 declare var bootstrap: any;
 
 @Component({
@@ -16,8 +17,11 @@ export class MyOrdersComponent implements OnInit {
   orders: Order[] = [];
   orderproducts!: OrderProduct[];
   private modal: any;
+  
 
-  constructor(private http: HttpClient, private orderService: OrderService) {}
+  constructor(private http: HttpClient, private orderService: OrderService,private router: Router) {
+   ;
+  }
 
   ngOnInit(): void {
     this.loadOrders();
@@ -50,5 +54,12 @@ export class MyOrdersComponent implements OnInit {
       return this.orders;
     }
     return this.orders.filter(order => order.status === this.selectedStatus);
+  }
+
+  goToCheckout(order: Order): void {
+    this.router.navigate(['/frontoffice/checkout',order.id]);
+  }
+  tracer(order: Order): void {
+    this.router.navigate(['/frontoffice/livreur-tracking']);
   }
 }

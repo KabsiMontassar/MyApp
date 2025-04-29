@@ -164,8 +164,7 @@ export class ShopComponent implements OnInit {
     }
     
     // Clear caches to avoid stale images
-    localStorage.clear();
-    sessionStorage.clear();
+   
     // @ts-ignore
     if (window.appImageCache) {
       // @ts-ignore
