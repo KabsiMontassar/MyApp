@@ -9,12 +9,15 @@ import { componentServcie } from './component.service';
 import { SponsorsComponent } from './plateformeComps/others/sponsors/sponsors.component';
 import { CommonModule } from '@angular/common';
 
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    SponsorsComponent
+  ]
 })
 export class HomeComponent implements OnInit {
   @ViewChild('dynamicContainer', { read: ViewContainerRef, static: true }) dynamicContainer!: ViewContainerRef;
@@ -31,8 +34,6 @@ export class HomeComponent implements OnInit {
     private platformService: PlateformeService,
     private componentService: componentServcie,
   ) {
-
-
     this.color.subscribe(value => {
       this.colorValue = value;
     });
@@ -49,19 +50,13 @@ export class HomeComponent implements OnInit {
           {
             ...settings[elementKey as keyof typeof settings],
             color: this.color.value,
-
           }
         );
       }
     });
   }
 
-
-
-
   ngOnInit() {
-
-
     this.platformService.getRandomPlateforme().subscribe({
       next: (data) => {
         this.platform = data;
