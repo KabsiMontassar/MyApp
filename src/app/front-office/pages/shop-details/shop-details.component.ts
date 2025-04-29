@@ -6,6 +6,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { ImageStorageService } from 'src/app/services/image-storage.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AgriculturalMapComponent } from '../agricultural-map/agricultural-map.component';
 
 @Component({
   selector: 'app-shop-details',
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    AgriculturalMapComponent
   ]
 })
 
@@ -44,9 +46,12 @@ export class ShopDetailsComponent {
   }
 
   getProductById(id: number): void {
+    console.log(`Chargement du produit ${id} dans shop-details...`);
     this.commonService.getProductById(id).subscribe(
       (data: Product) => {
         this.selectedProduct = data;
+        console.log(`Produit récupéré:`, this.selectedProduct);
+        
         // Mettre à jour le statut
         if (this.selectedProduct.quantiteDisponible > 1) {
           this.selectedProduct.status = 'Disponible';
@@ -55,6 +60,10 @@ export class ShopDetailsComponent {
         } else {
           this.selectedProduct.status = 'Hors stock';
         }
+        
+        // Précharger l'image du produit principal
+        this.preloadProductImage(this.selectedProduct);
+        
         // Charger les produits similaires
         this.loadSimilarProducts(this.selectedProduct);
       },
@@ -62,6 +71,28 @@ export class ShopDetailsComponent {
         console.error('Erreur lors de la récupération du produit', error);
       }
     );
+  }
+  
+  // Précharger l'image d'un produit
+  private preloadProductImage(product: Product): void {
+    if (product.imageURL) {
+      console.log(`Préchargement de l'image pour ${product.nom}`);
+      const imageUrl = this.getImageUrl(product.imageURL);
+      
+      // Forcer le chargement de l'image en mémoire
+      if (imageUrl && imageUrl.startsWith('data:')) {
+        const img = new Image();
+        img.src = imageUrl;
+        img.onload = () => {
+          console.log(`Image préchargée avec succès: ${product.imageURL}`);
+        };
+        img.onerror = () => {
+          console.error(`Échec de préchargement de l'image: ${product.imageURL}`);
+        };
+      } else {
+        console.warn(`Image non trouvée dans le cache: ${product.imageURL}`);
+      }
+    }
   }
 
   loadSimilarProducts(selectedProduct: Product): void {
@@ -110,6 +141,26 @@ export class ShopDetailsComponent {
   }
 
   getImageUrl(fileName: string): string {
-    return this.imageStorage.getImageUrl(fileName) || fileName;
+    if (!fileName) {
+      console.warn('Nom de fichier manquant dans shop-details.component');
+      return 'assets/images/product-1.jpg';
+    }
+    
+    // D'abord vérifier si c'est une URL complète
+    if (fileName.startsWith('http') || fileName.startsWith('data:')) {
+      return fileName;
+    }
+    
+    // Récupérer via le service
+    const imageUrl = this.imageStorage.getImageUrl(fileName);
+    
+    // Log détaillé pour débogage
+    if (!imageUrl || imageUrl === fileName) {
+      console.warn(`Image non trouvée dans le service: ${fileName}, utilisation du nom comme fallback`);
+    } else {
+      console.log(`Image trouvée pour ${fileName} (${imageUrl.substring(0, 20)}...)`);
+    }
+    
+    return imageUrl || fileName;
   }
 }
