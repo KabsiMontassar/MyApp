@@ -33,10 +33,32 @@ import { ConfirmationComponent } from './components/checkout/confirmation/confir
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AccountComponent } from './pages/account/account.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
-import { PlantDiseaseDetectionComponent } from './components/plant-disease-detection/plant-disease-detection.component';
+//import { PlantDiseaseDetectionComponent } from './components/plant-disease-detection/plant-disease-detection.component';
 import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
 import { LivreurTrackingComponent } from './components/livreur-tracking/livreur-tracking.component';
 import { LivreurLocationComponent } from './components/livreur-location/livreur-location.component';
+
+
+
+
+import { CenteredheroComponent } from './pages/home/plateformeComps/heros/centeredhero/centeredhero.component';
+import { VerticallycenteredheroComponent } from './pages/home/plateformeComps/heros/verticallycenteredhero/verticallycenteredhero.component';
+import { HerowithimageComponent } from './pages/home/plateformeComps/heros/herowithimage/herowithimage.component';
+import { HeaderwithiconsComponent } from './pages/home/plateformeComps/heros/headerwithicons/headerwithicons.component';
+import { CustomcardsComponent } from './pages/home/plateformeComps/features/customcards/customcards.component';
+import { ColumnswithiconsComponent } from './pages/home/plateformeComps/features/columnswithicons/columnswithicons.component';
+import { HeadingsComponent } from './pages/home/plateformeComps/others/headings/headings.component';
+import { HeadingleftwithimageComponent } from './pages/home/plateformeComps/others/headingleftwithimage/headingleftwithimage.component';
+import { HeadingrightwithimageComponent } from './pages/home/plateformeComps/others/headingrightwithimage/headingrightwithimage.component';
+import { NewsletterComponent } from './pages/home/plateformeComps/others/newsletter/newsletter.component';
+import { SponsorsComponent } from './pages/home/plateformeComps/others/sponsors/sponsors.component';
+import { plateformeaboutComponent } from './pages/home/plateformeComps/others/about/about.component';
+
+
+
+
+
+
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -70,6 +92,35 @@ import { LivreurLocationComponent } from './components/livreur-location/livreur-
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+
+
+
+
+
+
+    CenteredheroComponent,
+    VerticallycenteredheroComponent,
+    HerowithimageComponent,
+    HeaderwithiconsComponent,
+    CustomcardsComponent,
+    ColumnswithiconsComponent,
+    HeadingsComponent,
+    HeadingleftwithimageComponent,
+    HeadingrightwithimageComponent,
+    NewsletterComponent,
+    SponsorsComponent,
+    plateformeaboutComponent,
+
+
+
+
+
+
+
+
+
+
+
   ],
 })
 export class FrontOfficeModule {}

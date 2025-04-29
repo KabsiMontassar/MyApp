@@ -1,0 +1,39 @@
+<!-- sponsors.component.html -->
+<div class="sponsors-section" [style.background-color]="color">
+  <div class="section-header">
+    <h2 class="section-title">Our Valued Partners</h2>
+    <p class="section-subtitle">Trusted by industry leaders worldwide</p>
+  </div>
+
+  <div class="slider-container">
+    <div class="slider">
+      <div class="slide-track">
+        <ng-container *ngFor="let sponsor of Sponsors">
+          <div class="slide">
+            <div class="slide-inner">
+              <img 
+              src="http://localhost:8081/api/firebase/{{sponsor.logo}}" 
+             
+              [alt]="sponsor.nomSponsor" class="sponsor-logo">
+              <div class="sponsor-overlay">
+                <div class="sponsor-name">{{sponsor.nomSponsor}}</div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        
+        <!-- Duplicate for seamless loop -->
+        <ng-container *ngFor="let sponsor of Sponsors">
+          <div class="slide">
+            <div class="slide-inner">
+              <img     src="http://localhost:8081/api/firebase/{{sponsor.logo}}"  [alt]="sponsor.nomSponsor" class="sponsor-logo">
+              <div class="sponsor-overlay">
+                <div class="sponsor-name">{{sponsor.nomSponsor}}</div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
