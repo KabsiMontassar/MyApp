@@ -59,10 +59,9 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (!id) return;
+  
 
-    this.platformService.getPlateforme(+id).subscribe({
+    this.platformService.getPlateforme(1).subscribe({
       next: (data) => {
         this.platform = data;
         console.log('Platform data:', this.platform);
