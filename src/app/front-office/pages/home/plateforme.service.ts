@@ -14,44 +14,18 @@ export class PlateformeService {
 
   constructor(private http: HttpClient) {}
 
-  getPlateforms(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}`);
+
+
+
+
+  getRandomPlateforme(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/random`);
   }
 
-  getReport(): Observable<report> {
-    return this.http.get<report>(`${this.apiUrl}/generateReport`);
-  }
+  // get platform by name 
 
-  getPlateforme(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
-  }
-
-  createPlateforme(plateforme: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}`, plateforme);
-  }
-
-  updatePlateforme(plateforme: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}`, plateforme);
-  }
-
-  deletePlateforme(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
-
-
-  updateUserPlan(id: number, plan: string): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/user/${id}/${plan}` , {});
-  }
-
-
-
-  
-
-  getAllPlatforms(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}`);
-  }
-  getMostlyBoughtPacks(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/mostlyBoughtPacks`);
+  getPlateformeByName(name: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/name/${name}`);
   }
 
 }

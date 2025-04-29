@@ -50,6 +50,7 @@ import { NewsletterComponent } from './pages/home/plateformeComps/others/newslet
 import { SponsorsComponent } from './pages/home/plateformeComps/others/sponsors/sponsors.component';
 import { plateformeaboutComponent } from './pages/home/plateformeComps/others/about/about.component';
 
+
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
@@ -66,9 +67,11 @@ import { plateformeaboutComponent } from './pages/home/plateformeComps/others/ab
     MyOrdersComponent,
     LivreurTrackingComponent,
     LivreurLocationComponent,
+    
  
   ],
   imports: [
+
     CommonModule,
     FrontOfficeRoutingModule,
     NgxPaginationModule,
@@ -93,7 +96,6 @@ import { plateformeaboutComponent } from './pages/home/plateformeComps/others/ab
     HeadingleftwithimageComponent,
     HeadingrightwithimageComponent,
     NewsletterComponent,
-    SponsorsComponent,
     plateformeaboutComponent,
   ],
 })
