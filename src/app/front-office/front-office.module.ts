@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SponsorsComponent } from './components/sponsors/sponsors.component';
 
 import { FrontOfficeRoutingModule } from './front-office-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -65,18 +64,7 @@ import { plateformeaboutComponent } from './pages/home/plateformeComps/others/ab
     MyOrdersComponent,
     LivreurTrackingComponent,
     LivreurLocationComponent,
-    CenteredheroComponent,
-    VerticallycenteredheroComponent,
-    HerowithimageComponent,
-    HeaderwithiconsComponent,
-    CustomcardsComponent,
-    ColumnswithiconsComponent,
-    HeadingsComponent,
-    HeadingleftwithimageComponent,
-    HeadingrightwithimageComponent,
-    NewsletterComponent,
-    SponsorsComponent,
-    plateformeaboutComponent,
+ 
   ],
   imports: [
     CommonModule,
@@ -93,6 +81,18 @@ import { plateformeaboutComponent } from './pages/home/plateformeComps/others/ab
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    CenteredheroComponent,
+    VerticallycenteredheroComponent,
+    HerowithimageComponent,
+    HeaderwithiconsComponent,
+    CustomcardsComponent,
+    ColumnswithiconsComponent,
+    HeadingsComponent,
+    HeadingleftwithimageComponent,
+    HeadingrightwithimageComponent,
+    NewsletterComponent,
+    SponsorsComponent,
+    plateformeaboutComponent,
   ],
 })
 export class FrontOfficeModule { }
