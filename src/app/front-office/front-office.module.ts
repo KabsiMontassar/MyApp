@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import {  CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FrontOfficeRoutingModule } from './front-office-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -50,6 +50,7 @@ import { SponsorsComponent } from './pages/home/plateformeComps/others/sponsors/
 import { plateformeaboutComponent } from './pages/home/plateformeComps/others/about/about.component';
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
     FrontofficeLayoutComponent,
     FrontNavComponent,
