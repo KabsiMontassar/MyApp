@@ -19,6 +19,7 @@ import { EditCategorieComponent } from './pages/categorie/edit-categorie/edit-ca
 import { AvisProduitsComponent } from './pages/avis-produits/avis-produits.component';
 import { TachesComponent } from './pages/taches/taches.component';
 import { EmployeeComponent } from './pages/employee/employee.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 const routes: Routes = [
   {
     path: '',
@@ -46,6 +47,7 @@ const routes: Routes = [
       { path: 'add-categorie', component: AddCategorieComponent }, // Assuming you want to use the same component for adding categories
       { path: 'edit-categorie/:id', component: EditCategorieComponent }, // Assuming you want to use the same component for editing categories
       { path: 'avis-produits', component: AvisProduitsComponent },
+      { path: 'admin-dashboard', component: AdminDashboardComponent},
       { path: '**', component: ErrorComponent },
     ],
   },

@@ -5,10 +5,9 @@
     <div class="card-wrapper">
       <div id="card-element" class="card-element"></div>
     </div>
-    <button class="payment-button" (click)="handlePayment(); next.emit()" [disabled]="isLoading">
+    <button class="payment-button" (click)="handlePayment()" [disabled]="isLoading">
       <span *ngIf="!isLoading">Pay Now</span>
       <div *ngIf="isLoading" class="spinner"></div>
     </button>
-    <button class="btn btn-outline-primary mt-3" (click)="back.emit()">Back</button>
   </div>
 </div>

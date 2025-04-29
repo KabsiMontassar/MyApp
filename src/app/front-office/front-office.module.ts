@@ -34,7 +34,9 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AccountComponent } from './pages/account/account.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { PlantDiseaseDetectionComponent } from './components/plant-disease-detection/plant-disease-detection.component';
-import { AgriculturalMapComponent } from './pages/agricultural-map/agricultural-map.component';
+import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
+import { LivreurTrackingComponent } from './components/livreur-tracking/livreur-tracking.component';
+import { LivreurLocationComponent } from './components/livreur-location/livreur-location.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -46,7 +48,12 @@ import { AgriculturalMapComponent } from './pages/agricultural-map/agricultural-
     AddressStepComponent,
     UserComponent,
     ConfirmationComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    MyOrdersComponent,
+    ShopingCartComponent,
+    MyOrdersComponent,
+    LivreurTrackingComponent,
+    LivreurLocationComponent
   ],
   imports: [
     CommonModule,
