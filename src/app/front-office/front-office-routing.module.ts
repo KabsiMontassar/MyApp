@@ -17,6 +17,7 @@ import { ShopComponent } from './pages/shop/shop.component';
 import { ShopDetailsComponent } from './pages/shop-details/shop-details.component';
 import { ShopingCartComponent } from './pages/shoping-cart/shoping-cart.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
+import { AgriculturalMapComponent } from './pages/agricultural-map/agricultural-map.component';
 
 import {ErrorComponentFront} from './components/error/error.component';
 import { PaymentComponent } from './components/checkout/payment/payment.component';
@@ -42,6 +43,8 @@ const routes: Routes = [
        { path:'account', component: AccountComponent},
        {path: 'reset-password', component: ResetPasswordComponent},
        {path: 'forgot-password', component: ForgotPasswordComponent},
+       {path: 'agricultural-map', component: AgriculturalMapComponent},
+
        {path: 'my-orders', component: MyOrdersComponent},
        {path: 'livreur-location', component: LivreurLocationComponent},
        {path: 'livreur-tracking', component: LivreurTrackingComponent},

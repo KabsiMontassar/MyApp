@@ -24,12 +24,8 @@ export class CommonService {
   }
 
   addProduct(product: Product): Observable<Product> {
-    // Assurons-nous que tous les champs sont présents
-    const productToSend = {
-      ...product,
-      conseilsCulture: product.conseilsCulture || ''
-    };
-    return this.http.post<Product>(`${this.produitsUrl}/add-Produits`, productToSend);
+    // Utiliser le produit directement sans modification supplémentaire
+    return this.http.post<Product>(`${this.produitsUrl}/add-Produits`, product);
   }
 
   updateProduct(product: Product): Observable<Product> {
