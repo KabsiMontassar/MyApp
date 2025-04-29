@@ -1,0 +1,44 @@
+<div class="agricultural-map-container" [ngStyle]="{'height': mapHeight}">
+  <!-- Main map container that takes up full width -->
+  <div id="map" class="map-element"></div>
+  
+  <!-- Overlay for selected zone info -->
+  <div class="zone-info-overlay" *ngIf="selectedZone">
+    <div class="info-container">
+      <button class="close-btn" (click)="closeDetails()">×</button>
+      <h3>{{ selectedZone?.name }} ({{ selectedZone?.region }})</h3>
+      
+      <!-- Si un nom de produit a été passé, montrer la relation produit-région -->
+      <div class="product-region-relation" *ngIf="productName">
+        <span class="product-badge">{{ productName }}</span> est cultivé dans cette région
+      </div>
+      
+      <p class="zone-description">{{ selectedZone?.description }}</p>
+      
+      <!-- Autres produits de la région -->
+      <div>
+        <h4>Produits de cette région:</h4>
+        <div class="products-container">
+          <div class="product-card" *ngFor="let product of selectedZone?.products">
+            <div class="product-header">
+              <h5>{{ product.name }}</h5>
+              <span class="highlight-badge" *ngIf="productName && product.name.toLowerCase().includes(productName.toLowerCase())">★</span>
+            </div>
+            <p *ngIf="product.season" class="season">Saison: {{ product.season }}</p>
+            <p>{{ product.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Instructions overlay -->
+  <div class="map-instructions-overlay" *ngIf="!selectedZone">
+    <div class="instruction-container">
+      <div class="instruction-icon">
+        <i class="fa fa-hand-pointer-o" aria-hidden="true"></i>
+      </div>
+      <p>Cliquez sur un cercle pulsant pour découvrir la région d'origine</p>
+    </div>
+  </div>
+</div>

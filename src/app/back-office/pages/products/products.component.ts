@@ -54,7 +54,27 @@ export class ProductsComponent implements OnInit {
   }
 
   getImageUrl(fileName: string): string {
-    return this.imageStorage.getImageUrl(fileName) || fileName;
+    if (!fileName) {
+      console.warn('Nom de fichier manquant dans products.component');
+      return 'assets/images/product-1.jpg';
+    }
+    
+    // D'abord vérifier si c'est une URL complète
+    if (fileName.startsWith('http') || fileName.startsWith('data:')) {
+      return fileName;
+    }
+    
+    // Récupérer via le service
+    const imageUrl = this.imageStorage.getImageUrl(fileName);
+    
+    // Log détaillé pour débogage
+    if (!imageUrl || imageUrl === fileName) {
+      console.warn(`Image non trouvée dans le service: ${fileName}, utilisation du nom comme fallback`);
+    } else {
+      console.log(`Image trouvée pour ${fileName} (${imageUrl.substring(0, 20)}...)`);
+    }
+    
+    return imageUrl || fileName;
   }
 
   onPageChange(page: number) {

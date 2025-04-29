@@ -1,0 +1,65 @@
+.agricultural-zone-section {
+  margin: 30px 0;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 3px solid #4caf50;
+  box-shadow: 0 5px 25px rgba(76, 175, 80, 0.3);
+  background-color: #f7f9f5;
+  padding: 0;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+
+.origin-title {
+  color: white;
+  background-color: #4caf50;
+  margin: 0;
+  padding: 15px 25px;
+  font-size: 22px;
+  font-weight: 600;
+  position: relative;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.origin-title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid #4caf50;
+}
+
+/* Override container width for this section */
+.product__details__text {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.agricultural-zone-section h5 {
+  color: #2e7d32;
+  margin-bottom: 10px;
+}
+
+.product__details__tab__desc {
+  padding: 25px;
+}
+
+.product-origin-hint {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  font-size: 14px;
+  margin-top: 10px;
+  background-color: #f8f9fa;
+  padding: 8px;
+  border-radius: 0 0 10px 10px;
+  border-top: 1px dashed #ddd;
+}

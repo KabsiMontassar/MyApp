@@ -33,6 +33,14 @@
           <h3>{{ selectedProduct.nom }}</h3>
           <div class="product__details__price">{{ selectedProduct.prix }} DT</div>
           <p>{{ selectedProduct.description }}</p>
+          
+          <!-- Agricultural Zone Map -->
+          <div class="agricultural-zone-section">
+            <h4 class="origin-title">Origine du Produit: {{ selectedProduct.nom }}</h4>
+            <app-agricultural-map [productName]="selectedProduct.nom" [mapHeight]="'600px'" [mapWidth]="'100%'"></app-agricultural-map>
+            <div class="product-origin-hint">Les cercles colorés indiquent les régions de production.</div>
+          </div>
+          
           <ul>
             <li>
               <b>Availability</b> 
