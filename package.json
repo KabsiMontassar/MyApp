@@ -25,6 +25,7 @@
     "@stomp/stompjs": "^7.1.1",
     "@stripe/stripe-js": "^1.35.0",
     "@types/jquery": "^3.5.32",
+    "@types/sockjs-client": "^1.5.4",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.9",
     "jquery": "^3.7.1",
