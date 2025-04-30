@@ -163,28 +163,71 @@ export class ShopComponent implements OnInit {
       return 'assets/images/product-1.jpg';
     }
     
+    // Clear caches to avoid stale images
+   
+    // @ts-ignore
+    if (window.appImageCache) {
+      // @ts-ignore
+      window.appImageCache = {};
+    }
+    
+    // SOLUTION DIRECTE - Tenter de récupérer l'image avec la clé 'direct_image_'
+    const directKey = `direct_image_${fileName}`;
+    const directImage = localStorage.getItem(directKey);
+    if (directImage && directImage.startsWith('data:')) {
+      console.log(`✅ FRONT: Image directe trouvée pour ${fileName}`);
+      return directImage;
+    }
+    
     // D'abord vérifier si c'est une URL complète
     if (fileName.startsWith('http') || fileName.startsWith('data:')) {
       return fileName;
     }
     
-    // Récupérer via le service
+    // Si c'est un produit récent, essayer de le retrouver dans le back-office
+    // Parcourir localStorage pour trouver des correspondances partielles
+    const possibleMatches = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && (
+          key.includes(fileName) || 
+          (fileName.includes('product_') && key.includes('product_'))
+      )) {
+        const value = localStorage.getItem(key);
+        if (value && value.startsWith('data:')) {
+          possibleMatches.push({ key, value });
+        }
+      }
+    }
+    
+    if (possibleMatches.length > 0) {
+      console.log(`✅ FRONT: Trouvé ${possibleMatches.length} correspondances partielles pour ${fileName}`);
+      // Utiliser la première correspondance
+      const match = possibleMatches[0];
+      
+      // Sauvegarder pour les prochains accès
+      localStorage.setItem(directKey, match.value);
+      
+      return match.value;
+    }
+    
+    // Récupérer via le service normal
     const imageUrl = this.imageStorage.getImageUrl(fileName);
     
     // Log détaillé pour débogage
     if (!imageUrl || imageUrl === fileName) {
-      console.warn(`Image non trouvée dans le service: ${fileName}`);
+      console.warn(`❌ FRONT: Image non trouvée pour: ${fileName}`);
       
       // DERNIER RECOURS: Chercher dans les assets/images
       if (!fileName.includes('/')) {
         // C'est peut-être un nom simple, essayer dans assets/images
-        console.log(`Tentative avec assets/images/${fileName}`);
+        console.log(`⚠️ FRONT: Tentative avec assets/images/${fileName}`);
         return `assets/images/${fileName}`;
       } else {
         return fileName; // Fallback final
       }
     } else {
-      console.log(`Image trouvée pour ${fileName}`);
+      console.log(`✅ FRONT: Image trouvée via service pour ${fileName}`);
       return imageUrl;
     }
   }

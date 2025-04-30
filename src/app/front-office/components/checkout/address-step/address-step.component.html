@@ -1,10 +1,14 @@
 <div class="address-form">
-  <h2>Adresse de livraison</h2>
+  <h2>Shipping Address</h2>
 
   <div class="form-group">
     <label for="address">Adresse :</label>
     <input type="text" id="address" [(ngModel)]="address" readonly>
   </div>
+
+  <button *ngIf="livraisonExistante && !editMode" class="btn btn-warning mb-2" (click)="enableEditMode()">
+    Changer l'adresse
+  </button>
 
   <div id="map" style="height: 300px; margin-top: 10px;"></div>
 
@@ -13,6 +17,6 @@
       <label for="description">Ajouter une description :</label>
       <input type="text" id="description" [(ngModel)]="description" name="description" required>
     </div>
-    <button type="submit" class="btn btn-primary mt-3">Validate Shipping location</button>
+    <button type="submit" class="btn btn-primary mt-3">Valider l'adresse</button>
   </form>
 </div>

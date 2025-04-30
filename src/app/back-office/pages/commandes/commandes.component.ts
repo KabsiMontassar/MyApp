@@ -27,7 +27,7 @@ export class CommandesComponent implements OnInit {
   }
 
   loadOrders(): void {
-    this.orderService.getAllOrders().subscribe(orders => {
+    this.orderService.getAllOrdersback().subscribe(orders => {
       this.orders = orders;
     });
   }

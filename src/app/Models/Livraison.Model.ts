@@ -1,5 +1,5 @@
 export interface Livraison {
-    id?: number;
+    idPanier?: number;
     adresse: string;
     description: string;
     latitude: number;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Order } from '../Models/Order.Model';
 
@@ -17,12 +17,18 @@ export class OrderService {
   private baseUrl = 'http://localhost:8081/commande'; 
 
   constructor(private http: HttpClient) { }
-
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
   createOrder(orderForm: OrderForm): Observable<any> {
-    return this.http.post(this.baseUrl, orderForm);
+    return this.http.post(`${this.baseUrl}`, orderForm,{ headers: this.getHeaders() });
   }
   getAllOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(this.baseUrl);
+    return this.http.get<Order[]>(this.baseUrl,{ headers: this.getHeaders() });
+  }
+  getAllOrdersback(): Observable<Order[]> {
+    return this.http.get<Order[]>(`${this.baseUrl}/backoffice`,{ headers: this.getHeaders() });
   }
   updateOrder(id: number, order: Order): Observable<Order> {
     return this.http.put<Order>(`${this.baseUrl}/${id}`, order);
@@ -30,7 +36,7 @@ export class OrderService {
 
   // Supprimer une commande
   deleteOrder(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}/${id}`,{ headers: this.getHeaders()});
   }
 
   async getOrderTotalPrice(orderId: number): Promise<number> {
