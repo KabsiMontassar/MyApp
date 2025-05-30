@@ -7,7 +7,7 @@ import { AgriculturalZone, AgriculturalProduct } from '../Models/AgriculturalZon
 })
 export class AgriculturalZonesService {
 
-  // Mock data for Tunisia's agricultural zones
+  
   private zones: AgriculturalZone[] = [
     {
       id: 1,
@@ -147,22 +147,16 @@ export class AgriculturalZonesService {
     return of(zone);
   }
 
-  /**
-   * Find zones by product name
-   * @param productName Name of the product to search for
-   * @returns Observable of agricultural zones that contain the product
-   */
+ 
   getZonesByProductName(productName: string): Observable<AgriculturalZone[]> {
     if (!productName) {
       return of([]);
     }
-
-    // Normalize search term
     const searchTerm = productName.trim().toLowerCase();
     
     // Map of keywords to specific regions
     const productKeywordMap: Record<string, string> = {
-      // Nabeul (Cap Bon) - Fruits, agrumes
+
       'fraise': 'Nabeul',
       'fraises': 'Nabeul',
       'strawberry': 'Nabeul',
@@ -172,14 +166,12 @@ export class AgriculturalZonesService {
       'mandarine': 'Nabeul',
       'fruit': 'Nabeul',
       
-      // Sfax - Olives, amandes, huile
       'olive': 'Sfax',
       'olives': 'Sfax',
       'huile': 'Sfax',
       'amande': 'Sfax',
       'amandes': 'Sfax',
       
-      // Jendouba - Céréales, produits laitiers
       'blé': 'Jendouba',
       'céréale': 'Jendouba',
       'cereal': 'Jendouba',
@@ -188,7 +180,6 @@ export class AgriculturalZonesService {
       'milk': 'Jendouba',
       'cheese': 'Jendouba',
       
-      // Gabès - Dattes, fruits d'oasis
       'datte': 'Gabès',
       'dattes': 'Gabès',
       'date': 'Gabès', 
@@ -197,7 +188,6 @@ export class AgriculturalZonesService {
       'palm': 'Gabès',
       'palmier': 'Gabès',
       
-      // Kairouan - Épices, légumes, olivier
       'piment': 'Kairouan',
       'épice': 'Kairouan',
       'spice': 'Kairouan',
@@ -230,7 +220,7 @@ export class AgriculturalZonesService {
       }
     }
     
-    // Try more complex matching based on product categories
+    // matching based on product categories
     // Fruits and berries
     if (/pomme|poire|pêche|abricot|berry|baie|fruit|appl|pear|peach/i.test(searchTerm)) {
       return of([this.zones.find(z => z.name === 'Nabeul')!]);
